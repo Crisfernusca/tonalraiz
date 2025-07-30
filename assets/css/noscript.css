@@ -1,7 +1,7 @@
 /* Banner */
 
 	body.is-preload #banner:after {
-		opacity: 0.85;
+		opacity: 1;
 	}
 
 	body.is-preload #banner > .inner {
