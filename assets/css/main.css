@@ -3950,3 +3950,6 @@ input, select, textarea {
 			opacity: 1;
 			visibility: visible;
 		}
+		.desplazado {
+  margin-left: 2em; /* Puedes ajustar a 30px, 5%, según tu diseño */
+}
