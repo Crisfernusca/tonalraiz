@@ -72,3 +72,37 @@ a {
 a:hover {
   color: #cc3300;
 }
+/* Estructura del menú de navegación */
+nav ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+nav li {
+  margin: 0 15px;
+}
+
+/* Estilo básico del ítem */
+.nav-item {
+  text-decoration: none;
+  color: #cccccc;
+  font-weight: bold;
+  position: relative;
+  padding-bottom: 4px;
+  transition: color 0.3s, border-bottom 0.3s;
+}
+
+/* Hover animado */
+.nav-item:hover {
+  color: #ffcc00;
+  border-bottom: 2px solid #ffcc00;
+}
+
+/* Estado activo */
+.nav-item.active {
+  color: #ffffff;
+  border-bottom: 2px solid #ffcc00;
+}
