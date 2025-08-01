@@ -3975,16 +3975,6 @@ input, select, textarea {
   opacity: 1; /* ← sin opacidad directa */
 }
 
-/* Cortina oscura opcional */
-.video-container .overlay {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0);
-  z-index: 1; /* encima del video pero debajo del texto */
-}
-
 /* Contenido de texto */
 #banner .inner {
   position: relative;
