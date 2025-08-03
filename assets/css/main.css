@@ -4006,3 +4006,25 @@ input[type="email"] {
 section#banner.major {
   min-height: 120vh; /* o 130vh si quieres aún más espacio */
 }
+
+/* Pantallas grandes: centrado vertical sobre el video */
+@media screen and (min-width: 768px) {
+  #banner > .inner {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-60%);
+    text-align: center;
+    width: 100%;
+    z-index: 2;
+  }
+}
+
+/* Pantallas pequeñas: flujo normal, sin empuje hacia arriba */
+@media screen and (max-width: 767px) {
+  #banner > .inner {
+    position: relative;
+    top: auto;
+    transform: none;
+    margin-top: 1.5em; /* Puedes ajustar visualmente este valor */
+  }
+}
