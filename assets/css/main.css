@@ -4007,24 +4007,27 @@ section#banner.major {
   min-height: 120vh; /* o 130vh si quieres aún más espacio */
 }
 
-/* Pantallas grandes: centrado vertical sobre el video */
+/* Pantallas grandes: centrado vertical y horizontal sobre el video */
 @media screen and (min-width: 768px) {
   #banner > .inner {
     position: absolute;
     top: 50%;
+    left: 0;
+    right: 0;
     transform: translateY(-60%);
-    text-align: center;
     width: 100%;
+    text-align: center;
+    margin: 0 auto;
     z-index: 2;
   }
 }
 
 /* Pantallas pequeñas: flujo normal, sin empuje hacia arriba */
-@media screen and (max-width: 2000px) {
+@media screen and (max-width: 767px) {
   #banner > .inner {
     position: relative;
     top: auto;
     transform: none;
-    margin-top: 10.5em; /* Puedes ajustar visualmente este valor */
+    margin-top: 4.5em; /* Puedes ajustar visualmente este valor */
   }
 }
