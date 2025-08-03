@@ -3428,7 +3428,7 @@ input, select, textarea {
 
 		#banner > .inner {
 		position: absolute;
-		top: 40%; /* Ajusta según qué tanto quieres que suba */
+		top: 50%; /* Ajusta según qué tanto quieres que suba */
 		transform: translateY(-50%);
 		text-align: center;
 		width: 100%;
@@ -4025,6 +4025,6 @@ section#banner.major {
     position: relative;
     top: auto;
     transform: none;
-    margin-top: 1.5em; /* Puedes ajustar visualmente este valor */
+    margin-top: 2.5em; /* Puedes ajustar visualmente este valor */
   }
 }
