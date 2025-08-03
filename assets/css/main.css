@@ -3778,6 +3778,10 @@ input, select, textarea {
 
 		}
 
+		body {
+  padding-top: 80px; /* ajusta según la altura real del header */
+		}
+
 /* Menu */
 
 	#menu {
@@ -4010,4 +4014,12 @@ section#banner.major {
   #banner .inner {
     padding-top: 2em; /* opcional: crea más espacio para respirar */
   }
+}
+
+#header {
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+  top: 0;
+  left: 0;
 }
