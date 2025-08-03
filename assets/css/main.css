@@ -4028,3 +4028,14 @@ section#banner.major {
     margin-top: 1.5em; /* Puedes ajustar visualmente este valor */
   }
 }
+
+/* Detectar orientación horizontal en móviles */
+@media screen and (max-width: 767px) and (max-height: 400px) {
+  #banner > .inner {
+    position: relative;
+    top: auto;
+    transform: none;
+    margin-top: 2em; /* Aumentamos el margen para compensar el espacio */
+    padding-bottom: 1em; /* Evita que se corte el contenido */
+  }
+}
