@@ -3427,14 +3427,23 @@ input, select, textarea {
 		}
 
 		#banner > .inner {
-			-moz-transition: opacity 1.5s ease, -moz-transform 0.5s ease-out, -moz-filter 0.5s ease, -webkit-filter 0.5s ease;
-			-webkit-transition: opacity 1.5s ease, -webkit-transform 0.5s ease-out, -webkit-filter 0.5s ease, -webkit-filter 0.5s ease;
-			-ms-transition: opacity 1.5s ease, -ms-transform 0.5s ease-out, -ms-filter 0.5s ease, -webkit-filter 0.5s ease;
-			transition: opacity 1.5s ease, transform 0.5s ease-out, filter 0.5s ease, -webkit-filter 0.5s ease;
-			padding: 0 !important;
-			position: relative;
-			z-index: 2;
+		position: absolute;
+		top: 30%; /* Ajusta según qué tanto quieres que suba */
+		transform: translateY(-50%);
+		text-align: center;
+		width: 100%;
+		z-index: 2;
+		padding: 0 !important;
+
+		/* Transiciones intactas */
+		-moz-transition: opacity 1.5s ease, -moz-transform 0.5s ease-out, -moz-filter 0.5s ease, -webkit-filter 0.5s ease;
+		-webkit-transition: opacity 1.5s ease, -webkit-transform 0.5s ease-out, -webkit-filter 0.5s ease, -webkit-filter 0.5s ease;
+		-ms-transition: opacity 1.5s ease, -ms-transform 0.5s ease-out, -ms-filter 0.5s ease, -webkit-filter 0.5s ease;
+		transition: opacity 1.5s ease, transform 0.5s ease-out, filter 0.5s ease, -webkit-filter 0.5s ease;
 		}
+
+		
+
 
 			#banner > .inner .image {
 				display: none;
@@ -3778,10 +3787,6 @@ input, select, textarea {
 
 		}
 
-		body {
-  padding-top: 80px; /* ajusta según la altura real del header */
-		}
-
 /* Menu */
 
 	#menu {
@@ -4000,26 +4005,4 @@ input[type="email"] {
 
 section#banner.major {
   min-height: 120vh; /* o 130vh si quieres aún más espacio */
-}
-
-@media screen and (max-width: 736px) and (orientation: landscape) {
-  #banner {
-    top: 0 !important; /* cancelamos el desplazamiento hacia arriba */
-  }
-
-  #banner h1 {
-    margin-top: 0.5em; /* ajustamos verticalmente si se ve demasiado cerca del borde */
-  }
-
-  #banner .inner {
-    padding-top: 2em; /* opcional: crea más espacio para respirar */
-  }
-}
-
-#header {
-  position: fixed;
-  z-index: 10;
-  width: 100%;
-  top: 0;
-  left: 0;
 }
