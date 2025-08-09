@@ -98,8 +98,9 @@ input, select, textarea {
 		box-sizing: inherit;
 	}
 
+	/* Barra inferior Original Color: #242943*/
 	body {
-		background: #242943;
+		background: #ddff00;
 	}
 
 		body.is-preload *, body.is-preload *:before, body.is-preload *:after {
@@ -113,7 +114,7 @@ input, select, textarea {
 			transition: none !important;
 		}
 
-/* Type */
+/* Type Texto descriptivo*/
 
 	body, input, select, textarea {
 		color: #ffffff;
@@ -160,11 +161,11 @@ input, select, textarea {
 
 		a:hover {
 			border-bottom-color: transparent;
-			color: #9bf1ff !important;
+			color: #ddff00 !important;
 		}
 
 		a:active {
-			color: #53e3fb !important;
+			color: #ddff00 !important;
 		}
 
 	strong, b {
@@ -252,7 +253,7 @@ input, select, textarea {
 	}
 
 	code {
-		background: rgba(212, 212, 255, 0.035);
+		background: rgba(0, 0, 255, 0.035);
 		font-family: "Courier New", monospace;
 		font-size: 0.9em;
 		margin: 0 0.25em;
@@ -1774,7 +1775,7 @@ input, select, textarea {
 		width: -webkit-max-content;
 		width: -ms-max-content;
 		width: max-content;
-		margin-bottom: 2em;
+		margin-bottom: -1em;
 	}
 
 		header.major > :first-child {
@@ -1784,10 +1785,10 @@ input, select, textarea {
 
 			header.major > :first-child:after {
 				content: '';
-				background-color: #ffffff;
+				background-color: hsl(0, 0%, 100%);
 				display: block;
 				height: 2px;
-				margin: 0.325em 0 0.5em 0;
+				margin: -0.125em 0 0.5em 0;
 				width: 100%;
 			}
 
@@ -4030,4 +4031,4 @@ section#banner.major {
     transform: none;
     margin-top: 1em; /* Puedes ajustar visualmente este valor */
   }
-}
+  
