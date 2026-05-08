@@ -149,6 +149,10 @@
 		.gallery-grid {
 			display: grid;
 			grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+			grid-auto-rows: 150px;
+			/* Unidad base para el masonry */
+			grid-auto-flow: dense;
+			/* Rellena huecos automáticamente */
 			gap: 15px;
 			margin-top: 40px;
 		}
@@ -158,7 +162,24 @@
 			overflow: hidden;
 			border-radius: 8px;
 			cursor: pointer;
-			aspect-ratio: 1;
+			grid-row: span 2;
+			/* Por defecto cuadrado-ish */
+		}
+
+		/* OPCIONES DE AJUSTE PARA FOTOS */
+		.gallery-item.vertical {
+			grid-row: span 3;
+			/* Para fotos 9:16 o muy verticales */
+		}
+
+		.gallery-item.horizontal {
+			grid-column: span 2;
+			/* Para fotos panorámicas */
+		}
+
+		.gallery-item.grande {
+			grid-column: span 2;
+			grid-row: span 4;
 		}
 
 		.gallery-item img {
@@ -631,29 +652,30 @@
 			<div class="container">
 				<h2 style="text-align: center; margin-bottom: 40px;">Galería de Tradición</h2>
 				<div class="gallery-grid">
-					<div class="gallery-item" onclick="openLightbox('images/CF-03.webp')">
-						<img src="images/CF-03.webp" alt="Zócalo de Alvarado">
+					<!-- Puedes agregar las clases 'vertical', 'horizontal' o 'grande' para ajustar el tamaño según la foto -->
+					<div class="gallery-item horizontal" onclick="openLightbox('images/sonzapateado/sz_02.webp')">
+						<img src="images/sonzapateado/sz_02.webp" alt="Soneros">
 					</div>
-					<div class="gallery-item" onclick="openLightbox('images/CF-04.webp')">
-						<img src="images/CF-04.webp" alt="Tlen Huicani">
+					<div class="gallery-item vertical" onclick="openLightbox('images/sonzapateado/sz_03.webp')">
+						<img src="images/sonzapateado/sz_03.webp" alt="Cruz de Mayo">
 					</div>
-					<div class="gallery-item" onclick="openLightbox('images/CF-02.webp')">
-						<img src="images/CF-02.webp" alt="Músicos Jarochos">
+					<div class="gallery-item" onclick="openLightbox('images/sonzapateado/sz_04.webp')">
+						<img src="images/sonzapateado/sz_04.webp" alt="Cruz de Mayo">
 					</div>
-					<div class="gallery-item" onclick="openLightbox('images/CF-05.webp')">
-						<img src="images/CF-05.webp" alt="Tlen Huicani">
+					<div class="gallery-item vertical" onclick="openLightbox('images/sonzapateado/sz_05.webp')">
+						<img src="images/sonzapateado/sz_05.webp" alt="Jarochos Alvaradeños">
 					</div>
-					<div class="gallery-item" onclick="openLightbox('images/CF-06.webp')">
-						<img src="images/CF-06.webp" alt="Jarochos Alvaradeños">
+					<div class="gallery-item" onclick="openLightbox('images/sonzapateado/sz_06.webp')">
+						<img src="images/sonzapateado/sz_06.webp" alt="Jarochos Alvaradeños">
 					</div>
-					<div class="gallery-item" onclick="openLightbox('images/20_goyo.webp')">
-						<img src="images/20_goyo.webp" alt="Tio Goyo | Requintero Alvaradeño">
+					<div class="gallery-item vertical" onclick="openLightbox('images/sonzapateado/sz_07.webp')">
+						<img src="images/sonzapateado/sz_07.webp" alt="Tlen Huicani">
 					</div>
-					<div class="gallery-item" onclick="openLightbox('images/CF-01.webp')">
-						<img src="images/CF-01.webp" alt="Bailarines">
+					<div class="gallery-item grande" onclick="openLightbox('images/sonzapateado/sz_08.webp')">
+						<img src="images/sonzapateado/sz_08.webp" alt="Linda Jarocha">
 					</div>
-					<div class="gallery-item" onclick="openLightbox('images/3.jpg')">
-						<img src="images/3.jpg" alt="Músicos Jarochos">
+					<div class="gallery-item" onclick="openLightbox('images/sonzapateado/sz_09.webp')">
+						<img src="images/sonzapateado/sz_09.webp" alt="Músicos Jarochos">
 					</div>
 				</div>
 			</div>
@@ -664,21 +686,23 @@
 			<div class="container">
 				<h2 style="text-align: center; margin-bottom: 20px;">Video Destacado</h2>
 				<div class="video-card" onclick="openVideoModal('https://www.youtube.com/embed/M2kpvLfGmHo?start=308')">
-					<div class="video-thumbnail" style="background-image: url('images/24.webp');">
+					<div class="video-thumbnail" style="background-image: url('images/sonzapateado/sz_01.webp');">
 						<div class="play-btn">▶</div>
 					</div>
 					<div class="video-info">
-						<h3>El Arte del Fandango</h3>
-						<p>Documental que explora la historia del fandango jarocho, sus vínculos con las raíces
-							africanas y el papel fundamental que la música y la danza tienen en las comunidades
-							veracruzanas, donde generaciones se unen a través del fandango.
-							<br><span
-								style="font-size: 0.65em; opacity: 0.7; display: block; margin-top: 10px;">Realizado por
-								el Gobierno del Estado de Tabasco, el Instituto Veracruzano de la Cultura, el
-								IEC Tabasco, el Consejo Nacional para la Cultura y las Artes, Tierra: tiempo y
-								contratiempo
-								Org. y Sotavento, dentro del Programa de Desarrollo Cultural.
-								Año: 2007.</span>
+						<h3 style="margin-bottom: -0.01em;">El Fandango Jarocho</h3>
+						<h5 style="margin-top: 0; opacity: 0.5;">Raíz y Tradición: Documental</h5>
+						<p>Documental etnográfico sobre la historia del fandango jarocho y su raíz africana. Explora la
+							música y el baile como ejes de cohesión en Veracruz.
+							<br><span style="font-size: 0.65em; opacity: 0.7; display: block; margin-top: 10px;">
+								Producción realizada en colaboración por:
+
+								Gobierno del Estado de Tabasco
+								Instituto Veracruzano de la Cultura (IVEC)
+								Instituto Estatal de Cultura de Tabasco (IEC)
+								Consejo Nacional para la Cultura y las Artes (CONACULTA)
+								Tierra: Tiempo y Contratiempo
+								Programa de Desarrollo Cultural del Sotavento</span>
 						</p>
 						<span style="color: var(--color-primary); font-weight: bold;">VER AHORA</span>
 					</div>
