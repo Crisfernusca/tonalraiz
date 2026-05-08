@@ -5,7 +5,7 @@
 	<link rel="icon" href="favicon-32x32.png" type="image/x-icon" />
 	<title>Son Zapateado – Taller de Zapateado Veracruzano</title>
 	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="stylesheet" href="assets/css/main.css" />
 	<noscript>
 		<link rel="stylesheet" href="assets/css/noscript.css" />
@@ -300,8 +300,12 @@
 		}
 
 		.modal-content {
-			max-width: 90%;
+			max-width: 95%;
 			max-height: 90%;
+			object-fit: contain;
+			cursor: zoom-in;
+			transition: transform 0.2s ease-out;
+			touch-action: pinch-zoom; /* Permite zoom nativo del navegador en este elemento */
 		}
 
 		.close-modal {
@@ -758,9 +762,9 @@
 	</div>
 
 	<!-- MODAL LIGHTBOX -->
-	<div id="lightbox" class="modal" onclick="this.style.display='none'">
-		<span class="close-modal">&times;</span>
-		<img class="modal-content" id="img-slot">
+	<div id="lightbox" class="modal" onclick="if(event.target === this) this.style.display='none'">
+		<span class="close-modal" onclick="document.getElementById('lightbox').style.display='none'">&times;</span>
+		<img class="modal-content" id="img-slot" onclick="event.stopPropagation()">
 	</div>
 
 	<!-- MODAL VIDEO -->
