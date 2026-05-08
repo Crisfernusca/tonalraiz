@@ -1,199 +1,577 @@
 <!DOCTYPE HTML>
-<html>
-	<head>
-		<link rel="icon" href="favicon-32x32.png" type="image/x-icon" />
-		<title>Son Zapateado</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+<html lang="es">
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+<head>
+	<link rel="icon" href="favicon-32x32.png" type="image/x-icon" />
+	<title>Son Zapateado – Taller de Zapateado Veracruzano</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
+	<style>
+		/* PALETA VERACRUZANA: Blanco, Negro, Rojo, Dorado suave */
+		:root {
+			--color-primary: #d32f2f;
+			/* Rojo Veracruz */
+			--color-secondary: #d4af37;
+			/* Dorado suave */
+			--color-bg: #0a0a0a;
+			--color-text: #f5f5f5;
+			--font-family: 'Source Sans Pro', sans-serif;
+		}
 
-				<!-- Header -->
-				<!-- Note: The "styleN" class below should match that of the banner element. -->
-					<header id="header" class="alt style2">
-						<a href="index.html" class="logo"><strong>Tonal Raíz</strong> <span>Danza • Espacio • Cuerpo • Territorio</span></a>
-						<nav>
-							<a href="#menu">Menu</a>
-						</nav>
-					</header>
+		body {
+			background-color: var(--color-bg);
+			color: var(--color-text);
+			overflow-x: hidden;
+		}
 
-				<!-- Menu -->
-					<nav id="menu">
-						<ul class="links">
-							<li><a href="index.html">Inicio</a></li>
-							<li><a href="sonzapateado.html">Son Zapateado</a></li>
-							<li><a href="arquibita.html">ArquiBita</a></li>
-							<li><a href="generic.html">Generic</a></li>
-							<li><a href="elements.html">Elements</a></li>
-						</ul>
-						<ul class="actions stacked">
-							<li><a href="#" class="button primary fit">Get Started</a></li>
-							<li><a href="#" class="button fit">Log In</a></li>
-						</ul>
-					</nav>
+		#wrapper {
+			background-color: var(--color-bg);
+		}
 
-				<!-- Banner -->
-				<!-- Note: The "styleN" class below should match that of the header element. -->
-					<section id="banner" class="style2">
-						<div class="inner">
-							<span class="image">
-								<img src="images/veracruzia1.webp" alt="" />
-							</span>
-							<header class="major">
-								<h1>Zapateo vivo, son de ayer y de hoy</h1>
-							</header>
-							<div class="content">
-								<p>Son Zapateado es un taller permanente que abre la tarima a personas de nivel principiante e intermedio, creando un espacio de formación, exploración y reencuentro con el fandango veracruzano desde su raíz viva, accesible y evolucionante. La enseñanza se adapta al ritmo de cada participante, guiando el zapateo como diálogo corporal entre tradición y creación contemporánea.</p>
+		/* HERO ESTILO NETFLIX */
+		#hero-netflix {
+			position: relative;
+			height: 100vh;
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+		}
+
+		#hero-netflix video {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			min-width: 100%;
+			min-height: 100%;
+			width: auto;
+			height: auto;
+			transform: translate(-50%, -50%);
+			z-index: 1;
+			object-fit: cover;
+		}
+
+		#hero-netflix .overlay {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(10, 10, 10, 1) 100%);
+			z-index: 2;
+		}
+
+		#hero-netflix .inner {
+			position: relative;
+			z-index: 3;
+			text-align: center;
+			max-width: 800px;
+			padding: 20px;
+		}
+
+		#hero-netflix h1 {
+			font-size: 4rem;
+			font-weight: 900;
+			margin-bottom: 0.5rem;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+		}
+
+		#hero-netflix p {
+			font-size: 1.5rem;
+			margin-bottom: 2rem;
+			color: var(--color-secondary);
+			font-weight: 300;
+		}
+
+		.btn-netflix {
+			display: inline-block;
+			padding: 15px 30px;
+			background-color: var(--color-primary);
+			color: white !important;
+			border-radius: 4px;
+			text-transform: uppercase;
+			font-weight: bold;
+			margin: 10px;
+			transition: transform 0.3s, background 0.3s;
+			border: none;
+			cursor: pointer;
+		}
+
+		.btn-netflix:hover {
+			transform: scale(1.05);
+			background-color: #b71c1c;
+		}
+
+		.btn-netflix.outline {
+			background-color: rgba(255, 255, 255, 0.2);
+			backdrop-filter: blur(5px);
+		}
+
+		/* SECCIONES GENERALES */
+		.section-padding {
+			padding: 80px 0;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 20px;
+		}
+
+		/* DESCRIPCIÓN 2 COLUMNAS */
+		.description-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 40px;
+			align-items: center;
+		}
+
+		.description-text {
+			font-size: 1.2rem;
+			line-height: 1.8;
+			text-align: justify;
+		}
+
+		.description-image img {
+			width: 100%;
+			border-radius: 12px;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+		}
+
+		/* GALERÍA GRID */
+		.gallery-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+			gap: 15px;
+			margin-top: 40px;
+		}
+
+		.gallery-item {
+			position: relative;
+			overflow: hidden;
+			border-radius: 8px;
+			cursor: pointer;
+			aspect-ratio: 1;
+		}
+
+		.gallery-item img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.5s;
+		}
+
+		.gallery-item:hover img {
+			transform: scale(1.1);
+		}
+
+		/* VIDEO DESTACADO NETFLIX CARD */
+		.video-card {
+			background-color: #1a1a1a;
+			border-radius: 12px;
+			display: flex;
+			overflow: hidden;
+			max-width: 900px;
+			margin: 40px auto;
+			box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+			transition: transform 0.3s;
+		}
+
+		.video-card:hover {
+			transform: translateY(-10px);
+		}
+
+		.video-thumbnail {
+			flex: 1;
+			position: relative;
+			min-height: 300px;
+			background-size: cover;
+			background-position: center;
+		}
+
+		.play-btn {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			font-size: 4rem;
+			color: white;
+			opacity: 0.8;
+			transition: opacity 0.3s;
+		}
+
+		.video-card:hover .play-btn {
+			opacity: 1;
+		}
+
+		.video-info {
+			flex: 1;
+			padding: 40px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+		}
+
+		/* TALLERES CARDS */
+		.workshop-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 30px;
+			margin-top: 30px;
+		}
+
+		.workshop-card {
+			background-color: #1a1a1a;
+			padding: 30px;
+			border-radius: 12px;
+			border-left: 5px solid var(--color-primary);
+			transition: background 0.3s;
+		}
+
+		.workshop-card:hover {
+			background-color: #252525;
+		}
+
+		.status-badge {
+			display: inline-block;
+			padding: 5px 10px;
+			border-radius: 20px;
+			font-size: 0.8rem;
+			font-weight: bold;
+			margin-bottom: 10px;
+			background-color: rgba(211, 47, 47, 0.2);
+			color: var(--color-primary);
+		}
+
+		/* FORMULARIO */
+		#info-form {
+			background-color: #1a1a1a;
+			padding: 40px;
+			border-radius: 12px;
+			max-width: 700px;
+			margin: 0 auto;
+		}
+
+		input,
+		textarea {
+			background-color: #2a2a2a !important;
+			border: 1px solid #333 !important;
+			color: white !important;
+			margin-bottom: 20px;
+		}
+
+		/* QR SECTION */
+		.qr-section {
+			text-align: center;
+			background: linear-gradient(45deg, #1a1a1a, #0a0a0a);
+			padding: 60px;
+			border-radius: 12px;
+			border: 1px solid var(--color-secondary);
+		}
+
+		.qr-code {
+			width: 200px;
+			height: 200px;
+			margin: 20px auto;
+			background-color: white;
+			padding: 10px;
+			border-radius: 8px;
+		}
+
+		/* MODALES */
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1000;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.9);
+			justify-content: center;
+			align-items: center;
+		}
+
+		.modal-content {
+			max-width: 90%;
+			max-height: 90%;
+		}
+
+		.close-modal {
+			position: absolute;
+			top: 20px;
+			right: 30px;
+			color: white;
+			font-size: 3rem;
+			cursor: pointer;
+		}
+
+		@media (max-width: 768px) {
+			.description-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.video-card {
+				flex-direction: column;
+			}
+
+			#hero-netflix h1 {
+				font-size: 2.5rem;
+			}
+		}
+	</style>
+</head>
+
+<body class="is-preload">
+
+	<div id="wrapper">
+		<!-- Header -->
+		<header id="header" class="alt">
+			<a href="index.html" class="logo"><strong>Tonal Raíz</strong></a>
+			<nav><a href="#menu">Menú</a></nav>
+		</header>
+
+		<!-- Menu -->
+		<nav id="menu">
+			<ul class="links">
+				<li><a href="index.html">Inicio</a></li>
+				<li><a href="arquibita.html">ArquiBita Estudio</a></li>
+				<li><a href="sonzapateado.html">Son Zapateado</a></li>
+				<li><a href="teatro.html">Teatro</a></li>
+			</ul>
+		</nav>
+
+		<!-- HERO NETFLIX -->
+		<section id="hero-netflix">
+			<video autoplay muted playsinline loop preload="auto">
+				<source src="assets/video/Veracruz1.mp4" type="video/mp4">
+			</video>
+			<div class="overlay"></div>
+			<div class="inner">
+				<h1>Son Zapateado</h1>
+				<p>Taller de Zapateado Veracruzano</p>
+				<h3>Ritmo, tradición y cultura en movimiento.</h3>
+				<div style="margin-top: 30px;">
+					<a href="#contacto" class="btn-netflix scrolly">Pedir información</a>
+					<a href="https://forms.zohopublic.com/origentona1/form/TallerSonZapateado/formperma/6SbdHQNdchcvTMH4qmfT1C-W8ARrmXgmLsAF7C9VFFY"
+						target="_blank" class="btn-netflix outline">Inscribirme a los talleres</a>
+				</div>
+			</div>
+		</section>
+
+		<!-- DESCRIPCIÓN -->
+		<section class="section-padding">
+			<div class="container">
+				<div class="description-grid">
+					<div class="description-text">
+						<h2 style="color: var(--color-primary);">Compartimos tradición</h2>
+						<p>En el taller de Son Zapateado exploramos el zapateado tradicional del Sotavento: técnica,
+							musicalidad, secuencias, acompañamiento con jarana y la conexión que caracteriza
+							esta tradición. Es un espacio para quienes desean profundizar en el ritmo, la memoria
+							corporal y la energía del fandango.</p>
+					</div>
+					<div class="description-image">
+						<img src="images/8.png" alt="Zapateado Tradicional">
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- GALERÍA -->
+		<section class="section-padding" style="background-color: #050505;">
+			<div class="container">
+				<h2 style="text-align: center; margin-bottom: 40px;">Galería de Tradición</h2>
+				<div class="gallery-grid">
+					<div class="gallery-item" onclick="openLightbox('images/gallery_jarana.png')">
+						<img src="images/gallery_jarana.png" alt="Jarana">
+					</div>
+					<div class="gallery-item" onclick="openLightbox('images/gallery_shoes.png')">
+						<img src="images/gallery_shoes.png" alt="Botines">
+					</div>
+					<div class="gallery-item" onclick="openLightbox('images/sonzapateado1.webp')">
+						<img src="images/sonzapateado1.webp" alt="Taller 1">
+					</div>
+					<div class="gallery-item" onclick="openLightbox('images/sonzapateado2.webp')">
+						<img src="images/sonzapateado2.webp" alt="Taller 2">
+					</div>
+					<div class="gallery-item" onclick="openLightbox('images/sonzapateado3.webp')">
+						<img src="images/sonzapateado3.webp" alt="Taller 3">
+					</div>
+					<div class="gallery-item" onclick="openLightbox('images/sonzapateado4.webp')">
+						<img src="images/sonzapateado4.webp" alt="Taller 4">
+					</div>
+					<div class="gallery-item" onclick="openLightbox('images/veracruzia1.webp')">
+						<img src="images/veracruzia1.webp" alt="Veracruz">
+					</div>
+					<div class="gallery-item" onclick="openLightbox('images/arquibita1.webp')">
+						<img src="images/arquibita1.webp" alt="Estudio">
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- VIDEO DESTACADO -->
+		<section class="section-padding">
+			<div class="container">
+				<h2 style="text-align: center; margin-bottom: 20px;">Video Destacado</h2>
+				<div class="video-card" onclick="openVideoModal('https://www.youtube.com/embed/dQw4w9WgXcQ')">
+					<div class="video-thumbnail" style="background-image: url('images/hero_zapateado.png');">
+						<div class="play-btn">▶</div>
+					</div>
+					<div class="video-info">
+						<h3>El Arte del Fandango</h3>
+						<p>Descubre la magia del zapateado veracruzano en esta pieza documental sobre nuestras sesiones
+							de taller y comunidad.</p>
+						<span style="color: var(--color-primary); font-weight: bold;">VER AHORA</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- TALLERES -->
+		<section class="section-padding" style="background-color: #050505;">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<h2>Talleres en Curso</h2>
+						<div class="workshop-grid">
+							<div class="workshop-card">
+								<span class="status-badge">En curso – Inscripciones cerradas</span>
+								<h3>Son Jarocho Integral</h3>
+								<p><strong>Nivel:</strong> Básico / Intermedio</p>
+								<p><strong>Horario:</strong> Domingos 16:00 - 18:00 h</p>
+								<p><strong>Lugar:</strong> Auditorio Municipal, Salón 3B</p>
 							</div>
 						</div>
-					</section>
 
-				<!-- Main -->
-					<div id="main">
-
-						<!-- One -->
-							<section id="one" class="spotlights">
-								<section>
-									<a href="sonzapateado.html" class="image">
-										<img src="images/sonzapateado2.webp" alt="" data-position="center center" />
-									</a>
-									<div class="content">
-										<div class="inner">
-											<header class="major">
-												<h3>LO QUE SE APRENDE</h3>
-											</header>
-											<ul>
-											<li>Técnicas de zapateado básico e intermedio, hasta variaciones estilizadas.</li>
-    										<li>Historia musical del son jarocho, conectando sus formas antiguas con narrativas urbanas y escénicas.</li>
-    										<li>Prácticas corporales y memorias gestuales, vinculadas al ritmo y al canto.</li>
-    										<li>Expresiones contemporáneas del fandango, con elementos visuales, escénicos y composición simbólica.</li>
-   										 	<li>Improvisación individual y grupal sobre tarima, entendiendo el cuerpo como instrumento de diálogo.</li>
-											</ul></div>
-								</section>
-
-						<!-- Two -->		
-								<section>
-									<a href="sonzapateado.html" class="image">
-										<img src="images/sonzapateado3.webp" alt="" data-position="top center" />
-									</a>
-									<div class="content">
-										<div class="inner">
-											<header class="major">
-												<h3>MODALIDAD</h3>
-											</header>
-											<ul>
-											<li>Presencial.</li>
-											<li>Taller permanente, con ciclos mensuales abiertos a nuevas incorporaciones.</li>
-											<li>Tarima compartida, música en vivo ocasional.</li>
-											</ul></div>
-								</section>
-						<!-- Three -->
-								<section>
-									<a href="sonzapateado.html" class="image">
-										<img src="images/sonzapateado4.webp" alt="" data-position="25% 25%" />
-									</a>
-									<div class="content">
-										<div class="inner">
-											<header class="major">
-												<h3>¿PARA QUIÉN?</h3>
-											</header>
-											<ul>
-											<li>Personas que nunca han zapateado pero sienten el llamado del suelo.</li>
-											<li>Quienes ya tienen práctica y desean refinar su estilo corporal y escénico.</li>
-											<li>Estudiantes, artistas, educadores o público general que deseen integrar el ritmo como herramienta cultural.</li>
-											</ul></div>
-								</section>
-				<!-- Inscríbete al taller -->
-					<section id="taller-inscripcion">
-						<div class="inner">
-							<section>
-								<form method="post" action="#">
-									<h2 style="margin-bottom: 0;">Inscríbete al taller</h2>
-									<h5 style="margin-top: 0;">*Campo Obligatorio</h5>
-
-
-									<label for="nombre">Compartenos tu nombre completo*</label>
-									<input type="text" id="nombre" name="nombre" required />
-
-									<label for="correo">Tambien un correo electrónico*</label>
-									<input type="email" id="correo" name="correo" required />
-
-									<label for="telefono">Teléfono de contacto, este es opcional</label>
-  									<input type="tel" id="telefono" name="telefono" pattern="[0-9]{10}" placeholder="Ej. 6641234567" optional />
-
-									<label for="taller">Taller de interés</label>
-									<select id="taller" name="taller">
-										<option value="zapateado">Son Zapateado (Domingos de 16:00 a 18:00 h)</option>
-									</select>
-
-									<label for="mensaje">Comentarios adicionales</label>
-									<textarea id="mensaje" name="mensaje" rows="3" placeholder="¿Tienes algo que quieras compartir?"></textarea>
-
-									<div class="botonera">
-										<button type="submit">Registrar inscripción</button>
-										<button type="reset">Limpiar</button>
-									</div>
-									</form>
-							</section>
-							<section class="split">
-								<section>
-									<div class="contact-method">
-										<span class="icon solid alt fa-envelope"></span>
-										<h3>Email</h3>
-										<a href="#">sonzapateado@tonalraiz.com</a>
-									</div>
-								</section>
-								<section>
-									<div class="contact-method">
-										<span class="icon solid alt fa-phone"></span>
-										<h3>Cel y WhatsApp</h3>
-										<span>+52 (813)-681-9143</span>
-									</div>
-								</section>
-								<section>
-									<div class="contact-method">
-										<span class="icon solid alt fa-home"></span>
-										<h3>Address</h3>
-										<span>Auditorio Municipal de Tijuana,<br />
-										Blvd. Gustavo Díaz Ordaz S/N, El Paraiso, Salón 3B, CP 22106<br />
-										Tijuana, Baja California, México</span>
-									</div>
-								</section>
-							</section>
+						<h2 style="margin-top: 60px;">Próximos Talleres</h2>
+						<div class="workshop-grid">
+							<div class="workshop-card">
+								<h3>Técnica de Zapateado Avanzada</h3>
+								<p><strong>Nivel:</strong> Avanzado</p>
+								<p><strong>Fecha estimada:</strong> Julio 2026</p>
+								<a href="#contacto" class="btn-netflix scrolly"
+									style="margin: 20px 0 0 0; padding: 10px 20px;">Quiero enterarme</a>
+							</div>
 						</div>
-					</section>
-
-				<!-- Footer -->
-					<footer id="footer">
-						<div class="inner">
-							<ul class="icons">
-								<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
-								<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
-								<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-								<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-								<li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-							</ul>
-							<ul class="copyright">
-								<li>&copy; COPYRIGHT 2025 TONAL RAÍZ - TODOS LOS DERECHOS RESERVADOS</li><li>Design: <a href="">Bita</a></li>
-							</ul>
-						</div>
-					</footer>
-
+					</div>
+				</div>
 			</div>
+		</section>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+		<!-- FORMULARIO -->
+		<section id="contacto" class="section-padding">
+			<div class="container">
+				<h2 style="text-align: center; margin-bottom: 40px;">¿Dudas? Escríbenos</h2>
+				<div id="info-form">
+					<form id="son-form" onsubmit="return handleForm(event)">
+						<label>Nombre Completo</label>
+						<input type="text" id="name" required>
 
-	</body>
+						<label>Correo Electrónico</label>
+						<input type="email" id="email" required>
+
+						<label>Teléfono (10 dígitos)</label>
+						<input type="tel" id="phone" pattern="[0-9]{10}" placeholder="Ej: 6641234567" required>
+
+						<label>Mensaje</label>
+						<textarea id="message" rows="4" required></textarea>
+
+						<button type="submit" class="btn-netflix" style="width: 100%;">Enviar solicitud</button>
+					</form>
+					<div id="success-msg"
+						style="display: none; text-align: center; color: var(--color-secondary); padding: 20px; border: 1px solid var(--color-secondary); border-radius: 8px;">
+						<h3>¡Mensaje enviado con éxito!</h3>
+						<p>Nos pondremos en contacto contigo a la brevedad.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- REGISTRO Y QR -->
+		<section class="section-padding" style="background-color: #050505;">
+			<div class="container">
+				<div class="qr-section">
+					<h2 style="color: var(--color-secondary);">Reserva tu espacio ¡Cupo Limitado!</h2>
+					<p>Escanea el código o haz clic en el botón para completar tu registro oficial.</p>
+					<div class="qr-code">
+						<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://registro-sonzapateado.com"
+							alt="QR Registro" style="width: 100%;">
+					</div>
+					<a href="https://forms.zohopublic.com/origentona1/form/TallerSonZapateado/formperma/6SbdHQNdchcvTMH4qmfT1C-W8ARrmXgmLsAF7C9VFFY"
+						target="_blank" class="btn-netflix">Ir al registro</a>
+				</div>
+			</div>
+		</section>
+
+		<!-- Footer -->
+		<footer id="footer">
+			<div class="inner">
+				<ul class="icons">
+					<li><a href="https://www.facebook.com/tonalraiz/" target="_blank"
+							class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+					<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+				</ul>
+				<ul class="copyright">
+					<li>&copy; COPYRIGHT 2026 TONAL RAÍZ - TODOS LOS DERECHOS RESERVADOS</li>
+					<li>Design: <a href="#">Bita</a></li>
+				</ul>
+			</div>
+		</footer>
+	</div>
+
+	<!-- MODAL LIGHTBOX -->
+	<div id="lightbox" class="modal" onclick="this.style.display='none'">
+		<span class="close-modal">&times;</span>
+		<img class="modal-content" id="img-slot">
+	</div>
+
+	<!-- MODAL VIDEO -->
+	<div id="videoModal" class="modal">
+		<span class="close-modal" onclick="closeVideo()">&times;</span>
+		<div class="modal-content" style="width: 80%; aspect-ratio: 16/9;">
+			<iframe id="video-iframe" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
+		</div>
+	</div>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+	<script>
+		function openLightbox(src) {
+			document.getElementById('lightbox').style.display = 'flex';
+			document.getElementById('img-slot').src = src;
+		}
+
+		function openVideoModal(url) {
+			document.getElementById('videoModal').style.display = 'flex';
+			document.getElementById('video-iframe').src = url;
+		}
+
+		function closeVideo() {
+			document.getElementById('videoModal').style.display = 'none';
+			document.getElementById('video-iframe').src = '';
+		}
+
+		function handleForm(e) {
+			e.preventDefault();
+			document.getElementById('son-form').style.display = 'none';
+			document.getElementById('success-msg').style.display = 'block';
+			return false;
+		}
+	</script>
+</body>
+
 </html>
