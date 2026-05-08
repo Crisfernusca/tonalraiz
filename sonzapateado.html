@@ -326,18 +326,205 @@
 			user-select: none;
 		}
 
+		/* REPRODUCTOR DE AUDIO MINIMALISTA */
+		.audio-player-mini {
+			position: relative;
+			display: flex;
+			align-items: center;
+			padding: 4px 5px;
+			margin-right: 15px;
+			transition: all 0.3s ease;
+		}
+
+		.audio-player-mini:hover {
+			background: transparent;
+		}
+
+		.audio-btn {
+			background: none;
+			border: none;
+			color: #fff;
+			cursor: pointer;
+			font-size: 0.8rem;
+			padding: 0;
+			margin: 0 5px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 20px;
+			height: 20px;
+			transition: color 0.2s, transform 0.2s;
+			opacity: 0.7;
+		}
+
+		.audio-btn:hover {
+			opacity: 1;
+			color: var(--color-secondary);
+			transform: scale(1.1);
+		}
+
+		/* VOLUMEN SLIDER */
+		.volume-container {
+			display: flex;
+			align-items: center;
+			max-width: 0;
+			overflow: hidden;
+			transition: max-width 0.4s ease, margin 0.4s ease;
+			margin: 0;
+			padding: 5px 8px;
+			/* Evita que el botón deslizante se corte */
+		}
+
+		.audio-player-mini:hover .volume-container {
+			max-width: 135px;
+			margin-left: 8px;
+		}
+
+		.volume-slider {
+			-webkit-appearance: none;
+			width: 100px;
+			height: 4px;
+			background: rgba(255, 255, 255, 0.2);
+			outline: none;
+			cursor: pointer;
+			border-radius: 4px;
+			margin-top: 16px;
+			/* Mueve la barra un poco hacia abajo */
+		}
+
+		.volume-slider::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			width: 12px;
+			height: 12px;
+			background: var(--color-secondary);
+			border-radius: 50%;
+			cursor: pointer;
+			box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+			border: 2px solid #fff;
+		}
+
+		.audio-info-text {
+			font-size: 0.6rem;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			color: var(--color-secondary);
+			white-space: nowrap;
+			overflow: hidden;
+			max-width: 0;
+			transition: max-width 0.5s ease;
+			font-weight: bold;
+		}
+
+		.audio-player-mini:hover .audio-info-text {
+			max-width: 120px;
+			margin-right: 8px;
+		}
+
+		/* PLAYLIST MENU */
+		.playlist-menu {
+			position: absolute;
+			top: calc(100% + 10px);
+			right: 0;
+			background: rgba(10, 10, 10, 0.95);
+			backdrop-filter: blur(10px);
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			border-radius: 12px;
+			padding: 8px 0;
+			display: none;
+			flex-direction: column;
+			min-width: 180px;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+			z-index: 1000;
+		}
+
+		.playlist-menu.active {
+			display: flex;
+		}
+
+		.playlist-item {
+			padding: 10px 20px;
+			font-size: 0.75rem;
+			color: #fff;
+			cursor: pointer;
+			transition: background 0.3s;
+			text-align: left;
+			border-left: 3px solid transparent;
+		}
+
+		.playlist-item:hover {
+			background: rgba(212, 175, 55, 0.1);
+			color: var(--color-secondary);
+		}
+
+		.playlist-item.active {
+			border-left-color: var(--color-secondary);
+			color: var(--color-secondary);
+			background: rgba(212, 175, 55, 0.05);
+		}
+
+		.wave-container {
+			display: flex;
+			align-items: flex-end;
+			height: 10px;
+			gap: 2px;
+			margin-left: 5px;
+		}
+
+		.wave-bar {
+			width: 1.5px;
+			background: #fff;
+			height: 3px;
+			border-radius: 1px;
+			opacity: 0.5;
+		}
+
+		.playing .wave-bar {
+			animation: wave 1s ease-in-out infinite;
+			background: var(--color-secondary);
+			opacity: 1;
+		}
+
+		.playing .wave-bar:nth-child(2) {
+			animation-delay: 0.2s;
+		}
+
+		.playing .wave-bar:nth-child(3) {
+			animation-delay: 0.4s;
+		}
+
+		.playing .wave-bar:nth-child(4) {
+			animation-delay: 0.1s;
+		}
+
+		@keyframes wave {
+
+			0%,
+			100% {
+				height: 3px;
+			}
+
+			50% {
+				height: 10px;
+			}
+		}
+
 		@media (max-width: 768px) {
-			.description-grid {
-				grid-template-columns: 1fr;
+			.audio-player-mini {
+				padding: 4px 8px;
+				margin-right: 10px;
 			}
 
-			.video-card {
-				flex-direction: column;
+			.audio-info-text,
+			.volume-container {
+				display: none !important;
 			}
+		}
 
-			#hero-netflix h1 {
-				font-size: 2.5rem;
-			}
+		.header-right-wrapper {
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			flex: 1;
 		}
 	</style>
 </head>
@@ -348,7 +535,44 @@
 		<!-- Header -->
 		<header id="header" class="alt">
 			<a href="index.html" class="logo"><strong>Tonal Raíz</strong></a>
-			<nav><a href="#menu">Menú</a></nav>
+
+			<div class="header-right-wrapper">
+				<!-- REPRODUCTOR DISCRETO -->
+				<div id="miniPlayer" class="audio-player-mini">
+					<audio id="mainAudio" src="/music/13 Huapango.mp3" loop></audio>
+
+					<button class="audio-btn" onclick="togglePlaylist()" title="Lista de reproducción">
+						<i class="fas fa-list-ul"></i>
+					</button>
+
+					<div id="songTitle" class="audio-info-text">Huapango</div>
+
+					<button class="audio-btn" onclick="toggleAudio()">
+						<i id="playIcon" class="fas fa-play"></i>
+					</button>
+
+					<div class="volume-container">
+						<i class="fas fa-volume-up" style="font-size: 0.6rem; margin-right: 5px; opacity: 0.6;"></i>
+						<input type="range" class="volume-slider" min="0" max="1" step="0.05" value="0.5"
+							oninput="changeVolume(this.value)">
+					</div>
+
+					<div id="waveWrap" class="wave-container">
+						<div class="wave-bar"></div>
+						<div class="wave-bar"></div>
+						<div class="wave-bar"></div>
+						<div class="wave-bar"></div>
+					</div>
+
+					<!-- Menú de Lista de Reproducción -->
+					<div id="playlistMenu" class="playlist-menu">
+						<div class="playlist-item active" onclick="loadTrack(0)">Huapango</div>
+						<div class="playlist-item" onclick="loadTrack(1)">La Bamba</div>
+					</div>
+				</div>
+
+				<nav><a href="#menu">Menú</a></nav>
+			</div>
 		</header>
 
 		<!-- Menu -->
@@ -578,6 +802,83 @@
 			document.getElementById('success-msg').style.display = 'block';
 			return false;
 		}
+
+		// FUNCIONES DEL REPRODUCTOR
+		const audio = document.getElementById('mainAudio');
+		const playIcon = document.getElementById('playIcon');
+		const waveWrap = document.getElementById('waveWrap');
+		const songTitle = document.getElementById('songTitle');
+		const playlistMenu = document.getElementById('playlistMenu');
+		const playlistItems = document.querySelectorAll('.playlist-item');
+
+		const tracks = [
+			{ name: 'Huapango', file: '/music/13 Huapango.mp3' },
+			{ name: 'La Bamba', file: '/music/18 La Bamba.mp3' }
+		];
+
+		let currentTrack = 0;
+		audio.volume = 0.2; // Volumen bajo pero agradable
+
+		// Intentar Autoplay al cargar
+		window.addEventListener('load', () => {
+			audio.play().then(() => {
+				playIcon.classList.remove('fa-play');
+				playIcon.classList.add('fa-pause');
+				waveWrap.classList.add('playing');
+			}).catch(error => {
+				console.log("Autoplay bloqueado. Esperando interacción.");
+			});
+		});
+
+		function toggleAudio() {
+			if (audio.paused) {
+				audio.play().catch(e => {
+					console.log("Audio play failed: ", e);
+					alert("Por favor, asegura que el archivo existe en " + tracks[currentTrack].file);
+				});
+				playIcon.classList.remove('fa-play');
+				playIcon.classList.add('fa-pause');
+				waveWrap.classList.add('playing');
+			} else {
+				audio.pause();
+				playIcon.classList.remove('fa-pause');
+				playIcon.classList.add('fa-play');
+				waveWrap.classList.remove('playing');
+			}
+		}
+
+		function changeVolume(val) {
+			audio.volume = val;
+		}
+
+		function togglePlaylist() {
+			playlistMenu.classList.toggle('active');
+		}
+
+		function loadTrack(index) {
+			currentTrack = index;
+			audio.src = tracks[index].file;
+			songTitle.innerText = tracks[index].name;
+
+			// Update active class
+			playlistItems.forEach((item, idx) => {
+				if (idx === index) item.classList.add('active');
+				else item.classList.remove('active');
+			});
+
+			togglePlaylist();
+			audio.play();
+			playIcon.classList.remove('fa-play');
+			playIcon.classList.add('fa-pause');
+			waveWrap.classList.add('playing');
+		}
+
+		// Close playlist when clicking outside
+		document.addEventListener('click', (e) => {
+			if (!miniPlayer.contains(e.target)) {
+				playlistMenu.classList.remove('active');
+			}
+		});
 	</script>
 </body>
 
