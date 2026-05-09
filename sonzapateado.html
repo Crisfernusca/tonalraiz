@@ -546,6 +546,143 @@
 			}
 		}
 
+		/* CURSOR PERSONALIZADO */
+		#custom-cursor {
+			width: 20px;
+			height: 20px;
+			background: var(--color-secondary);
+			border-radius: 50%;
+			position: fixed;
+			pointer-events: none;
+			z-index: 9999;
+			mix-blend-mode: difference;
+			transition: transform 0.1s ease-out, background 0.3s;
+			display: none;
+		}
+
+		@media (min-width: 1024px) {
+			#custom-cursor {
+				display: block;
+			}
+
+			body {
+				cursor: none;
+			}
+
+			a,
+			button,
+			.gallery-item,
+			.video-card {
+				cursor: none;
+			}
+		}
+
+		#custom-cursor.hover {
+			transform: scale(2.5);
+			background: #fff;
+		}
+
+		/* ANIMACIONES DE REVELADO */
+		.reveal {
+			opacity: 0;
+			transform: translateY(30px);
+			transition: all 0.8s ease-out;
+		}
+
+		.reveal.active {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		/* MAPA INTERACTIVO PRO */
+		.map-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 40px;
+			align-items: center;
+			background: rgba(255, 255, 255, 0.02);
+			border: 1px solid rgba(212, 175, 55, 0.1);
+			border-radius: 20px;
+			padding: 40px;
+			margin-top: 40px;
+		}
+
+		.map-svg-container {
+			position: relative;
+			width: 100%;
+			height: auto;
+		}
+
+		.sotavento-map {
+			width: 100%;
+			height: auto;
+			filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.1));
+		}
+
+		.map-region {
+			fill: rgba(255, 255, 255, 0.05);
+			stroke: rgba(212, 175, 55, 0.3);
+			stroke-width: 1.5;
+			cursor: pointer;
+			transition: all 0.3s ease;
+		}
+
+		.map-region:hover, .map-region.active {
+			fill: rgba(212, 175, 55, 0.2);
+			stroke: var(--color-secondary);
+			stroke-width: 2.5;
+			filter: brightness(1.2);
+		}
+
+		.info-panel {
+			background: rgba(0, 0, 0, 0.3);
+			border-radius: 15px;
+			padding: 30px;
+			border: 1px solid rgba(255, 255, 255, 0.05);
+			min-height: 400px;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.info-panel h3 {
+			color: var(--color-secondary);
+			margin-bottom: 5px;
+			font-size: 1.8rem;
+		}
+
+		.info-panel .subtitle {
+			font-size: 0.9rem;
+			opacity: 0.6;
+			margin-bottom: 20px;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+		}
+
+		.info-content {
+			font-size: 0.95rem;
+			line-height: 1.6;
+		}
+
+		.info-stat {
+			display: grid;
+			grid-template-columns: 100px 1fr;
+			margin-bottom: 10px;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+			padding-bottom: 5px;
+		}
+
+		.info-stat span:first-child {
+			font-weight: bold;
+			color: var(--color-secondary);
+			font-size: 0.75rem;
+			text-transform: uppercase;
+		}
+
+		@media (max-width: 900px) {
+			.map-grid { grid-template-columns: 1fr; }
+			.info-panel { min-height: auto; }
+		}
+
 		.header-right-wrapper {
 			display: flex;
 			align-items: center;
@@ -556,6 +693,7 @@
 </head>
 
 <body class="is-preload">
+	<div id="custom-cursor"></div>
 
 	<div id="wrapper">
 		<!-- Header -->
@@ -711,6 +849,65 @@
 			</div>
 		</section>
 
+		<!-- MAPA INTERACTIVO SOTAVENTO -->
+		<section class="section-padding reveal">
+			<div class="container">
+				<h2 style="text-align: center; margin-bottom: 10px;">Raíces del Sotavento</h2>
+				<p style="text-align: center; max-width: 600px; margin: 0 auto 10px; opacity: 0.7;">
+					Cartografía cultural de la cuna del Son Jarocho.
+				</p>
+
+				<div class="map-grid">
+					<div class="map-svg-container">
+						<!-- SVG Simplificado representando la costa sur de Veracruz / Sotavento -->
+						<svg viewBox="0 0 400 400" class="sotavento-map">
+							<!-- Costa de Veracruz (Estilizada) -->
+							<path class="map-region" id="reg-alvarado" d="M150,100 L180,110 L190,140 L160,150 L140,130 Z"
+								onmouseover="updateMapInfo('alvarado')" />
+							<text x="145" y="125" fill="#fff" style="font-size: 8px; pointer-events: none;">Alvarado</text>
+
+							<path class="map-region" id="reg-tlacotalpan" d="M190,140 L230,150 L240,180 L200,190 L180,160 Z"
+								onmouseover="updateMapInfo('tlacotalpan')" />
+							<text x="195" y="170" fill="#fff" style="font-size: 8px; pointer-events: none;">Tlacotalpan</text>
+
+							<path class="map-region" id="reg-tuxtlas" d="M240,180 L300,190 L320,240 L260,260 L230,220 Z"
+								onmouseover="updateMapInfo('tuxtlas')" />
+							<text x="255" y="230" fill="#fff" style="font-size: 8px; pointer-events: none;">Los Tuxtlas</text>
+
+							<path class="map-region" id="reg-mina" d="M260,260 L320,280 L340,330 L280,350 L250,300 Z"
+								onmouseover="updateMapInfo('mina')" />
+							<text x="275" y="310" fill="#fff" style="font-size: 8px; pointer-events: none;">Minatitlán</text>
+
+							<!-- Conexiones / Ríos estilizados -->
+							<path d="M180,140 Q210,200 280,300" fill="none" stroke="rgba(212,175,55,0.1)" stroke-width="2" />
+						</svg>
+					</div>
+
+					<div class="info-panel" id="map-info-panel">
+						<div id="default-msg" style="margin: auto; text-align: center; opacity: 0.5;">
+							<i class="fas fa-map-marked-alt" style="font-size: 3rem; margin-bottom: 20px;"></i>
+							<p>Explora el mapa para descubrir<br>la historia de cada región.</p>
+						</div>
+						<div id="region-data" style="display: none;">
+							<h3 id="panel-title">Región</h3>
+							<div class="subtitle" id="panel-subtitle">Sotavento, Veracruz</div>
+
+							<div class="info-content">
+								<div class="info-stat"><span>Fundación</span><span id="stat-found">-</span></div>
+								<div class="info-stat"><span>Población</span><span id="stat-pop">-</span></div>
+								<div class="info-stat"><span>Influencia</span><span id="stat-inf">-</span></div>
+								<p id="panel-desc" style="margin-top: 20px;"></p>
+								<div style="margin-top: 20px; padding: 15px; background: rgba(212,175,55,0.05); border-left: 3px solid var(--color-secondary);">
+									<strong style="font-size: 0.7rem; text-transform: uppercase;">Tradición Musical:</strong>
+									<p id="panel-music" style="font-size: 0.85rem; margin-top: 5px; font-style: italic;"></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
 		<!-- TALLERES -->
 		<section class="section-padding" style="background-color: #050505;">
 			<div class="container">
@@ -763,7 +960,8 @@
 					<h2 style="color: var(--color-secondary);">Reserva tu espacio ¡Cupo Limitado!</h2>
 					<p>Escanea el código o haz clic en el botón para completar tu registro oficial.</p>
 					<div class="qr-code">
-						<img src="images/QR_Taller Son Zapateado.png" alt="QR Registro" style="width: 100%;">
+						<img src="images/sonzapateado/QR_Taller Son Zapateado.webp" alt="QR Registro"
+							style="width: 100%;">
 					</div>
 					<a href="https://forms.zohopublic.com/origentona1/form/TallerSonZapateado/formperma/6SbdHQNdchcvTMH4qmfT1C-W8ARrmXgmLsAF7C9VFFY"
 						target="_blank" class="btn-netflix">Ir al registro</a>
@@ -847,17 +1045,18 @@
 		];
 
 		let currentTrack = 0;
-		audio.volume = 0.2; // Volumen bajo pero agradable
+		audio.volume = 0.5; // Volumen inicial equilibrado
+		const autoPlayEnabled = false; // CAMBIA A true SI QUIERES QUE INICIE SOLO
 
-		// Intentar Autoplay al cargar
+		// Lógica de Autoplay
 		window.addEventListener('load', () => {
-			audio.play().then(() => {
-				playIcon.classList.remove('fa-play');
-				playIcon.classList.add('fa-pause');
-				waveWrap.classList.add('playing');
-			}).catch(error => {
-				console.log("Autoplay bloqueado. Esperando interacción.");
-			});
+			if (autoPlayEnabled) {
+				audio.play().then(() => {
+					playIcon.classList.remove('fa-play');
+					playIcon.classList.add('fa-pause');
+					waveWrap.classList.add('playing');
+				}).catch(e => console.log("Autoplay bloqueado por el navegador"));
+			}
 		});
 
 		function toggleAudio() {
@@ -903,12 +1102,102 @@
 			waveWrap.classList.add('playing');
 		}
 
-		// Close playlist when clicking outside
+		// CLOSE PLAYLIST
 		document.addEventListener('click', (e) => {
 			if (!miniPlayer.contains(e.target)) {
 				playlistMenu.classList.remove('active');
 			}
 		});
+
+		// CURSOR PERSONALIZADO
+		const cursor = document.getElementById('custom-cursor');
+		document.addEventListener('mousemove', (e) => {
+			cursor.style.left = e.clientX + 'px';
+			cursor.style.top = e.clientY + 'px';
+		});
+
+		document.querySelectorAll('a, button, .gallery-item, .video-card, .map-point').forEach(el => {
+			el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+			el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+		});
+
+		// ANIMACIONES REVEAL (Intersection Observer)
+		const observerOptions = { threshold: 0.1 };
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add('active');
+				}
+			});
+		}, observerOptions);
+
+		document.querySelectorAll('.section-padding, .video-card, .workshop-card').forEach(el => {
+			el.classList.add('reveal');
+			observer.observe(el);
+		});
+
+		// DATOS DEL MAPA
+		const sotaventoData = {
+			alvarado: {
+				title: 'Alvarado',
+				subtitle: 'Puerto de Valientes y Poetas',
+				found: '1518 (Pedro de Alvarado)',
+				pop: '~25,000 hab. (cabecera)',
+				inf: 'Española, Africana y Caribeña',
+				desc: 'Antiguo asentamiento prehispánico llamado "Atlizintla". Fue un punto clave en la colonización y defensa de la costa. Sus habitantes son conocidos por su ingenio, picardía y una conexión profunda con el mar que se refleja en su forma de hablar y bailar.',
+				music: 'Son Jarocho de ritmo acelerado y zapateado virtuoso. Famoso por el Arpa y el Son de la "Bamba" con un estilo local distintivo.'
+			},
+			tlacotalpan: {
+				title: 'Tlacotalpan',
+				subtitle: 'La Perla del Papaloapan',
+				found: 'Mediados del Siglo XVI',
+				pop: '~8,000 hab. (urbana)',
+				inf: 'Mudéjar, Andaluza y Criolla',
+				desc: 'Patrimonio de la Humanidad por la UNESCO. Fue el puerto fluvial más importante de México en el siglo XIX. Su arquitectura colorida y calles anchas son el escenario del renacimiento del Son Jarocho moderno.',
+				music: 'Sede del Encuentro Nacional de Jaraneros. El son aquí es elegante, pausado y lleno de historia. Corazón cultural del Sotavento.'
+			},
+			tuxtlas: {
+				title: 'Los Tuxtlas',
+				subtitle: 'Tierra de Magia y Selva',
+				found: 'Raíces Olmecas (1200 a.C.)',
+				pop: '~160,000 hab. (región)',
+				inf: 'Olmeca, Náhuatl e Hispánica',
+				desc: 'Región volcánica de belleza exuberante. Fue el centro de la cultura Olmeca, la cultura madre. Aquí la colonización se mezcló con tradiciones místicas y una geografía imponente de selvas y cascadas.',
+				music: 'Son Jarocho con influencias indígenas marcadas. Uso frecuente de la Jarana de arco y el Requinto con un sonido telúrico y profundo.'
+			},
+			mina: {
+				title: 'Minatitlán',
+				subtitle: 'Puerta de la Selva',
+				found: '1826 (como villa moderna)',
+				pop: '~157,000 hab.',
+				inf: 'Afromestiza e Industrial',
+				desc: 'Originalmente un asentamiento a orillas del río Coatzacoalcos. Lugar de encuentro entre las rutas comerciales del sur y el centro. Su historia está ligada al petróleo, pero mantiene vivas las raíces de los antiguos fandangos de selva.',
+				music: 'Fandangos comunitarios con un estilo "campesino" crudo y potente. Gran influencia de las tradiciones del Istmo de Tehuantepec.'
+			}
+		};
+
+		function updateMapInfo(id) {
+			const data = sotaventoData[id];
+			const panel = document.getElementById('region-data');
+			const msg = document.getElementById('default-msg');
+
+			msg.style.display = 'none';
+			panel.style.display = 'block';
+
+			document.getElementById('panel-title').innerText = data.title;
+			document.getElementById('panel-subtitle').innerText = data.subtitle;
+			document.getElementById('stat-found').innerText = data.found;
+			document.getElementById('stat-pop').innerText = data.pop;
+			document.getElementById('stat-inf').innerText = data.inf;
+			document.getElementById('panel-desc').innerText = data.desc;
+			document.getElementById('panel-music').innerText = data.music;
+
+			// Highlight SVG
+			document.querySelectorAll('.map-region').forEach(r => r.classList.remove('active'));
+			document.getElementById('reg-' + id).classList.add('active');
+		}
+
+		// FUNCIONES DEL MAPA ANTERIOR (REMOVIDAS O MANTENIDAS SI SE USAN)
 	</script>
 </body>
 
