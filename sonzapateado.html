@@ -532,6 +532,33 @@
 			.volume-container {
 				display: none !important;
 			}
+
+			section.section-padding {
+				padding: 40px 20px !important;
+			}
+
+			h2 {
+				font-size: 1.8rem !important;
+			}
+
+			p {
+				text-align: left !important;
+				font-size: 0.95rem;
+				word-break: break-word;
+			}
+
+			.gallery-grid {
+				columns: 1 !important; /* Una columna para que las fotos se vean grandes en móvil */
+			}
+
+			.description-grid {
+				grid-template-columns: 1fr;
+				gap: 20px;
+			}
+
+			.description-image {
+				order: -1; /* Imagen arriba del texto */
+			}
 		}
 
 		/* CURSOR PERSONALIZADO */
@@ -669,6 +696,9 @@
 		@media (max-width: 900px) {
 			.map-grid { grid-template-columns: 1fr; }
 			.info-panel { min-height: auto; }
+			.video-card { flex-direction: column; max-width: 100%; }
+			.video-thumbnail { min-height: 250px; width: 100%; }
+			.video-info { padding: 30px; }
 		}
 
 		.header-right-wrapper {
