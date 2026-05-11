@@ -147,20 +147,23 @@
 
 		/* GALERÍA GRID */
 		.gallery-grid {
-			columns: 3 300px; /* Crea columnas automáticas de mínimo 300px */
+			columns: 3 300px;
+			/* Crea columnas automáticas de mínimo 300px */
 			column-gap: 15px;
 			margin-top: 40px;
 		}
 
 		.gallery-item {
-			display: inline-block; /* Necesario para que funcione con columns */
+			display: inline-block;
+			/* Necesario para que funcione con columns */
 			width: 100%;
 			margin-bottom: 15px;
 			position: relative;
 			overflow: hidden;
 			border-radius: 8px;
 			cursor: pointer;
-			break-inside: avoid; /* Evita que la foto se parta entre columnas */
+			break-inside: avoid;
+			/* Evita que la foto se parta entre columnas */
 		}
 
 		/* Clases opcionales para ajustes finos si se desea */
@@ -171,9 +174,11 @@
 
 		.gallery-item img {
 			width: 100%;
-			height: auto; /* Mantiene la proporción natural de la foto */
+			height: auto;
+			/* Mantiene la proporción natural de la foto */
 			display: block;
-			object-fit: contain; /* Asegura que se vea toda la foto */
+			object-fit: contain;
+			/* Asegura que se vea toda la foto */
 			transition: transform 0.5s;
 		}
 
@@ -548,7 +553,8 @@
 			}
 
 			.gallery-grid {
-				columns: 1 !important; /* Una columna para que las fotos se vean grandes en móvil */
+				columns: 1 !important;
+				/* Una columna para que las fotos se vean grandes en móvil */
 			}
 
 			.description-grid {
@@ -557,7 +563,8 @@
 			}
 
 			.description-image {
-				order: -1; /* Imagen arriba del texto */
+				order: -1;
+				/* Imagen arriba del texto */
 			}
 		}
 
@@ -615,90 +622,138 @@
 			grid-template-columns: 1fr 1fr;
 			gap: 40px;
 			align-items: center;
-			background: rgba(255, 255, 255, 0.02);
+			background: rgba(202, 15, 15, 0.02);
 			border: 1px solid rgba(212, 175, 55, 0.1);
 			border-radius: 20px;
 			padding: 40px;
 			margin-top: 40px;
 		}
 
-		.map-svg-container {
+		/* EXPLORADOR DE MAPA (ESTILO DOCUMENTAL) */
+		.explorer-container {
+			display: flex;
+			gap: 30px;
+			background: rgba(255, 255, 255, 0.02);
+			border: 1px solid rgba(212, 175, 55, 0.1);
+			border-radius: 24px;
+			padding: 40px;
+			margin-top: 40px;
+			align-items: stretch;
+		}
+
+		.map-viewport {
 			position: relative;
-			width: 100%;
-			height: auto;
-		}
-
-		.sotavento-map {
-			width: 100%;
-			height: auto;
-			filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.1));
-		}
-
-		.map-region {
-			fill: rgba(255, 255, 255, 0.05);
-			stroke: rgba(212, 175, 55, 0.3);
-			stroke-width: 1.5;
-			cursor: pointer;
-			transition: all 0.3s ease;
-		}
-
-		.map-region:hover, .map-region.active {
-			fill: rgba(212, 175, 55, 0.2);
-			stroke: var(--color-secondary);
-			stroke-width: 2.5;
-			filter: brightness(1.2);
-		}
-
-		.info-panel {
-			background: rgba(0, 0, 0, 0.3);
-			border-radius: 15px;
-			padding: 30px;
+			flex: 1.2;
+			background: transparent;
+			border-radius: 20px;
 			border: 1px solid rgba(255, 255, 255, 0.05);
-			min-height: 400px;
+		}
+
+		.map-image {
+			width: 100%;
+			height: auto;
+			display: block;
+			opacity: 0.9;
+			transition: opacity 0.5s;
+		}
+
+		.hotspot {
+			position: absolute;
+			width: 16px;
+			height: 16px;
+			background: var(--color-secondary);
+			border-radius: 50%;
+			cursor: pointer;
+			transform: translate(-50%, -50%);
+			z-index: 10;
+		}
+
+		/* Efecto pulso */
+		.hotspot::after {
+			content: '';
+			position: absolute;
+			top: -10px;
+			left: -10px;
+			right: -10px;
+			bottom: -10px;
+			border: 2px solid var(--color-secondary);
+			border-radius: 50%;
+			animation: pulse 2s infinite;
+			opacity: 0;
+		}
+
+		@keyframes pulse {
+			0% {
+				transform: scale(0.5);
+				opacity: 0.8;
+			}
+
+			100% {
+				transform: scale(2);
+				opacity: 0;
+			}
+		}
+
+		.hotspot:hover {
+			background: #fff;
+			box-shadow: 0 0 20px var(--color-secondary);
+			transform: translate(-50%, -50%) scale(1.5);
+		}
+
+		.info-glass-panel {
+			flex: 0.8;
+			background: rgba(20, 20, 20, 0.6);
+			backdrop-filter: blur(15px);
+			border-radius: 20px;
+			padding: 30px;
+			border: 1px solid rgba(212, 175, 55, 0.2);
 			display: flex;
 			flex-direction: column;
+			box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+			animation: fadeIn 0.5s ease-out;
 		}
 
-		.info-panel h3 {
+		.region-title {
+			font-size: 2.2rem;
 			color: var(--color-secondary);
 			margin-bottom: 5px;
-			font-size: 1.8rem;
+			font-family: 'Outfit', sans-serif;
 		}
 
-		.info-panel .subtitle {
-			font-size: 0.9rem;
-			opacity: 0.6;
-			margin-bottom: 20px;
-			text-transform: uppercase;
-			letter-spacing: 2px;
-		}
-
-		.info-content {
-			font-size: 0.95rem;
-			line-height: 1.6;
-		}
-
-		.info-stat {
+		.data-grid {
 			display: grid;
-			grid-template-columns: 100px 1fr;
-			margin-bottom: 10px;
-			border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-			padding-bottom: 5px;
+			grid-template-columns: 1fr 1fr;
+			gap: 15px;
+			margin: 20px 0;
 		}
 
-		.info-stat span:first-child {
-			font-weight: bold;
-			color: var(--color-secondary);
-			font-size: 0.75rem;
+		.data-item {
+			background: rgba(255, 255, 255, 0.03);
+			padding: 10px;
+			border-radius: 8px;
+		}
+
+		.data-label {
+			font-size: 0.6rem;
 			text-transform: uppercase;
+			color: var(--color-secondary);
+			display: block;
+			margin-bottom: 3px;
 		}
 
-		@media (max-width: 900px) {
-			.map-grid { grid-template-columns: 1fr; }
-			.info-panel { min-height: auto; }
-			.video-card { flex-direction: column; max-width: 100%; }
-			.video-thumbnail { min-height: 250px; width: 100%; }
-			.video-info { padding: 30px; }
+		.data-value {
+			font-size: 0.85rem;
+			font-weight: bold;
+		}
+
+		@media (max-width: 1024px) {
+			.explorer-container {
+				flex-direction: column;
+			}
+
+			.map-viewport {
+				min-height: 500px;
+			}
 		}
 
 		.header-right-wrapper {
@@ -867,58 +922,72 @@
 			</div>
 		</section>
 
-		<!-- MAPA INTERACTIVO SOTAVENTO -->
+		<!-- EXPLORADOR CULTURAL DE VERACRUZ -->
 		<section class="section-padding reveal">
 			<div class="container">
-				<h2 style="text-align: center; margin-bottom: 10px;">Raíces del Sotavento</h2>
-				<p style="text-align: center; max-width: 600px; margin: 0 auto 10px; opacity: 0.7;">
-					Cartografía cultural de la cuna del Son Jarocho.
+				<h2 style="text-align: center; margin-bottom: 10px;">Explorador Cultural de Veracruz</h2>
+				<p style="text-align: center; max-width: 700px; margin: 0 auto 30px; opacity: 0.8;">
+					Interactúa con los puntos destacados en el mapa para descubrir la esencia de cada región.
 				</p>
 
-				<div class="map-grid">
-					<div class="map-svg-container">
-						<!-- SVG Simplificado representando la costa sur de Veracruz / Sotavento -->
-						<svg viewBox="0 0 400 400" class="sotavento-map">
-							<!-- Costa de Veracruz (Estilizada) -->
-							<path class="map-region" id="reg-alvarado" d="M150,100 L180,110 L190,140 L160,150 L140,130 Z"
-								onmouseover="updateMapInfo('alvarado')" />
-							<text x="145" y="125" fill="#fff" style="font-size: 8px; pointer-events: none;">Alvarado</text>
+				<div class="explorer-container">
+					<div class="map-viewport">
+						<img src="images/sonzapateado/mapa_veracruz.webp" class="map-image" alt="Geografía de Veracruz">
 
-							<path class="map-region" id="reg-tlacotalpan" d="M190,140 L230,150 L240,180 L200,190 L180,160 Z"
-								onmouseover="updateMapInfo('tlacotalpan')" />
-							<text x="195" y="170" fill="#fff" style="font-size: 8px; pointer-events: none;">Tlacotalpan</text>
-
-							<path class="map-region" id="reg-tuxtlas" d="M240,180 L300,190 L320,240 L260,260 L230,220 Z"
-								onmouseover="updateMapInfo('tuxtlas')" />
-							<text x="255" y="230" fill="#fff" style="font-size: 8px; pointer-events: none;">Los Tuxtlas</text>
-
-							<path class="map-region" id="reg-mina" d="M260,260 L320,280 L340,330 L280,350 L250,300 Z"
-								onmouseover="updateMapInfo('mina')" />
-							<text x="275" y="310" fill="#fff" style="font-size: 8px; pointer-events: none;">Minatitlán</text>
-
-							<!-- Conexiones / Ríos estilizados -->
-							<path d="M180,140 Q210,200 280,300" fill="none" stroke="rgba(212,175,55,0.1)" stroke-width="2" />
-						</svg>
+						<!-- Hotspots recalibrados para el mapa vertical -->
+						<div class="hotspot" style="top: 8%; left: 10%;" onmouseover="updateExplorer('huasteca_alta')">
+						</div>
+						<div class="hotspot" style="top: 28%; left: 15%;" onmouseover="updateExplorer('huasteca_baja')">
+						</div>
+						<div class="hotspot" style="top: 38%; left: 27%;" onmouseover="updateExplorer('totonaca')">
+						</div>
+						<div class="hotspot" style="top: 46%; left: 35%;" onmouseover="updateExplorer('nautla')"></div>
+						<div class="hotspot" style="top: 55%; left: 35%;" onmouseover="updateExplorer('capital')"></div>
+						<div class="hotspot" style="top: 69%; left: 35%;" onmouseover="updateExplorer('montanas')">
+						</div>
+						<div class="hotspot" style="top: 65%; left: 47%;" onmouseover="updateExplorer('sotavento')">
+						</div>
+						<div class="hotspot" style="top: 77%; left: 56%;" onmouseover="updateExplorer('papaloapan')">
+						</div>
+						<div class="hotspot" style="top: 76%; left: 68%;" onmouseover="updateExplorer('tuxtlas')"></div>
+						<div class="hotspot" style="top: 90%; left: 82%;" onmouseover="updateExplorer('olmeca')"></div>
 					</div>
 
-					<div class="info-panel" id="map-info-panel">
-						<div id="default-msg" style="margin: auto; text-align: center; opacity: 0.5;">
-							<i class="fas fa-map-marked-alt" style="font-size: 3rem; margin-bottom: 20px;"></i>
-							<p>Explora el mapa para descubrir<br>la historia de cada región.</p>
+					<div class="info-glass-panel" id="explorer-panel">
+						<div id="explorer-idle" style="margin: auto; text-align: center; opacity: 0.5;">
+							<i class="fas fa-fingerprint"
+								style="font-size: 3rem; margin-bottom: 20px; color: var(--color-secondary);"></i>
+							<p>Explora los puntos<br>en el mapa</p>
 						</div>
-						<div id="region-data" style="display: none;">
-							<h3 id="panel-title">Región</h3>
-							<div class="subtitle" id="panel-subtitle">Sotavento, Veracruz</div>
 
-							<div class="info-content">
-								<div class="info-stat"><span>Fundación</span><span id="stat-found">-</span></div>
-								<div class="info-stat"><span>Población</span><span id="stat-pop">-</span></div>
-								<div class="info-stat"><span>Influencia</span><span id="stat-inf">-</span></div>
-								<p id="panel-desc" style="margin-top: 20px;"></p>
-								<div style="margin-top: 20px; padding: 15px; background: rgba(212,175,55,0.05); border-left: 3px solid var(--color-secondary);">
-									<strong style="font-size: 0.7rem; text-transform: uppercase;">Tradición Musical:</strong>
-									<p id="panel-music" style="font-size: 0.85rem; margin-top: 5px; font-style: italic;"></p>
-								</div>
+						<div id="explorer-content" style="display: none;">
+							<h3 class="region-title" id="exp-title">Región</h3>
+							<div class="subtitle" id="exp-subtitle">Sotavento</div>
+
+							<div class="data-grid">
+								<div class="data-item"><span class="data-label">Gentilicio</span><span
+										class="data-value" id="exp-gen">-</span></div>
+								<div class="data-item"><span class="data-label">Población</span><span class="data-value"
+										id="exp-pop">-</span></div>
+								<div class="data-item"><span class="data-label">Origen</span><span class="data-value"
+										id="exp-ori">-</span></div>
+								<div class="data-item"><span class="data-label">Ubicación</span><span class="data-value"
+										id="exp-loc">-</span></div>
+							</div>
+
+							<div class="info-extra-box">
+								<span class="info-extra-title">Historia y Geografía:</span>
+								<p id="exp-desc" style="font-size: 0.85rem; margin: 0;"></p>
+							</div>
+
+							<div class="info-extra-box">
+								<span class="info-extra-title">Música y Danza:</span>
+								<p id="exp-music" style="font-size: 0.85rem; margin: 0;"></p>
+							</div>
+
+							<div class="info-extra-box">
+								<span class="info-extra-title">Tradiciones:</span>
+								<p id="exp-fest" style="font-size: 0.85rem; margin: 0;"></p>
 							</div>
 						</div>
 					</div>
@@ -1154,68 +1223,148 @@
 			observer.observe(el);
 		});
 
-		// DATOS DEL MAPA
-		const sotaventoData = {
-			alvarado: {
-				title: 'Alvarado',
-				subtitle: 'Puerto de Valientes y Poetas',
-				found: '1518 (Pedro de Alvarado)',
-				pop: '~25,000 hab. (cabecera)',
-				inf: 'Española, Africana y Caribeña',
-				desc: 'Antiguo asentamiento prehispánico llamado "Atlizintla". Fue un punto clave en la colonización y defensa de la costa. Sus habitantes son conocidos por su ingenio, picardía y una conexión profunda con el mar que se refleja en su forma de hablar y bailar.',
-				music: 'Son Jarocho de ritmo acelerado y zapateado virtuoso. Famoso por el Arpa y el Son de la "Bamba" con un estilo local distintivo.'
+		// DATOS DEL MAPA DE VERACRUZ (10 REGIONES)
+		const veracruzData = {
+			huasteca_alta: {
+				title: 'Huasteca Alta',
+				subtitle: 'Puerta del Pánuco',
+				loc: 'Norte Extremo de Veracruz',
+				gen: 'Huasteco / Pánuquense',
+				pop: '~560,000 hab.',
+				ori: 'Cultura Huasteca (Teenek)',
+				desc: 'Región de llanuras y ríos caudalosos. Punto de entrada norte al estado, rica en ganadería y pesca fluvial.',
+				music: 'Huapango Huasteco (Violín, Quinta Huapanguera y Jarana Huasteca). Versada de gran ingenio.',
+				fest: 'Xantolo (Día de Muertos), Carnaval de Pánuco.',
+				fact: 'Su nombre original en náhuatl es "Cuextlan".'
 			},
-			tlacotalpan: {
-				title: 'Tlacotalpan',
-				subtitle: 'La Perla del Papaloapan',
-				found: 'Mediados del Siglo XVI',
-				pop: '~8,000 hab. (urbana)',
-				inf: 'Mudéjar, Andaluza y Criolla',
-				desc: 'Patrimonio de la Humanidad por la UNESCO. Fue el puerto fluvial más importante de México en el siglo XIX. Su arquitectura colorida y calles anchas son el escenario del renacimiento del Son Jarocho moderno.',
-				music: 'Sede del Encuentro Nacional de Jaraneros. El son aquí es elegante, pausado y lleno de historia. Corazón cultural del Sotavento.'
+			huasteca_baja: {
+				title: 'Huasteca Baja',
+				subtitle: 'Tierra de Bellos Atardeceres',
+				loc: 'Norte-Centro de Veracruz (Tuxpan)',
+				gen: 'Tuxpeño / Huasteco',
+				pop: '~600,000 hab.',
+				ori: 'Mestizaje Huasteco-Nahua',
+				desc: 'Famosa por sus playas y el puerto de Tuxpan. Es una zona de transición entre la selva y la costa.',
+				music: 'Huapango y Sones de costumbre. Influencia de bandas de viento.',
+				fest: 'Fiesta del Niño Perdido (Tuxpan), Expo Tuxpan.',
+				fact: 'De aquí zarpó el Yate Granma hacia la Revolución Cubana.'
+			},
+			totonaca: {
+				title: 'Totonaca',
+				subtitle: 'La Ciudad de los Tres Corazones',
+				loc: 'Zona Norte-Central (Papantla)',
+				gen: 'Totonaco / Papanteco',
+				pop: '~720,000 hab.',
+				ori: 'Cultura Totonaca (Tajín)',
+				desc: 'Tierra del "Trueno". Región sagrada donde se encuentra la ciudad prehispánica de El Tajín.',
+				music: 'Sones de Voladores, Danza de Guaguas. Influencia de flauta y tamboril.',
+				fest: 'Cumbre Tajín, Corpus Christi, Feria de la Vainilla.',
+				fact: 'Es la cuna mundial de la Vainilla, la orquídea negra.'
+			},
+			nautla: {
+				title: 'Nautla',
+				subtitle: 'Costa Esmeralda',
+				loc: 'Zona Costera Central',
+				gen: 'Nautleco / Misanteco',
+				pop: '~400,000 hab.',
+				ori: 'Influencia Francesa y Criolla',
+				desc: 'Hermosa franja costera conocida por sus esteros y la influencia de colonias francesas del siglo XIX.',
+				music: 'Música de viento y sones locales. Influencia del acordeón.',
+				fest: 'Carnaval de Martínez de la Torre, Fiestas de Santa Ana.',
+				fact: 'San Rafael fue una de las colonias francesas más exitosas en México.'
+			},
+			capital: {
+				title: 'Capital',
+				subtitle: 'La Atenas Veracruzana',
+				loc: 'Región Central Montañosa',
+				gen: 'Xalapeño',
+				pop: '~1,200,000 hab.',
+				ori: 'Cuna de la Academia y el Arte',
+				desc: 'Xalapa es el corazón político y cultural. Ciudad de flores, niebla y cultura universitaria.',
+				music: 'Música de Cámara, Jazz y Son Jarocho urbano experimental.',
+				fest: 'Festival de las Flores, Feria de Coatepec (Café).',
+				fact: 'Coatepec es el primer "Pueblo Mágico" del estado.'
+			},
+			montanas: {
+				title: 'Las Montañas',
+				subtitle: 'Sinfonía de Altura',
+				loc: 'Zona Centro-Oeste (Orizaba/Córdoba)',
+				gen: 'Orizabeño / Cordobés',
+				pop: '~1,100,000 hab.',
+				ori: 'Hispánico / Industrial',
+				desc: 'Región del Pico de Orizaba. Historia ferroviaria, cafetalera e industrial de gran relevancia.',
+				music: 'Danza de Arrieros, Bandas de Viento y Música de salón.',
+				fest: 'Feria del Café en Córdoba, Fiestas del Carmen.',
+				fact: 'Orizaba fue la ciudad más limpia de México por décadas.'
+			},
+			sotavento: {
+				title: 'Sotavento',
+				subtitle: 'Corazón Jarocho',
+				loc: 'Llanura Costera Central',
+				gen: 'Jarocho',
+				pop: '~1,300,000 hab.',
+				ori: 'Afromestizo y Caribeño',
+				desc: 'Cuna del Puerto de Veracruz. La zona más alegre y rítmica del estado, puerta de entrada al Caribe.',
+				music: 'Son Jarocho (Arpa, Jarana y Requinto). Influencia africana marcada.',
+				fest: 'Carnaval de Veracruz, Fiestas de Santa Ana en Boca del Río.',
+				fact: 'El Puerto de Veracruz es 4 veces heroico.'
+			},
+			papaloapan: {
+				title: 'Papaloapan / Alvarado',
+				subtitle: 'La Cuenca y el Puerto de Valientes',
+				loc: 'Baja Cuenca del Río Papaloapan',
+				gen: 'Alvaradeño / Tlacotalpeño',
+				pop: '~500,000 hab. (región)',
+				ori: 'Afromestizo, Andaluz y Ribereño',
+				desc: 'Tierra de Tlacotalpan y el emblemático puerto de Alvarado. Región de navegantes y poetas donde el río se abraza con el mar. Alvarado destaca por su historia de resistencia y su gente de ingenio inigualable.',
+				music: 'Son Jarocho virtuoso; Alvarado es cuna de grandes arpistas y de un zapateado con cadencia única.',
+				fest: 'Las Cruces de Mayo (Alvarado), Fiestas de la Candelaria (Tlacotalpan), Encuentro de Jaraneros.',
+				fact: 'Alvarado es famoso por su "picardía" (lenguaje ingenioso) y fue clave en la defensa de la soberanía nacional.'
 			},
 			tuxtlas: {
 				title: 'Los Tuxtlas',
-				subtitle: 'Tierra de Magia y Selva',
-				found: 'Raíces Olmecas (1200 a.C.)',
-				pop: '~160,000 hab. (región)',
-				inf: 'Olmeca, Náhuatl e Hispánica',
-				desc: 'Región volcánica de belleza exuberante. Fue el centro de la cultura Olmeca, la cultura madre. Aquí la colonización se mezcló con tradiciones místicas y una geografía imponente de selvas y cascadas.',
-				music: 'Son Jarocho con influencias indígenas marcadas. Uso frecuente de la Jarana de arco y el Requinto con un sonido telúrico y profundo.'
+				subtitle: 'Tierra de Brujos y Selva',
+				loc: 'Región Volcánica del Sur',
+				gen: 'Tuxtleco',
+				pop: '~350,000 hab.',
+				ori: 'Olmeca y Misticismo prehispánico',
+				desc: 'Zona de selva, lagunas y volcanes. Corazón místico de Veracruz donde la magia aún vive.',
+				music: 'Son Jarocho con Jaranas de arco. Sonido profundo y telúrico.',
+				fest: 'Primer Viernes de Marzo (Catemaco), Fiestas de Santiago.',
+				fact: 'Se cree que es la reserva de selva más al norte del continente.'
 			},
-			mina: {
-				title: 'Minatitlán',
-				subtitle: 'Puerta de la Selva',
-				found: '1826 (como villa moderna)',
-				pop: '~157,000 hab.',
-				inf: 'Afromestiza e Industrial',
-				desc: 'Originalmente un asentamiento a orillas del río Coatzacoalcos. Lugar de encuentro entre las rutas comerciales del sur y el centro. Su historia está ligada al petróleo, pero mantiene vivas las raíces de los antiguos fandangos de selva.',
-				music: 'Fandangos comunitarios con un estilo "campesino" crudo y potente. Gran influencia de las tradiciones del Istmo de Tehuantepec.'
+			olmeca: {
+				title: 'Olmeca',
+				subtitle: 'Cuna de la Cultura Madre',
+				loc: 'Sur Extremo de Veracruz',
+				gen: 'Olmeca / Coatzacoalqueño',
+				pop: '~1,000,000 hab.',
+				ori: 'Cultura Olmeca',
+				desc: 'Zona petrolera pero con raíces que datan de hace 3000 años. Tierra de los "Hombres del Hule".',
+				music: 'Son Jarocho con fuerte influencia del Istmo y tambores.',
+				fest: 'Expo Feria Coatzacoalcos, Carnaval de Minatitlán.',
+				fact: 'Aquí nació la cultura Olmeca, la primera civilización de Mesoamérica.'
 			}
 		};
 
-		function updateMapInfo(id) {
-			const data = sotaventoData[id];
-			const panel = document.getElementById('region-data');
-			const msg = document.getElementById('default-msg');
+		function updateExplorer(id) {
+			const data = veracruzData[id];
+			const panel = document.getElementById('explorer-content');
+			const idle = document.getElementById('explorer-idle');
 
-			msg.style.display = 'none';
+			idle.style.display = 'none';
 			panel.style.display = 'block';
 
-			document.getElementById('panel-title').innerText = data.title;
-			document.getElementById('panel-subtitle').innerText = data.subtitle;
-			document.getElementById('stat-found').innerText = data.found;
-			document.getElementById('stat-pop').innerText = data.pop;
-			document.getElementById('stat-inf').innerText = data.inf;
-			document.getElementById('panel-desc').innerText = data.desc;
-			document.getElementById('panel-music').innerText = data.music;
-
-			// Highlight SVG
-			document.querySelectorAll('.map-region').forEach(r => r.classList.remove('active'));
-			document.getElementById('reg-' + id).classList.add('active');
+			document.getElementById('exp-title').innerText = data.title;
+			document.getElementById('exp-subtitle').innerText = data.subtitle;
+			document.getElementById('exp-gen').innerText = data.gen;
+			document.getElementById('exp-pop').innerText = data.pop;
+			document.getElementById('exp-ori').innerText = data.ori;
+			document.getElementById('exp-loc').innerText = data.loc;
+			document.getElementById('exp-desc').innerText = data.desc;
+			document.getElementById('exp-music').innerText = data.music;
+			document.getElementById('exp-fest').innerText = data.fest;
 		}
-
-		// FUNCIONES DEL MAPA ANTERIOR (REMOVIDAS O MANTENIDAS SI SE USAN)
 	</script>
 </body>
 
