@@ -3,7 +3,7 @@
 
 <head>
 	<link rel="icon" href="favicon-32x32.png" type="image/x-icon" />
-	<title>Son Zapateado – Taller de Zapateado Veracruzano</title>
+	<title>Son Zapateado – Zapateado y Fandango Veracruzano</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="stylesheet" href="assets/css/main.css" />
@@ -394,7 +394,8 @@
 		.volume-container {
 			display: flex;
 			align-items: center;
-			max-width: 140px; /* Siempre visible */
+			max-width: 140px;
+			/* Siempre visible */
 			overflow: visible;
 			margin-left: 10px;
 			padding: 0 5px;
@@ -425,7 +426,8 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			touch-action: none; /* Evitar scroll al arrastrar en móvil */
+			touch-action: none;
+			/* Evitar scroll al arrastrar en móvil */
 		}
 
 		.audio-player-mini.floating .floating-icon {
@@ -436,20 +438,22 @@
 		}
 
 		/* Ocultar todo lo demás cuando está en modo burbuja */
-		.audio-player-mini.floating > *:not(.floating-icon):not(audio) {
+		.audio-player-mini.floating>*:not(.floating-icon):not(audio) {
 			display: none !important;
 		}
 
 		/* ESTADO EXPANDIDO (HOVER) */
 		.audio-player-mini.floating:hover {
 			width: auto;
-			min-width: 280px; /* Reducido para que no sea tan ancho */
+			min-width: 280px;
+			/* Reducido para que no sea tan ancho */
 			height: 50px;
 			padding: 8px 15px;
 			background: rgba(20, 20, 20, 0.85);
 			opacity: 1;
 			justify-content: flex-start;
-			overflow: visible; /* Permitir que el menú de la lista de reproducción se vea */
+			overflow: visible;
+			/* Permitir que el menú de la lista de reproducción se vea */
 		}
 
 		.audio-player-mini.floating:hover .floating-icon {
@@ -457,10 +461,10 @@
 		}
 
 		/* Mostrar elementos específicos al expandir, excepto el menú de playlist que tiene su propia lógica */
-		.audio-player-mini.floating:hover > .audio-btn,
-		.audio-player-mini.floating:hover > .audio-info-text,
-		.audio-player-mini.floating:hover > .volume-container,
-		.audio-player-mini.floating:hover > .wave-container {
+		.audio-player-mini.floating:hover>.audio-btn,
+		.audio-player-mini.floating:hover>.audio-info-text,
+		.audio-player-mini.floating:hover>.volume-container,
+		.audio-player-mini.floating:hover>.wave-container {
 			display: flex !important;
 		}
 
@@ -471,7 +475,8 @@
 
 		/* Ajuste de posición del menú en modo flotante (hacia arriba para que no se salga de la pantalla) */
 		.audio-player-mini.floating .playlist-menu {
-			bottom: calc(100% + 10px); /* Reducido un poco el gap */
+			bottom: calc(100% + 10px);
+			/* Reducido un poco el gap */
 			top: auto;
 			right: 0;
 		}
@@ -494,13 +499,16 @@
 
 		.volume-slider {
 			-webkit-appearance: none;
-			width: 80px; /* Un poco más corta para que quepa bien */
+			width: 80px;
+			/* Un poco más corta para que quepa bien */
 			height: 4px;
-			background: rgba(255, 255, 255, 0.4); /* Mayor opacidad para visibilidad */
+			background: rgba(255, 255, 255, 0.4);
+			/* Mayor opacidad para visibilidad */
 			outline: none;
 			cursor: pointer;
 			border-radius: 4px;
-			margin: 0; /* Centrado verticalmente por el flex */
+			margin: 0;
+			/* Centrado verticalmente por el flex */
 		}
 
 		.volume-slider::-webkit-slider-thumb {
@@ -641,6 +649,11 @@
 				text-align: left !important;
 				font-size: 0.95rem;
 				word-break: break-word;
+			}
+
+			#hero-netflix p {
+				text-align: center !important;
+				font-size: 1.2rem;
 			}
 
 			.gallery-grid {
@@ -976,7 +989,7 @@
 			<div class="overlay"></div>
 			<div class="inner">
 				<h1>Son Zapateado</h1>
-				<p>Taller de Zapateado Veracruzano</p>
+				<p>Zapateado y Fandango Veracruzano</p>
 				<h3>Ritmo, tradición y cultura en movimiento.</h3>
 				<div style="margin-top: 30px;">
 					<a href="#contacto" class="btn-netflix scrolly">Pedir información</a>
@@ -992,7 +1005,9 @@
 				<div class="description-grid">
 					<div class="description-text">
 						<h2 style="color: var(--color-primary);">Compartimos tradición</h2>
-						<p>Este es un espacio dedicado al Son Zapateado, donde el zapateado tradicional del Sotavento y
+						<p>Este es un espacio dedicado al Zapateado y Fandango Veracruzano, donde el zapateado
+							tradicional del
+							Sotavento y
 							el fandango antiguo cobran vida. Aquí exploramos la técnica, la musicalidad y el
 							acompañamiento con jarana,
 							cultivando la conexión y la memoria que definen a esta tradición.
@@ -1330,7 +1345,7 @@
 		function drag(e) {
 			if (isDragging) {
 				if (e.type === "touchmove") e.preventDefault();
-				
+
 				const clientX = e.type === "touchmove" ? e.touches[0].clientX : e.clientX;
 				const clientY = e.type === "touchmove" ? e.touches[0].clientY : e.clientY;
 
