@@ -394,29 +394,112 @@
 		.volume-container {
 			display: flex;
 			align-items: center;
-			max-width: 0;
-			overflow: hidden;
-			transition: max-width 0.4s ease, margin 0.4s ease;
-			margin: 0;
-			padding: 5px 8px;
-			/* Evita que el botón deslizante se corte */
+			max-width: 140px; /* Siempre visible */
+			overflow: visible;
+			margin-left: 10px;
+			padding: 0 5px;
 		}
 
 		.audio-player-mini:hover .volume-container {
-			max-width: 135px;
-			margin-left: 8px;
+			max-width: 140px;
+		}
+
+		/* ESTILOS FLOTANTES (MODO BURBUJA) */
+		.audio-player-mini.floating {
+			position: fixed;
+			bottom: 30px;
+			right: 30px;
+			background: rgba(20, 20, 20, 0.4);
+			backdrop-filter: blur(12px);
+			border: 1px solid rgba(212, 175, 55, 0.2);
+			border-radius: 50px;
+			padding: 0;
+			width: 50px;
+			height: 50px;
+			z-index: 10000;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+			transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+			cursor: grab;
+			opacity: 0.8;
+			overflow: hidden;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.audio-player-mini.floating .floating-icon {
+			display: block;
+			color: var(--color-secondary);
+			font-size: 1.2rem;
+			transition: opacity 0.3s;
+		}
+
+		/* Ocultar todo lo demás cuando está en modo burbuja */
+		.audio-player-mini.floating > *:not(.floating-icon):not(audio) {
+			display: none !important;
+		}
+
+		/* ESTADO EXPANDIDO (HOVER) */
+		.audio-player-mini.floating:hover {
+			width: auto;
+			min-width: 280px; /* Reducido para que no sea tan ancho */
+			height: 50px;
+			padding: 8px 15px;
+			background: rgba(20, 20, 20, 0.85);
+			opacity: 1;
+			justify-content: flex-start;
+			overflow: visible; /* Permitir que el menú de la lista de reproducción se vea */
+		}
+
+		.audio-player-mini.floating:hover .floating-icon {
+			display: none !important;
+		}
+
+		/* Mostrar elementos específicos al expandir, excepto el menú de playlist que tiene su propia lógica */
+		.audio-player-mini.floating:hover > .audio-btn,
+		.audio-player-mini.floating:hover > .audio-info-text,
+		.audio-player-mini.floating:hover > .volume-container,
+		.audio-player-mini.floating:hover > .wave-container {
+			display: flex !important;
+		}
+
+		/* Asegurar que el menú de playlist use su propia lógica de visibilidad */
+		.audio-player-mini.floating:hover .playlist-menu.active {
+			display: flex !important;
+		}
+
+		/* Ajuste de posición del menú en modo flotante (hacia arriba para que no se salga de la pantalla) */
+		.audio-player-mini.floating .playlist-menu {
+			bottom: calc(100% + 10px); /* Reducido un poco el gap */
+			top: auto;
+			right: 0;
+		}
+
+		/* Puente invisible para mantener el hover entre el reproductor y el menú */
+		.audio-player-mini.floating .playlist-menu::before {
+			content: '';
+			position: absolute;
+			bottom: -15px;
+			left: 0;
+			width: 100%;
+			height: 15px;
+			background: transparent;
+		}
+
+		/* En el encabezado (anclado), ocultar el icono de nota */
+		.audio-player-mini:not(.floating) .floating-icon {
+			display: none;
 		}
 
 		.volume-slider {
 			-webkit-appearance: none;
-			width: 100px;
+			width: 80px; /* Un poco más corta para que quepa bien */
 			height: 4px;
-			background: rgba(255, 255, 255, 0.2);
+			background: rgba(255, 255, 255, 0.4); /* Mayor opacidad para visibilidad */
 			outline: none;
 			cursor: pointer;
 			border-radius: 4px;
-			margin-top: 16px;
-			/* Mueve la barra un poco hacia abajo */
+			margin: 0; /* Centrado verticalmente por el flex */
 		}
 
 		.volume-slider::-webkit-slider-thumb {
@@ -541,8 +624,7 @@
 				margin-right: 10px;
 			}
 
-			.audio-info-text,
-			.volume-container {
+			.audio-info-text {
 				display: none !important;
 			}
 
@@ -835,6 +917,11 @@
 				<!-- REPRODUCTOR DISCRETO -->
 				<div id="miniPlayer" class="audio-player-mini">
 					<audio id="mainAudio" src="/music/13 Huapango.mp3" loop></audio>
+
+					<!-- Icono de nota musical para modo burbuja -->
+					<div class="floating-icon">
+						<i class="fas fa-music"></i>
+					</div>
 
 					<button class="audio-btn" onclick="togglePlaylist()" title="Lista de reproducción">
 						<i class="fas fa-list-ul"></i>
@@ -1183,6 +1270,70 @@
 			return false;
 		}
 
+		// LÓGICA DEL REPRODUCTOR FLOTANTE Y ARRASTRABLE
+		const miniPlayer = document.getElementById('miniPlayer');
+		let isFloating = false;
+
+		window.addEventListener('scroll', () => {
+			if (window.scrollY > 150) {
+				if (!isFloating) {
+					miniPlayer.classList.add('floating');
+					isFloating = true;
+				}
+			} else {
+				if (isFloating) {
+					miniPlayer.classList.remove('floating');
+					miniPlayer.style.transform = '';
+					miniPlayer.style.left = '';
+					miniPlayer.style.top = '';
+					miniPlayer.style.bottom = '';
+					miniPlayer.style.right = '';
+					isFloating = false;
+					xOffset = 0;
+					yOffset = 0;
+				}
+			}
+		});
+
+		// Arrastre (Drag and Drop)
+		let isDragging = false;
+		let currentX;
+		let currentY;
+		let initialX;
+		let initialY;
+		let xOffset = 0;
+		let yOffset = 0;
+
+		miniPlayer.addEventListener('mousedown', dragStart);
+		document.addEventListener('mousemove', drag);
+		document.addEventListener('mouseup', dragEnd);
+
+		function dragStart(e) {
+			if (!isFloating) return;
+			if (e.target.closest('.audio-btn') || e.target.closest('.volume-slider')) return;
+
+			initialX = e.clientX - xOffset;
+			initialY = e.clientY - yOffset;
+			isDragging = true;
+			miniPlayer.style.cursor = 'grabbing';
+		}
+
+		function drag(e) {
+			if (isDragging) {
+				e.preventDefault();
+				currentX = e.clientX - initialX;
+				currentY = e.clientY - initialY;
+				xOffset = currentX;
+				yOffset = currentY;
+				miniPlayer.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+			}
+		}
+
+		function dragEnd(e) {
+			isDragging = false;
+			miniPlayer.style.cursor = 'grab';
+		}
+
 		// FUNCIONES DEL REPRODUCTOR
 		const audio = document.getElementById('mainAudio');
 		const playIcon = document.getElementById('playIcon');
@@ -1355,11 +1506,11 @@
 			},
 			papaloapan: {
 				title: 'Papaloapan',
-				identity: 'Poesía Ribereña y Picardía Alvaradeña.',
+				identity: 'Poesía ribereña, son jarocho y picardía Alvaradeña.',
 				climate: 'Cálido húmedo, llanuras de inundación (río Papaloapan).',
-				economy: 'Producción azucarera y ganadería.',
-				heritage: 'Tlacotalpan (Patrimonio Humanidad por la UNESCO).',
-				fact: 'Alvarado es famoso por su concurso anual de arroz a la tumbada.',
+				economy: 'Producción azucarera, ganadería y pesquera.',
+				heritage: 'Alvarado; Cuna del Huapango de Moncayo. Tlacotalpan; Patrimonio de la Humanidad por la UNESCO).',
+				fact: 'Alvarado, Ciudad y Puerto Ilustre, Heroica y Generosa, se distingue por su lenguaje florido, su Arroz a la Tumbada y las fiestas de Mayo con el satírico Encierro de Burros. Mantiene un vínculo cultural con Tlacotalpan, cuna de Agustín Lara y sede de la fiesta de la Candelaria, donde el zapateado, el son y el fandango preservan la identidad del Sotavento.',
 				mun: '<b>Alvarado</b>, <b>Tlacotalpan</b>, <b>Cosamaloapan</b>, Amatitlán, Angel R. Cabada, Chacaltianguis, Ixmatlahuacan, José Azueta, Juan Rodríguez Clara, Lerdo de Tejada, Otatitlán, Playa Vicente, Saltabarranca, Santiago Tuxtla, Tlacojalpan, Tres Valles, Tuxtilla, Carlos A. Carrillo.'
 			},
 			tuxtlas: {
