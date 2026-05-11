@@ -1,0 +1,571 @@
+<!DOCTYPE HTML>
+<html lang="es">
+
+<head>
+	<link rel="icon" href="favicon-32x32.png" type="image/x-icon" />
+	<title>Susi Flor – Hablemos de la Vagina | Comedy & Teatro Premium</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
+	<style>
+		:root {
+			--color-primary: #e91e63;
+			/* Magenta */
+			--color-secondary: #d4af37;
+			/* Dorado */
+			--color-accent: #9c27b0;
+			/* Púrpura */
+			--color-bg: #080808;
+			--color-card-bg: rgba(20, 20, 20, 0.6);
+			--color-text: #ffffff;
+			--container-width: 1100px;
+		}
+
+		body {
+			background-color: var(--color-bg);
+			color: var(--color-text);
+			overflow-x: hidden;
+			font-family: 'Source Sans Pro', sans-serif;
+		}
+
+		/* LAYOUT */
+		.content-wrapper {
+			max-width: var(--container-width);
+			margin: 0 auto;
+			padding: 0 40px;
+		}
+
+		section.section-padding {
+			padding: 100px 0;
+		}
+
+		/* HERO INNOVADOR */
+		#hero-susi {
+			position: relative;
+			height: 100vh;
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+			background: #000;
+		}
+
+		#hero-susi .hero-bg {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-image: url('susi_flor_hero_1778491868269.png');
+			background-size: cover;
+			background-position: center;
+			opacity: 0.6;
+			filter: saturate(0.5) brightness(0.8);
+			z-index: 1;
+		}
+
+		#hero-susi .overlay {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: radial-gradient(circle at 50% 50%, transparent 0%, rgba(8, 8, 8, 0.9) 100%);
+			z-index: 2;
+		}
+
+		#hero-susi .inner {
+			position: relative;
+			z-index: 10;
+			text-align: center;
+			max-width: 900px;
+			padding: 0 20px;
+		}
+
+		#hero-susi .tagline {
+			display: inline-block;
+			padding: 5px 20px;
+			background: rgba(233, 30, 99, 0.2);
+			border: 1px solid var(--color-primary);
+			border-radius: 50px;
+			color: var(--color-primary);
+			text-transform: uppercase;
+			letter-spacing: 3px;
+			font-size: 0.8rem;
+			margin-bottom: 20px;
+			animation: fadeInDown 1s ease;
+		}
+
+		#hero-susi h1 {
+			font-size: clamp(3.5rem, 8vw, 6rem);
+			line-height: 0.9;
+			font-weight: 900;
+			margin-bottom: 10px;
+			text-transform: uppercase;
+			background: linear-gradient(to bottom, #fff 0%, #aaa 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 1));
+		}
+
+		#hero-susi .show-title {
+			font-size: clamp(1.5rem, 4vw, 2.5rem);
+			color: var(--color-secondary);
+			font-family: 'Playfair Display', serif;
+			font-style: italic;
+			margin-bottom: 40px;
+			letter-spacing: 1px;
+		}
+
+		/* BOTONES PREMIUM */
+		.btn-group {
+			display: flex;
+			gap: 20px;
+			justify-content: center;
+			flex-wrap: wrap;
+		}
+
+		.btn-main {
+			padding: 18px 45px;
+			background: var(--color-primary);
+			color: #fff !important;
+			border-radius: 4px;
+			text-transform: uppercase;
+			font-weight: 800;
+			letter-spacing: 2px;
+			transition: all 0.3s;
+			box-shadow: 0 10px 30px rgba(233, 30, 99, 0.3);
+			border: none;
+		}
+
+		.btn-main:hover {
+			background: #c2185b;
+			transform: translateY(-5px);
+			box-shadow: 0 15px 40px rgba(233, 30, 99, 0.5);
+		}
+
+		.btn-outline {
+			padding: 18px 45px;
+			background: transparent;
+			color: #fff !important;
+			border: 2px solid rgba(255, 255, 255, 0.2);
+			border-radius: 4px;
+			text-transform: uppercase;
+			font-weight: 800;
+			letter-spacing: 2px;
+			transition: all 0.3s;
+		}
+
+		.btn-outline:hover {
+			border-color: var(--color-secondary);
+			color: var(--color-secondary) !important;
+			background: rgba(212, 175, 55, 0.05);
+		}
+
+		/* CARTELERA ESTILO CARDS FLOTANTES */
+		.event-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 30px;
+			margin-top: 50px;
+		}
+
+		.event-card {
+			background: var(--color-card-bg);
+			backdrop-filter: blur(20px);
+			border: 1px solid rgba(255, 255, 255, 0.05);
+			border-radius: 15px;
+			overflow: hidden;
+			transition: all 0.4s;
+			position: relative;
+		}
+
+		.event-card::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 5px;
+			background: linear-gradient(to right, var(--color-primary), var(--color-accent));
+			opacity: 0;
+			transition: opacity 0.3s;
+		}
+
+		.event-card:hover {
+			transform: translateY(-15px);
+			border-color: rgba(233, 30, 99, 0.3);
+			background: rgba(30, 30, 30, 0.8);
+			box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+		}
+
+		.event-card:hover::before {
+			opacity: 1;
+		}
+
+		.event-thumb {
+			height: 200px;
+			background-size: cover;
+			background-position: center;
+			position: relative;
+		}
+
+		.event-badge {
+			position: absolute;
+			top: 15px;
+			right: 15px;
+			background: var(--color-primary);
+			padding: 5px 12px;
+			border-radius: 4px;
+			font-size: 0.7rem;
+			font-weight: 900;
+			text-transform: uppercase;
+		}
+
+		.event-content {
+			padding: 25px;
+		}
+
+		.event-date {
+			font-size: 0.85rem;
+			color: var(--color-secondary);
+			text-transform: uppercase;
+			font-weight: 700;
+			margin-bottom: 10px;
+			display: block;
+		}
+
+		.event-title {
+			font-size: 1.4rem;
+			font-weight: 700;
+			margin-bottom: 15px;
+			line-height: 1.2;
+		}
+
+		.event-meta {
+			display: flex;
+			gap: 15px;
+			font-size: 0.8rem;
+			opacity: 0.5;
+			margin-bottom: 25px;
+		}
+
+		/* GALERÍA INNOVADORA */
+		.gallery-container {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			grid-template-rows: repeat(2, 300px);
+			gap: 15px;
+			margin-top: 50px;
+		}
+
+		.gallery-item {
+			position: relative;
+			border-radius: 10px;
+			overflow: hidden;
+			cursor: pointer;
+		}
+
+		.gallery-item img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+		}
+
+		.gallery-item:hover img {
+			transform: scale(1.15);
+		}
+
+		.gallery-item.large {
+			grid-column: span 2;
+			grid-row: span 2;
+		}
+
+		.gallery-item.tall {
+			grid-row: span 2;
+		}
+
+		/* REPRESENTACIÓN */
+		.rep-section {
+			background: radial-gradient(circle at center, #111 0%, #050505 100%);
+			padding: 80px 0;
+			text-align: center;
+			border-top: 1px solid rgba(255, 255, 255, 0.03);
+		}
+
+		.rep-box {
+			max-width: 600px;
+			margin: 0 auto;
+			padding: 40px;
+			border: 1px solid rgba(212, 175, 55, 0.1);
+			border-radius: 30px;
+			background: rgba(255, 255, 255, 0.02);
+		}
+
+		.rep-logo {
+			font-size: 2.5rem;
+			font-weight: 900;
+			color: var(--color-secondary);
+			letter-spacing: 5px;
+			margin-bottom: 10px;
+		}
+
+		/* ANIMACIONES */
+		@keyframes fadeInDown {
+			from {
+				opacity: 0;
+				transform: translateY(-30px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		@media (max-width: 1024px) {
+			.gallery-container {
+				grid-template-columns: repeat(2, 1fr);
+				grid-template-rows: auto;
+			}
+
+			.gallery-item.large,
+			.gallery-item.tall {
+				grid-column: span 1;
+				grid-row: span 1;
+				height: 300px;
+			}
+		}
+
+		@media (max-width: 768px) {
+			.content-wrapper {
+				padding: 0 25px;
+			}
+
+			section.section-padding {
+				padding: 60px 0;
+			}
+
+			#hero-susi h1 {
+				font-size: 3.5rem;
+			}
+
+			.event-grid {
+				grid-template-columns: 1fr;
+			}
+		}
+	</style>
+</head>
+
+<body class="is-preload">
+
+	<div id="wrapper">
+
+		<!-- Header -->
+		<header id="header" class="alt">
+			<a href="index.html" class="logo"><strong>Susi Flor</strong> <span>Official</span></a>
+			<nav><a href="#menu">Menú</a></nav>
+		</header>
+
+		<!-- Menu -->
+		<nav id="menu">
+			<ul class="links">
+				<li><a href="index.html">Inicio</a></li>
+				<li><a href="sonzapateado.html">Son Zapateado</a></li>
+				<li><a href="susiflorcomedy.html">Susi Flor</a></li>
+				<li><a href="teatro.html">Cartelera</a></li>
+			</ul>
+		</nav>
+
+		<!-- HERO -->
+		<section id="hero-susi">
+			<div class="hero-bg"></div>
+			<div class="overlay"></div>
+			<div class="inner">
+				<span class="tagline">Próxima Temporada 2026</span>
+				<h1>- Susi Flor -</h1>
+				<p class="show-title">"Hablemos de la Vagina"</p>
+				<div class="btn-group">
+					<a href="#cartelera" class="btn-main scrolly">Cartelera</a>
+					<a href="#galeria" class="btn-outline scrolly">Galería</a>
+				</div>
+			</div>
+		</section>
+
+		<!-- SINOSPSIS -->
+		<section class="section-padding">
+			<div class="content-wrapper">
+				<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;"
+					class="description-grid">
+					<div class="reveal">
+						<h2 style="color: var(--color-primary); font-size: 2.5rem; margin-bottom: 30px;">Directo,
+							divertido y necesario.</h2>
+						<p style="font-size: 1.1rem; line-height: 1.8; opacity: 0.8; margin-bottom: 30px;">
+							Susi Flor rompe la cuarta pared para hablarnos de lo que todos piensan pero pocos dicen.
+							A través de anécdotas, humor ácido y una entrega escénica inigualable, este monólogo
+							se ha convertido en un referente de la comedia contemporánea.
+						</p>
+						<p style="font-size: 1.1rem; line-height: 1.8; opacity: 0.8;">
+							Exploramos la anatomía de la risa y el poder de la palabra, en un show que te hará
+							reflexionar tanto como reír.
+						</p>
+					</div>
+					<div class="reveal" style="position: relative;">
+						<div
+							style="width: 100%; height: 900px; background: url('images/susiflor/2.webp') center/cover; border-radius: 20px; box-shadow: 30px 30px 0 var(--color-accent);">
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- CARTELERA -->
+		<section id="cartelera" class="section-padding" style="background: #0a0a0a;">
+			<div class="content-wrapper">
+				<h2 style="text-align: center; font-size: 3rem; margin-bottom: 20px;">Cartelera 2026</h2>
+				<p style="text-align: center; opacity: 0.5; max-width: 600px; margin: 0 auto 50px;">Asegura tu lugar en
+					las funciones más esperadas del año.</p>
+
+				<div class="event-grid" style="justify-content: center;">
+					<!-- Función 1 (Oculta temporalmente) ... -->
+
+					<!-- Función 2 -->
+					<div class="event-card" style="max-width: 450px; margin: 0 auto;">
+						<div class="event-thumb"
+							style="background-image: url('images/susiflor/praga_fachada.webp'); background-size: contain; background-repeat: no-repeat; background-position: center; width: 100%; aspect-ratio: 1/1; height: auto; background-color: rgba(255,255,255,0.03);">
+							<span class="event-badge">Preventa</span>
+						</div>
+						<div class="event-content" style="padding: 30px 50px;">
+							<span class="event-date" style="text-align: center;">11 JULIO | 20:00 H</span>
+							<h3 class="event-title" style="text-align: center;">Praga Café Bistro</h3>
+							<div class="event-meta" style="justify-content: center; flex-direction: column; align-items: center; gap: 5px;">
+								<span><i class="fas fa-map-marker-alt"></i> Tijuana, BC.</span>
+								<span><i class="fas fa-ticket-alt"></i> Preventa $250</span>
+							</div>
+							<div style="margin-top: 25px;">
+								<a href="checkout.html" class="btn-main" style="width: 100%; text-align: center; padding: 12px; display: block;">Comprar Boletos</a>
+							</div>
+						</div>
+					</div>
+
+					<!-- Función 3 (Oculta temporalmente) ... -->
+				</div>
+			</div>
+		</section>
+
+		<!-- GALERÍA -->
+		<section id="galeria" class="section-padding">
+			<div class="content-wrapper">
+				<h2 style="text-align: center; font-size: 3rem; margin-bottom: 50px;">Momentos</h2>
+				<div class="gallery-container">
+					<div class="gallery-item large" onclick="openLightbox(this.querySelector('img').src)">
+						<img src="https://images.unsplash.com/photo-1526218626217-dc65a29bb444?auto=format&fit=crop&q=80&w=800"
+							alt="Susi 1">
+					</div>
+					<div class="gallery-item" onclick="openLightbox(this.querySelector('img').src)">
+						<img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=600"
+							alt="Susi 2">
+					</div>
+					<div class="gallery-item" onclick="openLightbox(this.querySelector('img').src)">
+						<img src="https://images.unsplash.com/photo-1496024840928-4c417daf2d1d?auto=format&fit=crop&q=80&w=600"
+							alt="Susi 3">
+					</div>
+					<div class="gallery-item tall" onclick="openLightbox(this.querySelector('img').src)">
+						<img src="https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&q=80&w=600"
+							alt="Susi 4">
+					</div>
+					<div class="gallery-item" onclick="openLightbox(this.querySelector('img').src)">
+						<img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=600"
+							alt="Susi 5">
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- REPRESENTACIÓN -->
+		<section class="rep-section">
+			<div class="content-wrapper">
+				<div class="rep-box reveal">
+					<div class="rep-logo">RAÍZ ESCÉNICA</div>
+					<p
+						style="text-transform: uppercase; letter-spacing: 3px; font-size: 0.7rem; color: var(--color-secondary); margin-bottom: 30px;">
+						Management & Producciones</p>
+					<p style="opacity: 0.6; font-size: 0.95rem; line-height: 1.6; margin-bottom: 40px;">
+						Raíz Escénica Producciones se enorgullece de representar el talento de Susi Flor,
+						llevando su arte a los escenarios más importantes del país con los más altos estándares de
+						calidad.
+					</p>
+					<div class="btn-group">
+						<a href="mailto:management@raizescenica.com" class="btn-main">Contrataciones</a>
+						<a href="#" class="btn-outline">Dossier de Prensa</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- FOOTER -->
+		<footer id="footer" style="padding: 60px 0;">
+			<div class="content-wrapper">
+				<div
+					style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 30px;">
+					<div>
+						<h3 style="color: var(--color-primary); margin-bottom: 10px;">Susi Flor Comedy</h3>
+						<p style="font-size: 0.8rem; opacity: 0.5;">&copy; 2026 Todos los derechos reservados.</p>
+					</div>
+					<ul class="icons" style="margin: 0;">
+						<li><a href="#" class="icon brands fa-facebook-f"></a></li>
+						<li><a href="#" class="icon brands fa-instagram"></a></li>
+						<li><a href="#" class="icon brands fa-tiktok"></a></li>
+					</ul>
+				</div>
+			</div>
+		</footer>
+
+	</div>
+
+	<!-- LIGHTBOX -->
+	<div id="lightbox"
+		style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:20000; justify-content:center; align-items:center;"
+		onclick="this.style.display='none'">
+		<img id="img-slot" src=""
+			style="max-width:90%; max-height:85%; border: 2px solid var(--color-primary); border-radius: 10px;">
+	</div>
+
+	<!-- SCRIPTS -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+	<script>
+		function openLightbox(src) {
+			document.getElementById('lightbox').style.display = 'flex';
+			document.getElementById('img-slot').src = src;
+		}
+
+		// Reveal animation on scroll
+		$(function () {
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						$(entry.target).addClass('active').css({ 'opacity': 1, 'transform': 'translateY(0)' });
+					}
+				});
+			}, { threshold: 0.1 });
+
+			$('.reveal').css({ 'opacity': 0, 'transform': 'translateY(30px)', 'transition': 'all 0.8s ease-out' }).each(function () {
+				observer.observe(this);
+			});
+		});
+	</script>
+
+</body>
+
+</html>
