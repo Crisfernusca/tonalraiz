@@ -425,6 +425,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			touch-action: none; /* Evitar scroll al arrastrar en móvil */
 		}
 
 		.audio-player-mini.floating .floating-icon {
@@ -1305,24 +1306,36 @@
 		let yOffset = 0;
 
 		miniPlayer.addEventListener('mousedown', dragStart);
+		miniPlayer.addEventListener('touchstart', dragStart, { passive: false });
+
 		document.addEventListener('mousemove', drag);
+		document.addEventListener('touchmove', drag, { passive: false });
+
 		document.addEventListener('mouseup', dragEnd);
+		document.addEventListener('touchend', dragEnd);
 
 		function dragStart(e) {
 			if (!isFloating) return;
 			if (e.target.closest('.audio-btn') || e.target.closest('.volume-slider')) return;
 
-			initialX = e.clientX - xOffset;
-			initialY = e.clientY - yOffset;
+			const clientX = e.type === "touchstart" ? e.touches[0].clientX : e.clientX;
+			const clientY = e.type === "touchstart" ? e.touches[0].clientY : e.clientY;
+
+			initialX = clientX - xOffset;
+			initialY = clientY - yOffset;
 			isDragging = true;
 			miniPlayer.style.cursor = 'grabbing';
 		}
 
 		function drag(e) {
 			if (isDragging) {
-				e.preventDefault();
-				currentX = e.clientX - initialX;
-				currentY = e.clientY - initialY;
+				if (e.type === "touchmove") e.preventDefault();
+				
+				const clientX = e.type === "touchmove" ? e.touches[0].clientX : e.clientX;
+				const clientY = e.type === "touchmove" ? e.touches[0].clientY : e.clientY;
+
+				currentX = clientX - initialX;
+				currentY = clientY - initialY;
 				xOffset = currentX;
 				yOffset = currentY;
 				miniPlayer.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
