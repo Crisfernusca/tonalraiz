@@ -643,10 +643,12 @@
 
 		.map-viewport {
 			position: relative;
-			flex: 1.2;
+			flex: 0 0 350px; /* Ancho fijo para estabilidad total */
 			background: transparent;
 			border-radius: 20px;
 			border: 1px solid rgba(255, 255, 255, 0.05);
+			margin: 0 auto;
+			height: fit-content;
 		}
 
 		.map-image {
@@ -661,13 +663,16 @@
 			position: absolute;
 			width: 14px;
 			height: 14px;
-			background: #fff; /* Núcleo blanco brillante para que destaque */
-			border: 2px solid #000; /* Borde negro para contraste absoluto */
+			background: #fff;
+			/* Núcleo blanco brillante para que destaque */
+			border: 2px solid #000;
+			/* Borde negro para contraste absoluto */
 			border-radius: 50%;
 			cursor: pointer;
 			transform: translate(-50%, -50%);
 			z-index: 10;
 			box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+			will-change: transform; /* Optimización para animaciones */
 		}
 
 		/* Efecto pulso */
@@ -678,7 +683,8 @@
 			left: -12px;
 			right: -12px;
 			bottom: -12px;
-			border: 3px solid var(--color-secondary); /* Pulso dorado más grueso */
+			border: 3px solid var(--color-secondary);
+			/* Pulso dorado más grueso */
 			border-radius: 50%;
 			animation: pulse 2s infinite;
 			opacity: 0;
@@ -704,7 +710,7 @@
 		}
 
 		.info-glass-panel {
-			flex: 0.8;
+			flex: 1; /* El panel ocupa el resto del espacio sin empujar el mapa */
 			background: rgba(20, 20, 20, 0.6);
 			backdrop-filter: blur(15px);
 			border-radius: 20px;
@@ -714,6 +720,7 @@
 			flex-direction: column;
 			box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
 			animation: fadeIn 0.5s ease-out;
+			min-height: 600px;
 		}
 
 		.region-title {
@@ -965,32 +972,30 @@
 
 						<div id="explorer-content" style="display: none;">
 							<h3 class="region-title" id="exp-title">Región</h3>
-							<div class="subtitle" id="exp-subtitle">Sotavento</div>
+							
+							<div class="info-extra-box" style="margin-top: 0; background: rgba(212, 175, 55, 0.1);">
+								<span class="info-extra-title">Identidad Cultural:</span>
+								<p id="exp-identity" style="font-size: 0.95rem; font-weight: bold; color: #fff; margin: 0;"></p>
+							</div>
 
 							<div class="data-grid">
-								<div class="data-item"><span class="data-label">Gentilicio</span><span
-										class="data-value" id="exp-gen">-</span></div>
-								<div class="data-item"><span class="data-label">Población</span><span class="data-value"
-										id="exp-pop">-</span></div>
-								<div class="data-item"><span class="data-label">Origen</span><span class="data-value"
-										id="exp-ori">-</span></div>
-								<div class="data-item"><span class="data-label">Ubicación</span><span class="data-value"
-										id="exp-loc">-</span></div>
+								<div class="data-item"><span class="data-label">Clima y Paisaje</span><span class="data-value" id="exp-climate">-</span></div>
+								<div class="data-item"><span class="data-label">Motor Económico</span><span class="data-value" id="exp-economy">-</span></div>
 							</div>
 
 							<div class="info-extra-box">
-								<span class="info-extra-title">Historia y Geografía:</span>
-								<p id="exp-desc" style="font-size: 0.85rem; margin: 0;"></p>
+								<span class="info-extra-title">Dato de Patrimonio:</span>
+								<p id="exp-heritage" style="font-size: 0.85rem; margin: 0;"></p>
 							</div>
 
 							<div class="info-extra-box">
-								<span class="info-extra-title">Música y Danza:</span>
-								<p id="exp-music" style="font-size: 0.85rem; margin: 0;"></p>
+								<span class="info-extra-title">Dato Curioso:</span>
+								<p id="exp-fact" style="font-size: 0.85rem; margin: 0; font-style: italic; opacity: 0.9;"></p>
 							</div>
 
-							<div class="info-extra-box">
-								<span class="info-extra-title">Tradiciones:</span>
-								<p id="exp-fest" style="font-size: 0.85rem; margin: 0;"></p>
+							<div class="info-extra-box" style="border-left-color: rgba(255,255,255,0.3);">
+								<span class="info-extra-title">Municipios de la Región:</span>
+								<p id="exp-mun" style="font-size: 0.75rem; margin: 0; opacity: 0.7; line-height: 1.4; max-height: 120px; overflow-y: auto; padding-right: 5px;"></p>
 							</div>
 						</div>
 					</div>
@@ -1230,123 +1235,93 @@
 		const veracruzData = {
 			huasteca_alta: {
 				title: 'Huasteca Alta',
-				subtitle: 'Puerta del Pánuco',
-				loc: 'Norte Extremo de Veracruz',
-				gen: 'Huasteco / Pánuquense',
-				pop: '~560,000 hab.',
-				ori: 'Cultura Huasteca (Teenek)',
-				desc: 'Región de llanuras y ríos caudalosos. Punto de entrada norte al estado, rica en ganadería y pesca fluvial.',
-				music: 'Huapango Huasteco (Violín, Quinta Huapanguera y Jarana Huasteca). Versada de gran ingenio.',
-				fest: 'Xantolo (Día de Muertos), Carnaval de Pánuco.',
-				fact: 'Su nombre original en náhuatl es "Cuextlan".'
+				identity: 'Huapango Huasteco y Tradición del Xantolo.',
+				climate: 'Cálido subhúmedo, llanuras costeras y ríos.',
+				economy: 'Ganadería bovina de exportación y pesca fluvial.',
+				heritage: 'Pánuco (segundo ayuntamiento de América continental).',
+				fact: 'Su nombre náhuatl "Cuextlan" significa "lugar de caracoles".',
+				mun: '<b>Pánuco</b>, <b>Tantoyuca</b>, <b>Tempoal</b>, Chiconamel, Chalma, Chicontepec, El Higo, Ixcatepec, Ozuluama de Mascareñas, Platón Sánchez, Pueblo Viejo, Tampico Alto, Tantima, Chinampa de Gorostiza, Naranjos Amatlán.'
 			},
 			huasteca_baja: {
 				title: 'Huasteca Baja',
-				subtitle: 'Tierra de Bellos Atardeceres',
-				loc: 'Norte-Centro de Veracruz (Tuxpan)',
-				gen: 'Tuxpeño / Huasteco',
-				pop: '~600,000 hab.',
-				ori: 'Mestizaje Huasteco-Nahua',
-				desc: 'Famosa por sus playas y el puerto de Tuxpan. Es una zona de transición entre la selva y la costa.',
-				music: 'Huapango y Sones de costumbre. Influencia de bandas de viento.',
-				fest: 'Fiesta del Niño Perdido (Tuxpan), Expo Tuxpan.',
-				fact: 'De aquí zarpó el Yate Granma hacia la Revolución Cubana.'
+				identity: 'Mestizaje Nahua y Sones de Costumbre.',
+				climate: 'Cálido húmedo con vegetación de selva media.',
+				economy: 'Puerto comercial estratégico y producción citrícola.',
+				heritage: 'Sitio arqueológico Castillo de Teayo.',
+				fact: 'De Tuxpan zarpó el Yate Granma hacia la Revolución Cubana.',
+				mun: '<b>Tuxpan</b>, <b>Álamo</b>, <b>Cerro Azul</b>, Benito Juárez, Castillo de Teayo, Chicontepec, Chontla, Citlaltépetl, Huayacocotla, Ilamatlán, Ixhuatlán de Madero, Tamalín, Tancoco, Tepetzintla, Texcatepec, Tlachichilco, Zacualpan, Zontecomatlán de López y Fuentes.'
 			},
 			totonaca: {
 				title: 'Totonaca',
-				subtitle: 'La Ciudad de los Tres Corazones',
-				loc: 'Zona Norte-Central (Papantla)',
-				gen: 'Totonaco / Papanteco',
-				pop: '~720,000 hab.',
-				ori: 'Cultura Totonaca (Tajín)',
-				desc: 'Tierra del "Trueno". Región sagrada donde se encuentra la ciudad prehispánica de El Tajín.',
-				music: 'Sones de Voladores, Danza de Guaguas. Influencia de flauta y tamboril.',
-				fest: 'Cumbre Tajín, Corpus Christi, Feria de la Vainilla.',
-				fact: 'Es la cuna mundial de la Vainilla, la orquídea negra.'
+				identity: 'Ritual de los Voladores y Danza de Guaguas.',
+				climate: 'Cálido-Húmedo, selva tropical y costa.',
+				economy: 'Cuna mundial de la Vainilla y producción petrolera.',
+				heritage: 'Ciudad Prehispánica de El Tajín (Patrimonio UNESCO).',
+				fact: 'La vainilla es una orquídea trepadora polinizada originalmente aquí.',
+				mun: '<b>Papantla</b>, <b>Poza Rica</b>, <b>Zozocolco</b>, Cazones de Herrera, Chumatlán, Coahuitlán, Coatzintla, Coxquihui, Coyutla, Espinal, Filomeno Mata, Mecatlán, Tecolutla, Tierralta.'
 			},
 			nautla: {
 				title: 'Nautla',
-				subtitle: 'Costa Esmeralda',
-				loc: 'Zona Costera Central',
-				gen: 'Nautleco / Misanteco',
-				pop: '~400,000 hab.',
-				ori: 'Influencia Francesa y Criolla',
-				desc: 'Hermosa franja costera conocida por sus esteros y la influencia de colonias francesas del siglo XIX.',
-				music: 'Música de viento y sones locales. Influencia del acordeón.',
-				fest: 'Carnaval de Martínez de la Torre, Fiestas de Santa Ana.',
-				fact: 'San Rafael fue una de las colonias francesas más exitosas en México.'
+				identity: 'Influencia Francesa y Costa Esmeralda.',
+				climate: 'Cálido con esteros y humedales.',
+				economy: 'Producción de cítricos de exportación y turismo de playa.',
+				heritage: 'Arquitectura francesa de San Rafael y Misantla.',
+				fact: 'Misantla es conocida como "La Ciudad de los Venados".',
+				mun: '<b>Martínez de la Torre</b>, <b>Misantla</b>, <b>San Rafael</b>, Atzalan, Colipa, Juchique de Ferrer, Nautla, Tenochtitlán, Tlapacoyan, Vega de Alatorre, Yecuatla.'
 			},
 			capital: {
 				title: 'Capital',
-				subtitle: 'La Atenas Veracruzana',
-				loc: 'Región Central Montañosa',
-				gen: 'Xalapeño',
-				pop: '~1,200,000 hab.',
-				ori: 'Cuna de la Academia y el Arte',
-				desc: 'Xalapa es el corazón político y cultural. Ciudad de flores, niebla y cultura universitaria.',
-				music: 'Música de Cámara, Jazz y Son Jarocho urbano experimental.',
-				fest: 'Festival de las Flores, Feria de Coatepec (Café).',
-				fact: 'Coatepec es el primer "Pueblo Mágico" del estado.'
+				identity: 'Atenas Veracruzana, Cultura y Café.',
+				climate: 'Templado húmedo, bosque de niebla y neblina.',
+				economy: 'Servicios gubernamentales, educación y café de altura.',
+				heritage: 'Centro Histórico de Xalapa y Coatepec.',
+				fact: 'Xico es famoso por tener uno de los moles más ricos de México.',
+				mun: '<b>Xalapa</b>, <b>Coatepec</b>, <b>Xico</b>, <b>Naolinco</b>, <b>Perote</b>, Acajete, Acatlán, Actopan, Alto Lucero de Gutiérrez Barrios, Apazapan, Coacoatzintla, Cosautlán de Carvajal, Emiliano Zapata, Ixhuacán de los Reyes, Jalacingo, Jalcomulco, Jilotepec, Landero y Coss, Las Vigas de Ramírez, Miahuatlán, Rafael Lucio, Tatatila, Teocelo, Tepetlán, Tlacolulan, Tlalnelhuayocan, Tonayán, Totutla, Úrsulo Galván, Villa Aldama.'
 			},
 			montanas: {
 				title: 'Las Montañas',
-				subtitle: 'Sinfonía de Altura',
-				loc: 'Zona Centro-Oeste (Orizaba/Córdoba)',
-				gen: 'Orizabeño / Cordobés',
-				pop: '~1,100,000 hab.',
-				ori: 'Hispánico / Industrial',
-				desc: 'Región del Pico de Orizaba. Historia ferroviaria, cafetalera e industrial de gran relevancia.',
-				music: 'Danza de Arrieros, Bandas de Viento y Música de salón.',
-				fest: 'Feria del Café en Córdoba, Fiestas del Carmen.',
-				fact: 'Orizaba fue la ciudad más limpia de México por décadas.'
+				identity: 'Cultura Industrial y Cafetalera.',
+				climate: 'Templado a Frío, alta montaña (Pico de Orizaba).',
+				economy: 'Industria cervecera, textil y producción de café.',
+				heritage: 'Orizaba (Pueblo Mágico) y ex-haciendas de Córdoba.',
+				fact: 'Yanga fue el primer pueblo libre de esclavitud en América.',
+				mun: '<b>Orizaba</b>, <b>Córdoba</b>, <b>Huatusco</b>, <b>Coscomatepec</b>, <b>Zongolica</b>, Amatlán de los Reyes, Acultzingo, Alpatláhuac, Astacinga, Atlahuilco, Camerino Z. Mendoza, Chocamán, Fortín, Ixhuatlán del Café, Ixtaczoquitlán, Mariano Escobedo, Nogales, Paso del Macho, Río Blanco, Soledad Atzompa, Tehuipango, Tequila, Tlaltetela, Tlaquilpa, Tomatlán, Yanga, entre otros.'
 			},
 			sotavento: {
 				title: 'Sotavento',
-				subtitle: 'Corazón Jarocho',
-				loc: 'Llanura Costera Central',
-				gen: 'Jarocho',
-				pop: '~1,300,000 hab.',
-				ori: 'Afromestizo y Caribeño',
-				desc: 'Cuna del Puerto de Veracruz. La zona más alegre y rítmica del estado, puerta de entrada al Caribe.',
-				music: 'Son Jarocho (Arpa, Jarana y Requinto). Influencia africana marcada.',
-				fest: 'Carnaval de Veracruz, Fiestas de Santa Ana en Boca del Río.',
-				fact: 'El Puerto de Veracruz es 4 veces heroico.'
+				identity: 'Son Jarocho y Carnaval.',
+				climate: 'Cálido seco/húmedo, dunas y costa.',
+				economy: 'Puerto de Veracruz y turismo comercial.',
+				heritage: 'San Juan de Ulúa y el Puerto 4 veces heroico.',
+				fact: 'Aquí nació el primer ayuntamiento de América en 1519.',
+				mun: '<b>Veracruz</b>, <b>Boca del Río</b>, <b>La Antigua</b>, Medellín de Bravo, Jamapa, Manlio Fabio Altamirano, Paso de Ovejas, Puente Nacional, Soledad de Doblado, Tlalixcoyan, Ursulo Galván, Cotaxtla.'
 			},
 			papaloapan: {
-				title: 'Papaloapan / Alvarado',
-				subtitle: 'La Cuenca y el Puerto de Valientes',
-				loc: 'Baja Cuenca del Río Papaloapan',
-				gen: 'Alvaradeño / Tlacotalpeño',
-				pop: '~500,000 hab. (región)',
-				ori: 'Afromestizo, Andaluz y Ribereño',
-				desc: 'Tierra de Tlacotalpan y el emblemático puerto de Alvarado. Región de navegantes y poetas donde el río se abraza con el mar. Alvarado destaca por su historia de resistencia y su gente de ingenio inigualable.',
-				music: 'Son Jarocho virtuoso; Alvarado es cuna de grandes arpistas y de un zapateado con cadencia única.',
-				fest: 'Las Cruces de Mayo (Alvarado), Fiestas de la Candelaria (Tlacotalpan), Encuentro de Jaraneros.',
-				fact: 'Alvarado es famoso por su "picardía" (lenguaje ingenioso) y fue clave en la defensa de la soberanía nacional.'
+				title: 'Papaloapan',
+				identity: 'Poesía Ribereña y Picardía Alvaradeña.',
+				climate: 'Cálido húmedo, llanuras de inundación (río Papaloapan).',
+				economy: 'Producción azucarera y ganadería.',
+				heritage: 'Tlacotalpan (Patrimonio Humanidad por la UNESCO).',
+				fact: 'Alvarado es famoso por su concurso anual de arroz a la tumbada.',
+				mun: '<b>Alvarado</b>, <b>Tlacotalpan</b>, <b>Cosamaloapan</b>, Amatitlán, Angel R. Cabada, Chacaltianguis, Ixmatlahuacan, José Azueta, Juan Rodríguez Clara, Lerdo de Tejada, Otatitlán, Playa Vicente, Saltabarranca, Santiago Tuxtla, Tlacojalpan, Tres Valles, Tuxtilla, Carlos A. Carrillo.'
 			},
 			tuxtlas: {
 				title: 'Los Tuxtlas',
-				subtitle: 'Tierra de Brujos y Selva',
-				loc: 'Región Volcánica del Sur',
-				gen: 'Tuxtleco',
-				pop: '~350,000 hab.',
-				ori: 'Olmeca y Misticismo prehispánico',
-				desc: 'Zona de selva, lagunas y volcanes. Corazón místico de Veracruz donde la magia aún vive.',
-				music: 'Son Jarocho con Jaranas de arco. Sonido profundo y telúrico.',
-				fest: 'Primer Viernes de Marzo (Catemaco), Fiestas de Santiago.',
-				fact: 'Se cree que es la reserva de selva más al norte del continente.'
+				identity: 'Misticismo y Selva.',
+				climate: 'Cálido húmedo, selva alta y lagunas volcánicas.',
+				economy: 'Turismo ecológico, tabaco y ganadería.',
+				heritage: 'Reserva de la Biósfera de Los Tuxtlas.',
+				fact: 'Catemaco es la capital mundial de los brujos y chamanes.',
+				mun: '<b>Catemaco</b>, <b>San Andrés Tuxtla</b>, <b>Santiago Tuxtla</b> (comparte zona con Papaloapan), Hueyapan de Ocampo.'
 			},
 			olmeca: {
 				title: 'Olmeca',
-				subtitle: 'Cuna de la Cultura Madre',
-				loc: 'Sur Extremo de Veracruz',
-				gen: 'Olmeca / Coatzacoalqueño',
-				pop: '~1,000,000 hab.',
-				ori: 'Cultura Olmeca',
-				desc: 'Zona petrolera pero con raíces que datan de hace 3000 años. Tierra de los "Hombres del Hule".',
-				music: 'Son Jarocho con fuerte influencia del Istmo y tambores.',
-				fest: 'Expo Feria Coatzacoalcos, Carnaval de Minatitlán.',
-				fact: 'Aquí nació la cultura Olmeca, la primera civilización de Mesoamérica.'
+				identity: 'Cuna de la Cultura Madre Mesoamericana.',
+				climate: 'Cálido húmedo, zona de pantanos y grandes ríos.',
+				economy: 'Industria Petroquímica y ganadería.',
+				heritage: 'Zona Arqueológica de San Lorenzo Tenochtitlán.',
+				fact: 'Los Olmecas inventaron el juego de pelota y el calendario.',
+				mun: '<b>Coatzacoalcos</b>, <b>Minatitlán</b>, <b>Acayucan</b>, <b>Cosoleacaque</b>, Agua Dulce, Chinameca, Hidalgotitlán, Ixhuatlán del Sureste, Jáltipan, Las Choapas, Moloacán, Oluta, Oteapan, Pajapan, San Juan Evangelista, Sayula de Alemán, Soconusco, Texistepec, Zaragoza.'
 			}
 		};
 
@@ -1359,14 +1334,12 @@
 			panel.style.display = 'block';
 
 			document.getElementById('exp-title').innerText = data.title;
-			document.getElementById('exp-subtitle').innerText = data.subtitle;
-			document.getElementById('exp-gen').innerText = data.gen;
-			document.getElementById('exp-pop').innerText = data.pop;
-			document.getElementById('exp-ori').innerText = data.ori;
-			document.getElementById('exp-loc').innerText = data.loc;
-			document.getElementById('exp-desc').innerText = data.desc;
-			document.getElementById('exp-music').innerText = data.music;
-			document.getElementById('exp-fest').innerText = data.fest;
+			document.getElementById('exp-identity').innerText = data.identity;
+			document.getElementById('exp-climate').innerText = data.climate;
+			document.getElementById('exp-economy').innerText = data.economy;
+			document.getElementById('exp-heritage').innerText = data.heritage;
+			document.getElementById('exp-fact').innerText = data.fact;
+			document.getElementById('exp-mun').innerHTML = data.mun;
 		}
 	</script>
 </body>
