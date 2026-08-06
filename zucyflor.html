@@ -587,7 +587,7 @@
 
 		<!-- Contenedor de Imagen -->
 		<div id="lightbox-container" style="width:100%; height:100%; display:flex; justify-content:center; align-items:center;">
-			<img id="img-slot" src="" alt="Cartelera ampliada" style="max-width:90vw; max-height:85vh; border:2px solid var(--color-primary); border-radius:12px; box-shadow:0 0 40px rgba(0,0,0,0.8); cursor:zoom-in; transition:transform 0.25s ease-out; transform-origin:center center;" onclick="event.stopPropagation(); toggleZoom();">
+			<img id="img-slot" src="" alt="Cartelera ampliada" style="max-width:90vw; max-height:85vh; border:2px solid var(--color-primary); border-radius:12px; box-shadow:0 0 40px rgba(0,0,0,0.8); cursor:zoom-in; transform-origin:center center;">
 		</div>
 	</div>
 
@@ -601,6 +601,26 @@
 	<script src="assets/js/main.js"></script>
 	<script>
 		let isZoomed = false;
+		let isDragging = false;
+		let hasMoved = false;
+		let mouseStartX = 0, mouseStartY = 0;
+		let imgX = 0, imgY = 0;
+		let startImgX = 0, startImgY = 0;
+
+		function updateImageTransform(animate = true) {
+			const img = document.getElementById('img-slot');
+			if (!img) return;
+			img.style.transition = animate ? 'transform 0.25s ease-out' : 'none';
+			if (isZoomed) {
+				img.style.transform = `translate(${imgX}px, ${imgY}px) scale(1.8)`;
+				img.style.cursor = isDragging ? 'grabbing' : 'grab';
+			} else {
+				imgX = 0;
+				imgY = 0;
+				img.style.transform = 'translate(0px, 0px) scale(1)';
+				img.style.cursor = 'zoom-in';
+			}
+		}
 
 		function openLightbox(src) {
 			const lb = document.getElementById('lightbox');
@@ -608,8 +628,10 @@
 			if (!lb || !img) return;
 			img.src = src;
 			isZoomed = false;
-			img.style.transform = 'scale(1)';
-			img.style.cursor = 'zoom-in';
+			isDragging = false;
+			imgX = 0;
+			imgY = 0;
+			updateImageTransform(true);
 			lb.style.display = 'flex';
 		}
 
@@ -619,16 +641,10 @@
 		}
 
 		function toggleZoom() {
-			const img = document.getElementById('img-slot');
-			if (!img) return;
 			isZoomed = !isZoomed;
-			if (isZoomed) {
-				img.style.transform = 'scale(1.5)';
-				img.style.cursor = 'zoom-out';
-			} else {
-				img.style.transform = 'scale(1)';
-				img.style.cursor = 'zoom-in';
-			}
+			imgX = 0;
+			imgY = 0;
+			updateImageTransform(true);
 		}
 
 		// Atajo de teclado (ESC para cerrar)
@@ -637,20 +653,55 @@
 		});
 
 		$(function () {
-			// Reveal animation on scroll
-			const observer = new IntersectionObserver((entries) => {
-				entries.forEach(entry => {
-					if (entry.isIntersecting) {
-						$(entry.target).addClass('active').css({ 'opacity': 1, 'transform': 'translateY(0)' });
+			const img = document.getElementById('img-slot');
+
+			if (img) {
+				// Mousedown solo para mover si ya tiene zoom
+				img.addEventListener('mousedown', (e) => {
+					if (e.button !== 0) return; // Solo clic izquierdo
+					if (!isZoomed) return; // SOLO si la imagen ya tiene zoom
+
+					isDragging = true;
+					hasMoved = false;
+					mouseStartX = e.clientX;
+					mouseStartY = e.clientY;
+					startImgX = imgX;
+					startImgY = imgY;
+					updateImageTransform(false); // 1:1 directo sin lag CSS
+					e.preventDefault();
+				});
+
+				window.addEventListener('mousemove', (e) => {
+					if (!isDragging || !isZoomed) return;
+
+					const dx = e.clientX - mouseStartX;
+					const dy = e.clientY - mouseStartY;
+
+					if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+						hasMoved = true;
+					}
+
+					imgX = startImgX + dx;
+					imgY = startImgY + dy;
+					updateImageTransform(false); // Posicionamiento 1:1 instantáneo
+				});
+
+				window.addEventListener('mouseup', () => {
+					if (isDragging) {
+						isDragging = false;
+						updateImageTransform(true);
 					}
 				});
-			}, { threshold: 0.1 });
 
-			$('.reveal').css({ 'opacity': 0, 'transform': 'translateY(30px)', 'transition': 'all 0.8s ease-out' }).each(function () {
-				observer.observe(this);
-			});
-		});
-	</script>
+				img.addEventListener('click', (e) => {
+					e.stopPropagation();
+					if (hasMoved) {
+						hasMoved = false;
+						return; // Si se arrastró la imagen, no alternar zoom al soltar
+					}
+					toggleZoom();
+				});
+			}
 
 			// Reveal animation on scroll
 			const observer = new IntersectionObserver((entries) => {
