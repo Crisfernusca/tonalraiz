@@ -580,12 +580,24 @@
 
 	</div>
 
-	<!-- LIGHTBOX -->
-	<div id="lightbox"
-		style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:20000; justify-content:center; align-items:center;"
-		onclick="this.style.display='none'">
-		<img id="img-slot" src=""
-			style="max-width:90%; max-height:85%; border: 2px solid var(--color-primary); border-radius: 10px;">
+	<!-- LIGHTBOX CON ZOOM INTERACTIVO -->
+	<div id="lightbox" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.92); z-index:20000; overflow:hidden; user-select:none; touch-action:none;">
+		<!-- Botón de Cerrar -->
+		<button onclick="closeLightbox()" aria-label="Cerrar" style="position:absolute; top:20px; right:25px; z-index:20002; background:rgba(255,255,255,0.15); border:none; color:#fff; font-size:1.8rem; width:45px; height:45px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.3s;" onmouseover="this.style.background='var(--color-primary)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">&times;</button>
+		
+		<!-- Barra de Controles de Zoom -->
+		<div style="position:absolute; bottom:25px; left:50%; transform:translateX(-50%); z-index:20002; display:flex; align-items:center; gap:12px; background:rgba(20,20,20,0.85); padding:8px 18px; border-radius:30px; border:1px solid rgba(255,255,255,0.2); backdrop-filter:blur(10px); color:#fff; font-size:0.85rem;">
+			<button onclick="zoomLightbox(-0.3)" style="background:none; border:none; color:#fff; cursor:pointer; font-size:1.1rem; padding:4px 8px;" title="Alejar"><i class="fas fa-search-minus"></i></button>
+			<button onclick="resetLightboxZoom()" style="background:none; border:none; color:var(--color-secondary); cursor:pointer; font-weight:bold; font-size:0.85rem; padding:4px 8px;" title="Restablecer">100%</button>
+			<button onclick="zoomLightbox(0.3)" style="background:none; border:none; color:#fff; cursor:pointer; font-size:1.1rem; padding:4px 8px;" title="Acercar"><i class="fas fa-search-plus"></i></button>
+			<span style="opacity:0.4; margin:0 2px;">|</span>
+			<span style="opacity:0.8; font-size:0.75rem;"><i class="fas fa-mouse"></i> Clic o rueda para zoom • Arrastra para mover</span>
+		</div>
+
+		<!-- Contenedor de Imagen -->
+		<div id="lightbox-container" style="width:100%; height:100%; display:flex; justify-content:center; align-items:center; cursor:grab;">
+			<img id="img-slot" src="" alt="Cartelera ampliada" style="max-width:90vw; max-height:85vh; border:2px solid var(--color-primary); border-radius:12px; box-shadow:0 0 40px rgba(0,0,0,0.8); transition:transform 0.15s cubic-bezier(0.2,0,0,1); transform-origin:center center;">
+		</div>
 	</div>
 
 	<!-- SCRIPTS -->
@@ -597,13 +609,158 @@
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
 	<script>
-		function openLightbox(src) {
-			document.getElementById('lightbox').style.display = 'flex';
-			document.getElementById('img-slot').src = src;
+		let lightboxScale = 1;
+		let lightboxX = 0;
+		let lightboxY = 0;
+		let isDragging = false;
+		let startX = 0, startY = 0;
+
+		function updateLightboxTransform() {
+			const img = document.getElementById('img-slot');
+			if (!img) return;
+			img.style.transform = `translate(${lightboxX}px, ${lightboxY}px) scale(${lightboxScale})`;
+			const container = document.getElementById('lightbox-container');
+			if (container) {
+				container.style.cursor = lightboxScale > 1 ? 'grab' : 'zoom-in';
+			}
 		}
 
-		// Reveal animation on scroll
+		function openLightbox(src) {
+			const lb = document.getElementById('lightbox');
+			const img = document.getElementById('img-slot');
+			if (!lb || !img) return;
+			img.src = src;
+			lightboxScale = 1;
+			lightboxX = 0;
+			lightboxY = 0;
+			updateLightboxTransform();
+			lb.style.display = 'flex';
+		}
+
+		function closeLightbox() {
+			const lb = document.getElementById('lightbox');
+			if (lb) lb.style.display = 'none';
+		}
+
+		function zoomLightbox(delta) {
+			lightboxScale = Math.min(Math.max(0.8, lightboxScale + delta), 4);
+			if (lightboxScale === 1) {
+				lightboxX = 0;
+				lightboxY = 0;
+			}
+			updateLightboxTransform();
+		}
+
+		function resetLightboxZoom() {
+			lightboxScale = 1;
+			lightboxX = 0;
+			lightboxY = 0;
+			updateLightboxTransform();
+		}
+
+		// Atajo de teclado (ESC para cerrar)
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape') closeLightbox();
+		});
+
 		$(function () {
+			const lb = document.getElementById('lightbox');
+			const container = document.getElementById('lightbox-container');
+			const img = document.getElementById('img-slot');
+
+			if (lb && container && img) {
+				// Clic en fondo para cerrar
+				lb.addEventListener('click', (e) => {
+					if (e.target === lb || e.target === container) {
+						closeLightbox();
+					}
+				});
+
+				// Clic en la imagen para toggle zoom
+				img.addEventListener('click', (e) => {
+					e.stopPropagation();
+					if (lightboxScale > 1.2) {
+						resetLightboxZoom();
+					} else {
+						lightboxScale = 2.2;
+						lightboxX = 0;
+						lightboxY = 0;
+						updateLightboxTransform();
+					}
+				});
+
+				// Zoom con rueda del ratón
+				container.addEventListener('wheel', (e) => {
+					e.preventDefault();
+					const delta = e.deltaY < 0 ? 0.25 : -0.25;
+					zoomLightbox(delta);
+				}, { passive: false });
+
+				// Arrastrar (Pan) al estar ampliado
+				container.addEventListener('mousedown', (e) => {
+					if (lightboxScale <= 1) return;
+					isDragging = true;
+					startX = e.clientX - lightboxX;
+					startY = e.clientY - lightboxY;
+					container.style.cursor = 'grabbing';
+				});
+
+				window.addEventListener('mousemove', (e) => {
+					if (!isDragging) return;
+					lightboxX = e.clientX - startX;
+					lightboxY = e.clientY - startY;
+					updateLightboxTransform();
+				});
+
+				window.addEventListener('mouseup', () => {
+					if (isDragging) {
+						isDragging = false;
+						if (container) container.style.cursor = lightboxScale > 1 ? 'grab' : 'zoom-in';
+					}
+				});
+
+				// Gestos táctiles en móviles
+				let initialPinchDist = 0;
+				container.addEventListener('touchstart', (e) => {
+					if (e.touches.length === 1) {
+						if (lightboxScale > 1) {
+							isDragging = true;
+							startX = e.touches[0].clientX - lightboxX;
+							startY = e.touches[0].clientY - lightboxY;
+						}
+					} else if (e.touches.length === 2) {
+						isDragging = false;
+						initialPinchDist = Math.hypot(
+							e.touches[0].clientX - e.touches[1].clientX,
+							e.touches[0].clientY - e.touches[1].clientY
+						);
+					}
+				}, { passive: true });
+
+				container.addEventListener('touchmove', (e) => {
+					if (e.touches.length === 1 && isDragging) {
+						lightboxX = e.touches[0].clientX - startX;
+						lightboxY = e.touches[0].clientY - startY;
+						updateLightboxTransform();
+					} else if (e.touches.length === 2 && initialPinchDist > 0) {
+						const dist = Math.hypot(
+							e.touches[0].clientX - e.touches[1].clientX,
+							e.touches[0].clientY - e.touches[1].clientY
+						);
+						const factor = dist / initialPinchDist;
+						lightboxScale = Math.min(Math.max(0.8, lightboxScale * (factor > 1 ? 1.05 : 0.95)), 4);
+						initialPinchDist = dist;
+						updateLightboxTransform();
+					}
+				}, { passive: true });
+
+				container.addEventListener('touchend', () => {
+					isDragging = false;
+					initialPinchDist = 0;
+				});
+			}
+
+			// Reveal animation on scroll
 			const observer = new IntersectionObserver((entries) => {
 				entries.forEach(entry => {
 					if (entry.isIntersecting) {
