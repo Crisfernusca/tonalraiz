@@ -6,7 +6,7 @@
 	<title>Historias de la Tia Cuca | Comedy & Teatro Premium</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,900&family=Cinzel+Decorative:wght@700;900&display=swap"
+	<link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Yellowtail&family=Dancing+Script:wght@700&display=swap"
 		rel="stylesheet" />
 	<link rel="stylesheet" href="assets/css/main.css" />
 	<noscript>
@@ -26,59 +26,101 @@
 			--container-width: 1100px;
 		}
 
-		/* VINTAGE BROADWAY NEON SIGN */
-		.broadway-neon-title {
-			font-family: 'Playfair Display', 'Cinzel Decorative', serif;
-			font-style: italic;
-			font-size: clamp(1.1rem, 3.4vw, 3.6rem) !important;
-			white-space: nowrap !important;
-			font-weight: 900;
-			letter-spacing: 1px;
-			color: #ffffff !important;
-			text-transform: uppercase;
-			margin: 0 auto 25px auto;
+		/* INSIGNIA RETRO NEON EXACTA A LA REFERENCIA */
+		.retro-neon-sign {
+			position: relative;
 			display: inline-block;
-			padding: 12px 32px;
-			border: 2px solid rgba(233, 30, 99, 0.5);
-			border-radius: 60px;
-			background: rgba(10, 10, 10, 0.55);
-			backdrop-filter: blur(12px);
-			text-shadow: 
-				0 0 4px #ffffff,
-				0 0 10px #ffffff,
-				0 0 20px #e91e63,
-				0 0 35px #e91e63,
-				0 0 55px #e91e63,
-				0 0 75px #d4af37,
-				0 0 95px #d4af37;
-			box-shadow: 0 0 25px rgba(233, 30, 99, 0.4), inset 0 0 20px rgba(233, 30, 99, 0.2);
-			animation: vintageNeonGlow 3s infinite alternate ease-in-out;
+			padding: 12px;
+			margin: 15px auto 30px auto;
+			max-width: 100%;
 		}
 
-		@keyframes vintageNeonGlow {
-			0% {
-				text-shadow: 
-					0 0 3px #ffffff,
-					0 0 8px #ffffff,
-					0 0 15px #e91e63,
-					0 0 25px #e91e63,
-					0 0 40px #e91e63,
-					0 0 60px #d4af37;
-				border-color: rgba(233, 30, 99, 0.4);
-				box-shadow: 0 0 15px rgba(233, 30, 99, 0.3), inset 0 0 15px rgba(233, 30, 99, 0.15);
-			}
-			100% {
-				text-shadow: 
-					0 0 6px #ffffff,
-					0 0 12px #ffffff,
-					0 0 25px #e91e63,
-					0 0 45px #e91e63,
-					0 0 65px #e91e63,
-					0 0 85px #d4af37,
-					0 0 105px #d4af37;
-				border-color: rgba(212, 175, 55, 0.7);
-				box-shadow: 0 0 30px rgba(233, 30, 99, 0.6), inset 0 0 25px rgba(212, 175, 55, 0.3);
-			}
+		.neon-bulb-ring {
+			position: absolute;
+			inset: 0;
+			border: 4px dotted #ffca28;
+			border-radius: 90px;
+			box-shadow: 0 0 15px #ffb300, inset 0 0 15px #ffb300;
+			filter: drop-shadow(0 0 8px #ffe082);
+			opacity: 0.95;
+			animation: bulbPulse 2s infinite alternate ease-in-out;
+		}
+
+		.neon-blue-frame {
+			position: relative;
+			padding: 20px 45px;
+			border: 3px solid #00e5ff;
+			border-radius: 80px;
+			box-shadow: 
+				0 0 12px #00e5ff,
+				0 0 28px #00e5ff,
+				inset 0 0 12px #00e5ff,
+				inset 0 0 28px #00e5ff;
+			background: rgba(8, 8, 15, 0.7);
+			backdrop-filter: blur(10px);
+			animation: blueFramePulse 3s infinite alternate ease-in-out;
+		}
+
+		.neon-pink-script {
+			font-family: 'Sacramento', 'Yellowtail', cursive !important;
+			font-size: clamp(2rem, 5vw, 4.6rem) !important;
+			white-space: nowrap !important;
+			font-weight: 400;
+			color: #ffffff !important;
+			margin: 0 !important;
+			line-height: 1.1;
+			text-align: center;
+			text-transform: none !important;
+			letter-spacing: 1px;
+			text-shadow: 
+				0 0 5px #ffffff,
+				0 0 10px #ffffff,
+				0 0 20px #ff2a8d,
+				0 0 35px #ff2a8d,
+				0 0 55px #ff2a8d,
+				0 0 75px #ff2a8d,
+				0 0 100px #ff2a8d;
+			animation: pinkNeonPulse 2.5s infinite alternate ease-in-out;
+		}
+
+		.neon-yellow-script {
+			font-family: 'Yellowtail', 'Dancing Script', cursive !important;
+			font-size: clamp(1.2rem, 2.8vw, 2.4rem) !important;
+			white-space: nowrap !important;
+			font-weight: 400;
+			color: #ffffff !important;
+			margin: 5px 0 0 0 !important;
+			text-align: center;
+			text-transform: none !important;
+			letter-spacing: 1px;
+			text-shadow: 
+				0 0 4px #ffffff,
+				0 0 8px #ffffff,
+				0 0 15px #ffd54f,
+				0 0 30px #ffb300,
+				0 0 45px #ffb300,
+				0 0 65px #ff8f00;
+			animation: yellowNeonPulse 2.8s infinite alternate ease-in-out;
+		}
+
+		@keyframes bulbPulse {
+			0% { opacity: 0.8; box-shadow: 0 0 10px #ffb300, inset 0 0 10px #ffb300; }
+			100% { opacity: 1; box-shadow: 0 0 24px #ffd54f, inset 0 0 24px #ffd54f; }
+		}
+
+		@keyframes blueFramePulse {
+			0% { box-shadow: 0 0 8px #00b0ff, 0 0 20px #00b0ff, inset 0 0 8px #00b0ff; }
+			100% { box-shadow: 0 0 18px #00e5ff, 0 0 35px #00e5ff, inset 0 0 18px #00e5ff; }
+		}
+
+		@keyframes pinkNeonPulse {
+			0% { text-shadow: 0 0 4px #fff, 0 0 8px #fff, 0 0 18px #ff2a8d, 0 0 30px #ff2a8d, 0 0 50px #ff2a8d; }
+			100% { text-shadow: 0 0 6px #fff, 0 0 12px #fff, 0 0 24px #ff2a8d, 0 0 42px #ff2a8d, 0 0 70px #ff2a8d, 0 0 90px #ff2a8d; }
+		}
+
+		@keyframes yellowNeonPulse {
+			0% { text-shadow: 0 0 3px #fff, 0 0 6px #fff, 0 0 12px #ffd54f, 0 0 24px #ffb300; }
+			100% { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 18px #ffd54f, 0 0 36px #ffb300, 0 0 55px #ff8f00; }
 		}
 
 		body {
@@ -444,11 +486,16 @@
 			<div class="overlay"></div>
 			<div class="inner">
 				<span class="tagline">Próxima Temporada 2026</span>
-				<h1 class="broadway-neon-title">"Historias de la Tía Cuca"</h1>
-				<p class="show-title"
-					style="font-size: clamp(1rem, 2.5vw, 1.6rem); font-style: normal; color: var(--color-secondary); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);">
-					ZucyFlor y Yeye Presentan
-				</p>
+				
+				<!-- INSIGNIA NEÓN RETRO VINTAGE (RECIPIENTE DE REFERENCIA) -->
+				<div class="retro-neon-sign">
+					<div class="neon-bulb-ring"></div>
+					<div class="neon-blue-frame">
+						<h1 class="neon-pink-script">Historias de la Tía Cuca</h1>
+						<p class="neon-yellow-script">ZucyFlor y Yeye Presentan</p>
+					</div>
+				</div>
+
 				<div class="btn-group">
 					<a href="#cartelera" class="btn-main scrolly">Cartelera</a>
 					<!-- <a href="#galeria" class="btn-outline scrolly">Galería</a> -->
