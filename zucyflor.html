@@ -652,15 +652,26 @@
 			if (e.key === 'Escape') closeLightbox();
 		});
 
+		// Desactivar completamente la función nativa de arrastrar archivos/imágenes del navegador
+		document.addEventListener('dragstart', (e) => e.preventDefault());
+		document.addEventListener('dragover', (e) => e.preventDefault());
+		document.addEventListener('drop', (e) => e.preventDefault());
+
 		$(function () {
 			const img = document.getElementById('img-slot');
+			const container = document.getElementById('lightbox-container');
+
+			if (container) {
+				container.addEventListener('dragstart', (e) => e.preventDefault());
+				container.addEventListener('mousedown', (e) => e.preventDefault());
+			}
 
 			if (img) {
-				// Evitar el arrastre nativo del navegador (icono 🚫 de arrastrar archivo)
 				img.addEventListener('dragstart', (e) => e.preventDefault());
 
 				// Mousedown solo para mover si ya tiene zoom
 				img.addEventListener('mousedown', (e) => {
+					e.preventDefault(); // NUNCA permitir arrastre nativo (evita icono 🚫)
 					if (e.button !== 0) return; // Solo clic izquierdo
 					if (!isZoomed) return; // SOLO si la imagen ya tiene zoom
 
@@ -671,7 +682,6 @@
 					startImgX = imgX;
 					startImgY = imgY;
 					updateImageTransform(false); // 1:1 directo sin lag CSS
-					e.preventDefault();
 				});
 
 				window.addEventListener('mousemove', (e) => {
