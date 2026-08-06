@@ -580,14 +580,14 @@
 
 	</div>
 
-	<!-- LIGHTBOX CON ZOOM INTERACTIVO -->
-	<div id="lightbox" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.92); z-index:20000; overflow:hidden; user-select:none; touch-action:none;">
+	<!-- LIGHTBOX SIMPLE Y LIMPIO -->
+	<div id="lightbox" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.92); z-index:20000; overflow:hidden; user-select:none; justify-content:center; align-items:center;" onclick="closeLightbox()">
 		<!-- Botón de Cerrar -->
 		<button onclick="closeLightbox()" aria-label="Cerrar" style="position:absolute; top:20px; right:25px; z-index:20002; background:rgba(255,255,255,0.15); border:none; color:#fff; font-size:1.8rem; width:45px; height:45px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.3s;" onmouseover="this.style.background='var(--color-primary)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">&times;</button>
 
 		<!-- Contenedor de Imagen -->
-		<div id="lightbox-container" style="width:100%; height:100%; display:flex; justify-content:center; align-items:center; cursor:default;">
-			<img id="img-slot" src="" alt="Cartelera ampliada" style="max-width:90vw; max-height:85vh; border:2px solid var(--color-primary); border-radius:12px; box-shadow:0 0 40px rgba(0,0,0,0.8); transform-origin:center center; cursor:zoom-in;">
+		<div id="lightbox-container" style="width:100%; height:100%; display:flex; justify-content:center; align-items:center;">
+			<img id="img-slot" src="" alt="Cartelera ampliada" style="max-width:90vw; max-height:85vh; border:2px solid var(--color-primary); border-radius:12px; box-shadow:0 0 40px rgba(0,0,0,0.8); cursor:zoom-in; transition:transform 0.25s ease-out; transform-origin:center center;" onclick="event.stopPropagation(); toggleZoom();">
 		</div>
 	</div>
 
@@ -600,42 +600,16 @@
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
 	<script>
-		let lightboxScale = 1;
-		let lightboxX = 0;
-		let lightboxY = 0;
-		let isDragging = false;
-		let startX = 0, startY = 0;
-
-		function updateLightboxTransform(animate = true) {
-			const img = document.getElementById('img-slot');
-			if (!img) return;
-			img.style.transition = animate ? 'transform 0.2s cubic-bezier(0.2, 0, 0, 1)' : 'none';
-			img.style.transform = `translate(${lightboxX}px, ${lightboxY}px) scale(${lightboxScale})`;
-			
-			const container = document.getElementById('lightbox-container');
-			if (container) {
-				if (isDragging) {
-					container.style.cursor = 'grabbing';
-					img.style.cursor = 'grabbing';
-				} else if (lightboxScale > 1) {
-					container.style.cursor = 'grab';
-					img.style.cursor = 'grab';
-				} else {
-					container.style.cursor = 'default';
-					img.style.cursor = 'zoom-in';
-				}
-			}
-		}
+		let isZoomed = false;
 
 		function openLightbox(src) {
 			const lb = document.getElementById('lightbox');
 			const img = document.getElementById('img-slot');
 			if (!lb || !img) return;
 			img.src = src;
-			lightboxScale = 1;
-			lightboxX = 0;
-			lightboxY = 0;
-			updateLightboxTransform(true);
+			isZoomed = false;
+			img.style.transform = 'scale(1)';
+			img.style.cursor = 'zoom-in';
 			lb.style.display = 'flex';
 		}
 
@@ -644,20 +618,17 @@
 			if (lb) lb.style.display = 'none';
 		}
 
-		function zoomLightbox(delta) {
-			lightboxScale = Math.min(Math.max(0.8, lightboxScale + delta), 4);
-			if (lightboxScale === 1) {
-				lightboxX = 0;
-				lightboxY = 0;
+		function toggleZoom() {
+			const img = document.getElementById('img-slot');
+			if (!img) return;
+			isZoomed = !isZoomed;
+			if (isZoomed) {
+				img.style.transform = 'scale(1.5)';
+				img.style.cursor = 'zoom-out';
+			} else {
+				img.style.transform = 'scale(1)';
+				img.style.cursor = 'zoom-in';
 			}
-			updateLightboxTransform(true);
-		}
-
-		function resetLightboxZoom() {
-			lightboxScale = 1;
-			lightboxX = 0;
-			lightboxY = 0;
-			updateLightboxTransform(true);
 		}
 
 		// Atajo de teclado (ESC para cerrar)
@@ -665,121 +636,21 @@
 			if (e.key === 'Escape') closeLightbox();
 		});
 
-		// Interceptar la rueda del ratón y Ctrl + Rueda a nivel ventana para evitar el zoom del navegador
-		window.addEventListener('wheel', (e) => {
-			const lb = document.getElementById('lightbox');
-			if (lb && lb.style.display !== 'none') {
-				e.preventDefault();
-				const delta = e.deltaY < 0 ? 0.3 : -0.3;
-				zoomLightbox(delta);
-			}
-		}, { passive: false });
-
 		$(function () {
-			const lb = document.getElementById('lightbox');
-			const container = document.getElementById('lightbox-container');
-			const img = document.getElementById('img-slot');
-
-			if (lb && container && img) {
-				let hasDragged = false;
-				let mouseStartX = 0, mouseStartY = 0;
-
-				// Clic en fondo para cerrar
-				lb.addEventListener('click', (e) => {
-					if (e.target === lb || e.target === container) {
-						closeLightbox();
+			// Reveal animation on scroll
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						$(entry.target).addClass('active').css({ 'opacity': 1, 'transform': 'translateY(0)' });
 					}
 				});
+			}, { threshold: 0.1 });
 
-				// Clic en la imagen para toggle zoom (solo si no se arrastró)
-				img.addEventListener('click', (e) => {
-					e.stopPropagation();
-					if (hasDragged) {
-						hasDragged = false;
-						return;
-					}
-					if (lightboxScale > 1.2) {
-						resetLightboxZoom();
-					} else {
-						lightboxScale = 2.2;
-						lightboxX = 0;
-						lightboxY = 0;
-						updateLightboxTransform(true);
-					}
-				});
-
-				// Arrastrar (Pan) con clic izquierdo sostenido
-				container.addEventListener('mousedown', (e) => {
-					if (e.button !== 0) return; // Solo clic izquierdo
-					if (lightboxScale <= 1) return;
-					isDragging = true;
-					hasDragged = false;
-					mouseStartX = e.clientX;
-					mouseStartY = e.clientY;
-					startX = e.clientX - lightboxX;
-					startY = e.clientY - lightboxY;
-					updateLightboxTransform(false);
-				});
-
-				window.addEventListener('mousemove', (e) => {
-					if (!isDragging) return;
-					const dx = Math.abs(e.clientX - mouseStartX);
-					const dy = Math.abs(e.clientY - mouseStartY);
-					if (dx > 4 || dy > 4) {
-						hasDragged = true;
-					}
-					lightboxX = e.clientX - startX;
-					lightboxY = e.clientY - startY;
-					updateLightboxTransform(false);
-				});
-
-				window.addEventListener('mouseup', () => {
-					if (isDragging) {
-						isDragging = false;
-						updateLightboxTransform(true);
-					}
-				});
-
-				// Gestos táctiles en móviles
-				let initialPinchDist = 0;
-				container.addEventListener('touchstart', (e) => {
-					if (e.touches.length === 1) {
-						if (lightboxScale > 1) {
-							isDragging = true;
-							startX = e.touches[0].clientX - lightboxX;
-							startY = e.touches[0].clientY - lightboxY;
-						}
-					} else if (e.touches.length === 2) {
-						isDragging = false;
-						initialPinchDist = Math.hypot(
-							e.touches[0].clientX - e.touches[1].clientX,
-							e.touches[0].clientY - e.touches[1].clientY
-						);
-					}
-				}, { passive: true });
-
-				container.addEventListener('touchmove', (e) => {
-					if (e.touches.length === 1 && isDragging) {
-						lightboxX = e.touches[0].clientX - startX;
-						lightboxY = e.touches[0].clientY - startY;
-						updateLightboxTransform();
-					} else if (e.touches.length === 2 && initialPinchDist > 0) {
-						const dist = Math.hypot(
-							e.touches[0].clientX - e.touches[1].clientX,
-							e.touches[0].clientY - e.touches[1].clientY
-						);
-						const factor = dist / initialPinchDist;
-						lightboxScale = Math.min(Math.max(0.8, lightboxScale * (factor > 1 ? 1.05 : 0.95)), 4);
-						initialPinchDist = dist;
-						updateLightboxTransform();
-					}
-				}, { passive: true });
-
-				container.addEventListener('touchend', () => {
-					isDragging = false;
-					initialPinchDist = 0;
-				});
-			}
+			$('.reveal').css({ 'opacity': 0, 'transform': 'translateY(30px)', 'transition': 'all 0.8s ease-out' }).each(function () {
+				observer.observe(this);
+			});
+		});
+	</script>
 
 			// Reveal animation on scroll
 			const observer = new IntersectionObserver((entries) => {
