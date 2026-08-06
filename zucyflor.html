@@ -586,8 +586,8 @@
 		<button onclick="closeLightbox()" aria-label="Cerrar" style="position:absolute; top:20px; right:25px; z-index:20002; background:rgba(255,255,255,0.15); border:none; color:#fff; font-size:1.8rem; width:45px; height:45px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.3s;" onmouseover="this.style.background='var(--color-primary)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">&times;</button>
 
 		<!-- Contenedor de Imagen -->
-		<div id="lightbox-container" style="width:100%; height:100%; display:flex; justify-content:center; align-items:center; cursor:grab;">
-			<img id="img-slot" src="" alt="Cartelera ampliada" style="max-width:90vw; max-height:85vh; border:2px solid var(--color-primary); border-radius:12px; box-shadow:0 0 40px rgba(0,0,0,0.8); transition:transform 0.15s cubic-bezier(0.2,0,0,1); transform-origin:center center;">
+		<div id="lightbox-container" style="width:100%; height:100%; display:flex; justify-content:center; align-items:center; cursor:default;">
+			<img id="img-slot" src="" alt="Cartelera ampliada" style="max-width:90vw; max-height:85vh; border:2px solid var(--color-primary); border-radius:12px; box-shadow:0 0 40px rgba(0,0,0,0.8); transform-origin:center center; cursor:zoom-in;">
 		</div>
 	</div>
 
@@ -606,13 +606,24 @@
 		let isDragging = false;
 		let startX = 0, startY = 0;
 
-		function updateLightboxTransform() {
+		function updateLightboxTransform(animate = true) {
 			const img = document.getElementById('img-slot');
 			if (!img) return;
+			img.style.transition = animate ? 'transform 0.2s cubic-bezier(0.2, 0, 0, 1)' : 'none';
 			img.style.transform = `translate(${lightboxX}px, ${lightboxY}px) scale(${lightboxScale})`;
+			
 			const container = document.getElementById('lightbox-container');
 			if (container) {
-				container.style.cursor = lightboxScale > 1 ? 'grab' : 'zoom-in';
+				if (isDragging) {
+					container.style.cursor = 'grabbing';
+					img.style.cursor = 'grabbing';
+				} else if (lightboxScale > 1) {
+					container.style.cursor = 'grab';
+					img.style.cursor = 'grab';
+				} else {
+					container.style.cursor = 'default';
+					img.style.cursor = 'zoom-in';
+				}
 			}
 		}
 
@@ -624,7 +635,7 @@
 			lightboxScale = 1;
 			lightboxX = 0;
 			lightboxY = 0;
-			updateLightboxTransform();
+			updateLightboxTransform(true);
 			lb.style.display = 'flex';
 		}
 
@@ -639,14 +650,14 @@
 				lightboxX = 0;
 				lightboxY = 0;
 			}
-			updateLightboxTransform();
+			updateLightboxTransform(true);
 		}
 
 		function resetLightboxZoom() {
 			lightboxScale = 1;
 			lightboxX = 0;
 			lightboxY = 0;
-			updateLightboxTransform();
+			updateLightboxTransform(true);
 		}
 
 		// Atajo de teclado (ESC para cerrar)
@@ -693,7 +704,7 @@
 						lightboxScale = 2.2;
 						lightboxX = 0;
 						lightboxY = 0;
-						updateLightboxTransform();
+						updateLightboxTransform(true);
 					}
 				});
 
@@ -707,7 +718,7 @@
 					mouseStartY = e.clientY;
 					startX = e.clientX - lightboxX;
 					startY = e.clientY - lightboxY;
-					container.style.cursor = 'grabbing';
+					updateLightboxTransform(false);
 				});
 
 				window.addEventListener('mousemove', (e) => {
@@ -719,13 +730,13 @@
 					}
 					lightboxX = e.clientX - startX;
 					lightboxY = e.clientY - startY;
-					updateLightboxTransform();
+					updateLightboxTransform(false);
 				});
 
 				window.addEventListener('mouseup', () => {
 					if (isDragging) {
 						isDragging = false;
-						if (container) container.style.cursor = lightboxScale > 1 ? 'grab' : 'zoom-in';
+						updateLightboxTransform(true);
 					}
 				});
 
