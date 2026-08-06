@@ -28,10 +28,14 @@
 			/* ================================================================= */
 			/* CONTROLES DE ANCHO Y DIMENSIONES DEL VIDEO MARQUESINA (AJUSTABLE) */
 			/* ================================================================= */
-			--video-marquee-max-width: 1000px;  /* <--- EDITA AQUÍ EL ANCHO MÁXIMO EN ESCRITORIO (ej: 800px, 1000px, 1200px) */
-			--video-marquee-width-desktop: 100%; /* <--- ANCHO RELATIVO EN ESCRITORIO */
-			--video-marquee-width-tablet: 95%;   /* <--- ANCHO AUTOMÁTICO EN TABLETS */
-			--video-marquee-width-mobile: 100%;  /* <--- ANCHO AUTOMÁTICO EN TELÉFONOS */
+			--video-marquee-max-width: 1000px;
+			/* <--- EDITA AQUÍ EL ANCHO MÁXIMO EN ESCRITORIO (ej: 800px, 1000px, 1200px) */
+			--video-marquee-width-desktop: 100%;
+			/* <--- ANCHO RELATIVO EN ESCRITORIO */
+			--video-marquee-width-tablet: 95%;
+			/* <--- ANCHO AUTOMÁTICO EN TABLETS */
+			--video-marquee-width-mobile: 100%;
+			/* <--- ANCHO AUTOMÁTICO EN TELÉFONOS */
 		}
 
 		/* MARQUESINA VIDEO NEÓN (ESTILO GIF ININTERRUMPIDO & RESPONSIVO) */
@@ -43,7 +47,8 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			pointer-events: none; /* Imposible de pausar, clickear o arrastrar */
+			pointer-events: none;
+			/* Imposible de pausar, clickear o arrastrar */
 			user-select: none;
 			transition: all 0.3s ease;
 		}
@@ -455,16 +460,9 @@
 
 				<!-- MARQUESINA VIDEO NEÓN (FORMATO GIF EN LOOP ININTERRUMPIDO 1792x592) -->
 				<div class="neon-video-wrapper">
-					<video 
-						src="videos/historias_tia_cuca_neon.mp4" 
-						autoplay 
-						loop 
-						muted 
-						playsinline 
-						disablepictureinpicture 
-						controlslist="nodownload nofullscreen noremoteplayback"
-						aria-label="Historias de la Tía Cuca - ZucyFlor y Yeye Presentan"
-						class="neon-video-marquee">
+					<video src="videos/historias_tia_cuca_neon.mp4" autoplay loop muted playsinline
+						disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"
+						aria-label="Historias de la Tía Cuca - ZucyFlor y Yeye Presentan" class="neon-video-marquee">
 					</video>
 					<h1 class="sr-only">Historias de la Tía Cuca - ZucyFlor y Yeye Presentan</h1>
 				</div>
