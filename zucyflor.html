@@ -6,6 +6,7 @@
 	<title>ZucyFlor – Historias de la Tia Cuca | Comedy & Teatro Premium</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet" />
 	<link rel="stylesheet" href="assets/css/main.css" />
 	<noscript>
 		<link rel="stylesheet" href="assets/css/noscript.css" />
@@ -22,6 +23,32 @@
 			--color-card-bg: rgba(20, 20, 20, 0.6);
 			--color-text: #ffffff;
 			--container-width: 1100px;
+		}
+
+		/* TITULO BROADWAY VINTAGE NEON */
+		.broadway-neon-title {
+			font-family: 'Cinzel Decorative', 'Playfair Display', serif;
+			font-size: clamp(1.4rem, 4.4vw, 4.4rem) !important;
+			white-space: nowrap !important;
+			font-weight: 900;
+			letter-spacing: 2px;
+			color: #ffffff;
+			text-transform: uppercase;
+			margin-bottom: 20px;
+			background: linear-gradient(180deg, #ffffff 0%, #ffeaa7 45%, #d4af37 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			filter: drop-shadow(0 0 12px rgba(233, 30, 99, 0.85)) drop-shadow(0 0 25px rgba(212, 175, 55, 0.7)) drop-shadow(0 0 45px rgba(233, 30, 99, 0.5));
+			animation: neonGlowPulse 2.5s infinite alternate ease-in-out;
+		}
+
+		@keyframes neonGlowPulse {
+			0% {
+				filter: drop-shadow(0 0 8px rgba(233, 30, 99, 0.7)) drop-shadow(0 0 20px rgba(212, 175, 55, 0.5));
+			}
+			100% {
+				filter: drop-shadow(0 0 18px rgba(233, 30, 99, 1)) drop-shadow(0 0 35px rgba(212, 175, 55, 0.95)) drop-shadow(0 0 55px rgba(233, 30, 99, 0.7));
+			}
 		}
 
 		body {
@@ -387,10 +414,9 @@
 			<div class="overlay"></div>
 			<div class="inner">
 				<span class="tagline">Próxima Temporada 2026</span>
-				<h2 style="font-size: clamp(2.4rem, 6.5vw, 5.2rem); margin-bottom: 15px;">"Historias de la Tía Cuca"
-				</h2>
+				<h1 class="broadway-neon-title">"Historias de la Tía Cuca"</h1>
 				<p class="show-title"
-					style="font-size: clamp(1.1rem, 2.8vw, 1.8rem); font-style: normal; color: var(--color-secondary); font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">
+					style="font-size: clamp(1rem, 2.5vw, 1.6rem); font-style: normal; color: var(--color-secondary); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);">
 					ZucyFlor y Yeye Presentan
 				</p>
 				<div class="btn-group">
