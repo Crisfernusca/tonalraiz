@@ -670,6 +670,9 @@
 			const img = document.getElementById('img-slot');
 
 			if (lb && container && img) {
+				let hasDragged = false;
+				let mouseStartX = 0, mouseStartY = 0;
+
 				// Clic en fondo para cerrar
 				lb.addEventListener('click', (e) => {
 					if (e.target === lb || e.target === container) {
@@ -677,9 +680,13 @@
 					}
 				});
 
-				// Clic en la imagen para toggle zoom
+				// Clic en la imagen para toggle zoom (solo si no se arrastró)
 				img.addEventListener('click', (e) => {
 					e.stopPropagation();
+					if (hasDragged) {
+						hasDragged = false;
+						return;
+					}
 					if (lightboxScale > 1.2) {
 						resetLightboxZoom();
 					} else {
@@ -690,10 +697,14 @@
 					}
 				});
 
-				// Arrastrar (Pan) al estar ampliado
+				// Arrastrar (Pan) con clic izquierdo sostenido
 				container.addEventListener('mousedown', (e) => {
+					if (e.button !== 0) return; // Solo clic izquierdo
 					if (lightboxScale <= 1) return;
 					isDragging = true;
+					hasDragged = false;
+					mouseStartX = e.clientX;
+					mouseStartY = e.clientY;
 					startX = e.clientX - lightboxX;
 					startY = e.clientY - lightboxY;
 					container.style.cursor = 'grabbing';
@@ -701,6 +712,11 @@
 
 				window.addEventListener('mousemove', (e) => {
 					if (!isDragging) return;
+					const dx = Math.abs(e.clientX - mouseStartX);
+					const dy = Math.abs(e.clientY - mouseStartY);
+					if (dx > 4 || dy > 4) {
+						hasDragged = true;
+					}
 					lightboxX = e.clientX - startX;
 					lightboxY = e.clientY - startY;
 					updateLightboxTransform();
