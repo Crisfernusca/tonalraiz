@@ -580,6 +580,13 @@
 
 	</div>
 
+	<style>
+		.dragging-active, .dragging-active * {
+			cursor: grabbing !important;
+			user-select: none !important;
+			-webkit-user-select: none !important;
+		}
+	</style>
 	<!-- LIGHTBOX SIMPLE Y LIMPIO -->
 	<div id="lightbox" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.92); z-index:20000; overflow:hidden; user-select:none; justify-content:center; align-items:center;" onclick="closeLightbox()">
 		<!-- Botón de Cerrar -->
@@ -631,6 +638,7 @@
 			isDragging = false;
 			imgX = 0;
 			imgY = 0;
+			document.body.classList.remove('dragging-active');
 			updateImageTransform(true);
 			lb.style.display = 'flex';
 		}
@@ -638,6 +646,7 @@
 		function closeLightbox() {
 			const lb = document.getElementById('lightbox');
 			if (lb) lb.style.display = 'none';
+			document.body.classList.remove('dragging-active');
 		}
 
 		function toggleZoom() {
@@ -659,12 +668,6 @@
 
 		$(function () {
 			const img = document.getElementById('img-slot');
-			const container = document.getElementById('lightbox-container');
-
-			if (container) {
-				container.addEventListener('dragstart', (e) => e.preventDefault());
-				container.addEventListener('mousedown', (e) => e.preventDefault());
-			}
 
 			if (img) {
 				img.addEventListener('dragstart', (e) => e.preventDefault());
@@ -681,6 +684,7 @@
 					mouseStartY = e.clientY;
 					startImgX = imgX;
 					startImgY = imgY;
+					document.body.classList.add('dragging-active');
 					updateImageTransform(false); // 1:1 directo sin lag CSS
 				});
 
@@ -702,6 +706,7 @@
 				window.addEventListener('mouseup', () => {
 					if (isDragging) {
 						isDragging = false;
+						document.body.classList.remove('dragging-active');
 						updateImageTransform(true);
 					}
 				});
