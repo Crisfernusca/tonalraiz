@@ -26,60 +26,41 @@
 			--container-width: 1100px;
 		}
 
-		/* NUEVA INSIGNIA NEÓN HD DE ALTA DEFINICIÓN (REFERENCIA 2) */
-		.neon-glass-panel {
-			display: inline-block;
+		/* MARQUESINA VIDEO NEÓN (ESTILO GIF ININTERRUMPIDO) */
+		.neon-video-wrapper {
+			width: 100%;
+			max-width: 900px;
+			margin: 20px auto 30px auto;
 			position: relative;
-			padding: 25px 45px;
-			margin: 20px auto 35px auto;
-			border: 2px solid rgba(0, 240, 255, 0.4);
-			border-radius: 30px;
-			background: rgba(10, 10, 15, 0.65);
-			backdrop-filter: blur(12px);
-			box-shadow: 
-				0 0 25px rgba(0, 240, 255, 0.25),
-				0 0 35px rgba(255, 0, 127, 0.2),
-				inset 0 0 15px rgba(0, 240, 255, 0.15);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			pointer-events: none; /* Imposible de pausar, clickear o arrastrar */
+			user-select: none;
 		}
 
-		/* TITULO NEON AZUL CYAN ULTRA NITIDO (CURSIVA HOLLOW NEON) */
-		.neon-cyan-title {
-			font-family: 'Great Vibes', cursive !important;
-			font-size: clamp(2.4rem, 5.5vw, 5.2rem) !important;
-			white-space: nowrap !important;
-			font-weight: 400;
-			color: #ffffff !important;
-			margin: 0 0 10px 0 !important;
-			line-height: 1.1;
-			text-align: center;
-			letter-spacing: 1px;
-			text-shadow: 
-				0 0 2px #ffffff,
-				0 0 6px #00f0ff,
-				0 0 12px #00f0ff,
-				0 0 22px #00b0ff,
-				0 0 38px #00b0ff;
-			filter: drop-shadow(0 0 4px #00f0ff);
+		.neon-video-marquee {
+			width: 100%;
+			height: auto;
+			aspect-ratio: 1792 / 592;
+			object-fit: contain;
+			display: block;
+			border-radius: 20px;
+			pointer-events: none;
+			filter: drop-shadow(0 0 25px rgba(233, 30, 99, 0.4)) drop-shadow(0 0 35px rgba(0, 229, 255, 0.3));
 		}
 
-		/* SUBTITULO NEON ROSA MAGENTA NITIDO (GEOMETRIC SANS-SERIF) */
-		.neon-pink-subtitle {
-			font-family: 'Outfit', sans-serif !important;
-			font-size: clamp(1rem, 2.4vw, 2.1rem) !important;
-			white-space: nowrap !important;
-			font-weight: 900 !important;
-			color: #ffffff !important;
-			margin: 0 !important;
-			text-align: center;
-			text-transform: uppercase !important;
-			letter-spacing: 4px !important;
-			text-shadow: 
-				0 0 2px #ffffff,
-				0 0 6px #ff007f,
-				0 0 14px #ff007f,
-				0 0 25px #e91e63,
-				0 0 40px #e91e63;
-			filter: drop-shadow(0 0 4px #ff007f);
+		/* Accesibilidad y SEO */
+		.sr-only {
+			position: absolute;
+			width: 1px;
+			height: 1px;
+			padding: 0;
+			margin: -1px;
+			overflow: hidden;
+			clip: rect(0, 0, 0, 0);
+			white-space: nowrap;
+			border: 0;
 		}
 
 		body {
@@ -446,10 +427,20 @@
 			<div class="inner">
 				<span class="tagline">Próxima Temporada 2026</span>
 
-				<!-- INSIGNIA NEÓN HD DE ALTA DEFINICIÓN (REFERENCIA 2) -->
-				<div class="neon-glass-panel">
-					<h1 class="neon-cyan-title">Historias de la Tía Cuca</h1>
-					<p class="neon-pink-subtitle">ZucyFlor y Yeye Presentan</p>
+				<!-- MARQUESINA VIDEO NEÓN (FORMATO GIF EN LOOP ININTERRUMPIDO 1792x592) -->
+				<div class="neon-video-wrapper">
+					<video 
+						src="videos/historias_tia_cuca_neon.mp4" 
+						autoplay 
+						loop 
+						muted 
+						playsinline 
+						disablepictureinpicture 
+						controlslist="nodownload nofullscreen noremoteplayback"
+						aria-label="Historias de la Tía Cuca - ZucyFlor y Yeye Presentan"
+						class="neon-video-marquee">
+					</video>
+					<h1 class="sr-only">Historias de la Tía Cuca - ZucyFlor y Yeye Presentan</h1>
 				</div>
 
 				<div class="btn-group">
