@@ -405,9 +405,18 @@
 						<h2 style="color: var(--color-primary); font-size: 2.5rem; margin-bottom: 30px;">Directo,
 							divertido y necesario.</h2>
 						<p style="font-size: 1.1rem; line-height: 1.8; opacity: 0.8; margin-bottom: 30px;">
-							ZucyFlor rompe la cuarta pared para hablarnos de lo que todos piensan pero pocos dicen.
-							A través de anécdotas, humor ácido y una entrega escénica inigualable, este monólogo
-							se ha convertido en un referente de la comedia contemporánea.
+							Directo, divertido y necesario.
+							ZucyFlor rompe la cuarta pared para hablarnos de lo que todos piensan pero pocos dicen. A
+							través de anécdotas, humor ácido y una entrega escénica inigualable, este monólogo se ha
+							convertido en un referente de la comedia contemporánea.
+
+							A este universo se suma Yeye, una artista que aporta frescura, ritmo y una mirada propia
+							dentro de las Historias de la Tía Cuca. Su presencia amplifica la energía del show y abre
+							nuevas capas de complicidad con el público, haciendo que cada función sea un encuentro
+							distinto.
+
+							Exploramos la anatomía de la risa y el poder de la palabra en un espectáculo que te hará
+							reflexionar tanto como reír.
 						</p>
 						<p style="font-size: 1.1rem; line-height: 1.8; opacity: 0.8;">
 							Exploramos la anatomía de la risa y el poder de la palabra, en un show que te hará
@@ -581,20 +590,28 @@
 	</div>
 
 	<style>
-		.dragging-active, .dragging-active * {
+		.dragging-active,
+		.dragging-active * {
 			cursor: grabbing !important;
 			user-select: none !important;
 			-webkit-user-select: none !important;
 		}
 	</style>
 	<!-- LIGHTBOX SIMPLE Y LIMPIO -->
-	<div id="lightbox" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.92); z-index:20000; overflow:hidden; user-select:none; justify-content:center; align-items:center;" onclick="closeLightbox()">
+	<div id="lightbox"
+		style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.92); z-index:20000; overflow:hidden; user-select:none; justify-content:center; align-items:center;"
+		onclick="closeLightbox()">
 		<!-- Botón de Cerrar -->
-		<button onclick="closeLightbox()" aria-label="Cerrar" style="position:absolute; top:20px; right:25px; z-index:20002; background:rgba(255,255,255,0.15); border:none; color:#fff; font-size:1.8rem; width:45px; height:45px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.3s;" onmouseover="this.style.background='var(--color-primary)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">&times;</button>
+		<button onclick="closeLightbox()" aria-label="Cerrar"
+			style="position:absolute; top:20px; right:25px; z-index:20002; background:rgba(255,255,255,0.15); border:none; color:#fff; font-size:1.8rem; width:45px; height:45px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.3s;"
+			onmouseover="this.style.background='var(--color-primary)'"
+			onmouseout="this.style.background='rgba(255,255,255,0.15)'">&times;</button>
 
 		<!-- Contenedor de Imagen -->
-		<div id="lightbox-container" style="width:100%; height:100%; display:flex; justify-content:center; align-items:center;">
-			<img id="img-slot" src="" alt="Cartelera ampliada" draggable="false" ondragstart="return false;" style="max-width:90vw; max-height:85vh; border:2px solid var(--color-primary); border-radius:12px; box-shadow:0 0 40px rgba(0,0,0,0.8); cursor:zoom-in; transform-origin:center center; user-select:none; -webkit-user-drag:none;">
+		<div id="lightbox-container"
+			style="width:100%; height:100%; display:flex; justify-content:center; align-items:center;">
+			<img id="img-slot" src="" alt="Cartelera ampliada" draggable="false" ondragstart="return false;"
+				style="max-width:90vw; max-height:85vh; border:2px solid var(--color-primary); border-radius:12px; box-shadow:0 0 40px rgba(0,0,0,0.8); cursor:zoom-in; transform-origin:center center; user-select:none; -webkit-user-drag:none;">
 		</div>
 	</div>
 
