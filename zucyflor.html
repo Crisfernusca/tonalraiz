@@ -587,7 +587,7 @@
 
 		<!-- Contenedor de Imagen -->
 		<div id="lightbox-container" style="width:100%; height:100%; display:flex; justify-content:center; align-items:center;">
-			<img id="img-slot" src="" alt="Cartelera ampliada" style="max-width:90vw; max-height:85vh; border:2px solid var(--color-primary); border-radius:12px; box-shadow:0 0 40px rgba(0,0,0,0.8); cursor:zoom-in; transform-origin:center center;">
+			<img id="img-slot" src="" alt="Cartelera ampliada" draggable="false" ondragstart="return false;" style="max-width:90vw; max-height:85vh; border:2px solid var(--color-primary); border-radius:12px; box-shadow:0 0 40px rgba(0,0,0,0.8); cursor:zoom-in; transform-origin:center center; user-select:none; -webkit-user-drag:none;">
 		</div>
 	</div>
 
@@ -656,6 +656,9 @@
 			const img = document.getElementById('img-slot');
 
 			if (img) {
+				// Evitar el arrastre nativo del navegador (icono 🚫 de arrastrar archivo)
+				img.addEventListener('dragstart', (e) => e.preventDefault());
+
 				// Mousedown solo para mover si ya tiene zoom
 				img.addEventListener('mousedown', (e) => {
 					if (e.button !== 0) return; // Solo clic izquierdo
