@@ -591,7 +591,7 @@
 			<button onclick="resetLightboxZoom()" style="background:none; border:none; color:var(--color-secondary); cursor:pointer; font-weight:bold; font-size:0.85rem; padding:4px 8px;" title="Restablecer">100%</button>
 			<button onclick="zoomLightbox(0.3)" style="background:none; border:none; color:#fff; cursor:pointer; font-size:1.1rem; padding:4px 8px;" title="Acercar"><i class="fas fa-search-plus"></i></button>
 			<span style="opacity:0.4; margin:0 2px;">|</span>
-			<span style="opacity:0.8; font-size:0.75rem;"><i class="fas fa-mouse"></i> Clic o rueda para zoom • Arrastra para mover</span>
+			<span style="opacity:0.8; font-size:0.75rem;"><i class="fas fa-mouse"></i> Ctrl + Rueda o Clic para zoom • Arrastra para mover</span>
 		</div>
 
 		<!-- Contenedor de Imagen -->
@@ -663,6 +663,16 @@
 			if (e.key === 'Escape') closeLightbox();
 		});
 
+		// Interceptar la rueda del ratón y Ctrl + Rueda a nivel ventana para evitar el zoom del navegador
+		window.addEventListener('wheel', (e) => {
+			const lb = document.getElementById('lightbox');
+			if (lb && lb.style.display !== 'none') {
+				e.preventDefault();
+				const delta = e.deltaY < 0 ? 0.3 : -0.3;
+				zoomLightbox(delta);
+			}
+		}, { passive: false });
+
 		$(function () {
 			const lb = document.getElementById('lightbox');
 			const container = document.getElementById('lightbox-container');
@@ -688,13 +698,6 @@
 						updateLightboxTransform();
 					}
 				});
-
-				// Zoom con rueda del ratón
-				container.addEventListener('wheel', (e) => {
-					e.preventDefault();
-					const delta = e.deltaY < 0 ? 0.25 : -0.25;
-					zoomLightbox(delta);
-				}, { passive: false });
 
 				// Arrastrar (Pan) al estar ampliado
 				container.addEventListener('mousedown', (e) => {
