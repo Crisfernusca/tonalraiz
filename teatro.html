@@ -1,0 +1,853 @@
+<!DOCTYPE HTML>
+<html lang="es">
+
+<head>
+	<link rel="icon" href="favicon-32x32.png" type="image/x-icon" />
+	<title>Teatro & Dramaturgia | Tonal Raíz</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Playfair+Display:ital,wght@0,600;1,400;1,700&family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
+
+	<!-- Estilos Visuales de Alto Impacto para Teatro -->
+	<style>
+		:root {
+			--teatro-red: #e50914;
+			--teatro-red-glow: rgba(229, 9, 20, 0.4);
+			--teatro-gold: #d4af37;
+			--teatro-bg: #09090d;
+			--teatro-card-bg: rgba(18, 18, 26, 0.8);
+			--teatro-card-border: rgba(255, 255, 255, 0.1);
+			--teatro-text-bright: #ffffff;
+			--teatro-text-muted: #b0b3c6;
+		}
+
+		body {
+			background-color: var(--teatro-bg);
+			font-family: 'Source Sans Pro', sans-serif;
+			color: var(--teatro-text-bright);
+		}
+
+		/* HERO TEATRAL IMPACTANTE */
+		#hero-teatro {
+			position: relative;
+			min-height: 85vh;
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+			background: #000;
+			border-bottom: 1px solid rgba(229, 9, 20, 0.25);
+		}
+
+		#hero-teatro .hero-bg {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-image: url('images/teatro01.jpg');
+			background-size: cover;
+			background-position: center center;
+			opacity: 0.5;
+			filter: brightness(0.65) contrast(1.15);
+			transform: scale(1.02);
+			transition: transform 10s ease;
+		}
+
+		#hero-teatro:hover .hero-bg {
+			transform: scale(1.06);
+		}
+
+		#hero-teatro .hero-overlay {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: radial-gradient(circle at 50% 40%, rgba(9, 9, 13, 0.25) 0%, rgba(9, 9, 13, 0.95) 90%);
+		}
+
+		#hero-teatro .hero-content {
+			position: relative;
+			z-index: 10;
+			text-align: center;
+			max-width: 950px;
+			padding: 40px 20px;
+		}
+
+		.tagline-badge-red {
+			display: inline-block;
+			padding: 8px 24px;
+			background: rgba(229, 9, 20, 0.15);
+			border: 1px solid var(--teatro-red);
+			border-radius: 50px;
+			color: #ff4d58;
+			font-family: 'Outfit', sans-serif;
+			font-weight: 700;
+			font-size: 0.85rem;
+			text-transform: uppercase;
+			letter-spacing: 3px;
+			margin-bottom: 25px;
+			box-shadow: 0 0 25px rgba(229, 9, 20, 0.25);
+		}
+
+		#hero-teatro h1 {
+			font-family: 'Outfit', sans-serif;
+			font-size: clamp(3.2rem, 7vw, 5.8rem);
+			font-weight: 900;
+			line-height: 1;
+			margin-bottom: 15px;
+			letter-spacing: -1px;
+			background: linear-gradient(135deg, #ffffff 30%, #ff6b75 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.9));
+		}
+
+		#hero-teatro .subtitle {
+			font-family: 'Playfair Display', serif;
+			font-style: italic;
+			font-size: clamp(1.2rem, 3vw, 1.8rem);
+			color: var(--teatro-text-muted);
+			margin-bottom: 35px;
+			line-height: 1.4;
+		}
+
+		/* CONTENEDORES Y SECCIONES */
+		.teatro-section {
+			padding: 90px 20px;
+			max-width: 1200px;
+			margin: 0 auto;
+		}
+
+		.teatro-header {
+			text-align: center;
+			margin-bottom: 55px;
+		}
+
+		.teatro-header h2 {
+			font-family: 'Outfit', sans-serif;
+			font-size: clamp(2.2rem, 4vw, 3.2rem);
+			font-weight: 800;
+			color: #ffffff;
+			margin-bottom: 12px;
+			letter-spacing: -0.5px;
+		}
+
+		.teatro-header p {
+			font-size: 1.15rem;
+			color: var(--teatro-text-muted);
+			max-width: 750px;
+			margin: 0 auto;
+			line-height: 1.6;
+		}
+
+		.red-divider {
+			width: 60px;
+			height: 3px;
+			background: linear-gradient(90deg, transparent, var(--teatro-red), transparent);
+			margin: 20px auto 0 auto;
+		}
+
+		/* CARTELERA DE OBRAS */
+		.cartelera-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+			gap: 35px;
+		}
+
+		.show-card {
+			background: var(--teatro-card-bg);
+			border: 1px solid var(--teatro-card-border);
+			border-radius: 18px;
+			overflow: hidden;
+			transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+			display: flex;
+			flex-direction: column;
+			backdrop-filter: blur(12px);
+		}
+
+		.show-card:hover {
+			transform: translateY(-8px);
+			border-color: var(--teatro-red);
+			box-shadow: 0 15px 35px rgba(229, 9, 20, 0.2);
+		}
+
+		.show-thumb {
+			position: relative;
+			width: 100%;
+			height: 320px;
+			overflow: hidden;
+			background: #000;
+		}
+
+		.show-thumb .bg-blur {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			filter: blur(25px) brightness(0.35);
+			transform: scale(1.25);
+			z-index: 1;
+		}
+
+		.show-thumb img.show-img {
+			position: relative;
+			z-index: 2;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: center;
+			transition: transform 0.6s ease;
+		}
+
+		.show-card:hover .show-thumb img.show-img {
+			transform: scale(1.06);
+		}
+
+		.show-badge {
+			position: absolute;
+			top: 15px;
+			right: 15px;
+			background: rgba(229, 9, 20, 0.85);
+			color: #ffffff;
+			padding: 5px 15px;
+			border-radius: 30px;
+			font-family: 'Outfit', sans-serif;
+			font-size: 0.75rem;
+			font-weight: 800;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			z-index: 5;
+			backdrop-filter: blur(4px);
+		}
+
+		.show-badge.soon {
+			background: rgba(212, 175, 55, 0.85);
+			color: #000000;
+		}
+
+		.show-body {
+			padding: 30px;
+			display: flex;
+			flex-direction: column;
+			flex-grow: 1;
+		}
+
+		.show-body h3 {
+			font-family: 'Outfit', sans-serif;
+			font-size: 1.8rem;
+			font-weight: 800;
+			color: #ffffff;
+			margin-bottom: 8px;
+		}
+
+		.show-author {
+			font-family: 'Playfair Display', serif;
+			font-style: italic;
+			color: var(--teatro-gold);
+			font-size: 1rem;
+			margin-bottom: 15px;
+		}
+
+		.show-meta {
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+			background: rgba(255, 255, 255, 0.03);
+			border: 1px solid rgba(255, 255, 255, 0.06);
+			padding: 14px 16px;
+			border-radius: 12px;
+			margin-bottom: 20px;
+			font-size: 0.92rem;
+			color: #e0e0e0;
+		}
+
+		.show-meta i {
+			color: var(--teatro-red);
+			margin-right: 8px;
+			width: 16px;
+		}
+
+		.show-meta a {
+			color: inherit;
+			text-decoration: underline;
+			text-underline-offset: 3px;
+		}
+
+		.show-synopsis {
+			color: var(--teatro-text-muted);
+			font-size: 1rem;
+			line-height: 1.65;
+			margin-bottom: 25px;
+			flex-grow: 1;
+		}
+
+		.btn-whatsapp {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+			width: 100%;
+			padding: 14px 20px;
+			background-color: #25D366;
+			border: 2px solid #25D366;
+			color: #ffffff !important;
+			border-radius: 50px;
+			font-family: 'Outfit', sans-serif;
+			font-weight: 700;
+			font-size: 1rem;
+			text-decoration: none;
+			transition: all 0.3s ease;
+		}
+
+		.btn-whatsapp:hover {
+			background-color: #1eb855;
+			border-color: #1eb855;
+			box-shadow: 0 0 20px rgba(37, 211, 102, 0.3);
+			transform: translateY(-2px);
+		}
+
+		/* MULTIMEDIA & GALERÍA */
+		.video-teaser-container {
+			position: relative;
+			width: 100%;
+			max-width: 900px;
+			margin: 0 auto 50px auto;
+			border-radius: 20px;
+			overflow: hidden;
+			border: 1px solid var(--teatro-card-border);
+			box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+			background: #000;
+		}
+
+		.video-teaser-container video {
+			width: 100%;
+			height: auto;
+			display: block;
+		}
+
+		.gallery-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+			gap: 22px;
+		}
+
+		.gallery-item {
+			position: relative;
+			height: 250px;
+			border-radius: 14px;
+			overflow: hidden;
+			border: 1px solid var(--teatro-card-border);
+			background: #101015;
+		}
+
+		.gallery-item img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.5s ease;
+		}
+
+		.gallery-item:hover img {
+			transform: scale(1.1);
+		}
+
+		.gallery-overlay {
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, transparent 60%);
+			display: flex;
+			align-items: flex-end;
+			padding: 20px;
+			opacity: 0;
+			transition: opacity 0.3s ease;
+		}
+
+		.gallery-item:hover .gallery-overlay {
+			opacity: 1;
+		}
+
+		.gallery-overlay span {
+			font-family: 'Outfit', sans-serif;
+			font-size: 1rem;
+			font-weight: 600;
+			color: var(--teatro-gold);
+		}
+
+		/* COMENTARIOS DE REDES SOCIALES (AUDIENCE FEEDBACK) */
+		.social-reviews-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 25px;
+		}
+
+		.social-review-card {
+			background: var(--teatro-card-bg);
+			border: 1px solid var(--teatro-card-border);
+			border-radius: 16px;
+			padding: 28px;
+			display: flex;
+			flex-direction: column;
+			position: relative;
+			transition: all 0.3s ease;
+			backdrop-filter: blur(8px);
+		}
+
+		.social-review-card:hover {
+			border-color: rgba(229, 9, 20, 0.5);
+			transform: translateY(-5px);
+			box-shadow: 0 10px 25px rgba(229, 9, 20, 0.1);
+		}
+
+		.reviewer-header {
+			display: flex;
+			align-items: center;
+			gap: 14px;
+			margin-bottom: 16px;
+		}
+
+		.reviewer-avatar {
+			width: 48px;
+			height: 48px;
+			border-radius: 50%;
+			background: linear-gradient(135deg, var(--teatro-red), var(--teatro-gold));
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-family: 'Outfit', sans-serif;
+			font-weight: 800;
+			color: #ffffff;
+			font-size: 1.2rem;
+			border: 2px solid rgba(255, 255, 255, 0.2);
+		}
+
+		.reviewer-info h4 {
+			font-family: 'Outfit', sans-serif;
+			font-size: 1.1rem;
+			font-weight: 700;
+			color: #ffffff;
+			margin: 0;
+		}
+
+		.reviewer-info span {
+			font-size: 0.85rem;
+			color: var(--teatro-text-muted);
+		}
+
+		.social-icon-tag {
+			margin-left: auto;
+			font-size: 1.3rem;
+		}
+
+		.social-icon-tag.instagram { color: #e4405f; }
+		.social-icon-tag.facebook { color: #1877f2; }
+		.social-icon-tag.x { color: #ffffff; }
+
+		.star-rating {
+			color: var(--teatro-gold);
+			font-size: 0.95rem;
+			margin-bottom: 12px;
+		}
+
+		.review-quote {
+			font-family: 'Playfair Display', serif;
+			font-style: italic;
+			font-size: 1.05rem;
+			color: #e5e5e5;
+			line-height: 1.6;
+			margin: 0;
+		}
+
+		/* RESEÑAS & PRENSA */
+		.press-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+			gap: 30px;
+		}
+
+		.press-card {
+			background: rgba(255, 255, 255, 0.03);
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			border-left: 4px solid var(--teatro-red);
+			border-radius: 12px;
+			padding: 30px;
+			transition: all 0.3s ease;
+		}
+
+		.press-card:hover {
+			background: rgba(229, 9, 20, 0.05);
+			border-color: var(--teatro-red);
+		}
+
+		.press-quote {
+			font-family: 'Playfair Display', serif;
+			font-size: 1.15rem;
+			line-height: 1.6;
+			color: #ffffff;
+			margin-bottom: 18px;
+		}
+
+		.press-source {
+			font-family: 'Outfit', sans-serif;
+			font-size: 0.95rem;
+			font-weight: 700;
+			color: var(--teatro-gold);
+			text-transform: uppercase;
+			letter-spacing: 1px;
+		}
+
+		/* AJUSTES RESPONSIVOS */
+		@media screen and (max-width: 768px) {
+			.teatro-section {
+				padding: 60px 15px;
+			}
+			#hero-teatro {
+				min-height: 75vh;
+			}
+		}
+	</style>
+</head>
+
+<body class="is-preload">
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Header -->
+		<header id="header" class="alt style2">
+			<a href="index.html" class="logo"><strong>Tonal Raíz</strong> <span>Teatro • Dramaturgia • Artes Vivas</span></a>
+			<nav>
+				<a href="#menu">Menú</a>
+			</nav>
+		</header>
+
+		<!-- Menu -->
+		<nav id="menu">
+			<ul class="links">
+				<li><a href="index.html">Inicio</a></li>
+				<li><a href="raizescenica.html">Raíz Escénica</a></li>
+				<li><a href="arquibita.html">ArquiBita Estudio</a></li>
+				<li><a href="sonzapateado.html">Taller de Zapateado</a></li>
+				<li><a href="zucyflor.html">Zucy Flor Comedy</a></li>
+				<li><a href="teatro.html">Teatro</a></li>
+			</ul>
+		</nav>
+
+		<!-- HERO TEATRAL PRINCIPAL -->
+		<section id="hero-teatro">
+			<div class="hero-bg"></div>
+			<div class="hero-overlay"></div>
+			<div class="hero-content">
+				<span class="tagline-badge-red"><i class="fas fa-theater-masks" style="margin-right: 8px;"></i> Temporada Escénica 2026</span>
+				<h1>Teatro & Dramaturgia</h1>
+				<p class="subtitle">Historias que conmueven, cuerpos que habitan el espacio y experiencias teatrales vivas</p>
+				<div class="btn-group" style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+					<a href="#cartelera" class="button special icon solid fa-ticket-alt">Ver Cartelera</a>
+					<a href="#multimedia" class="button">Galería & Multimedia</a>
+				</div>
+			</div>
+		</section>
+
+		<!-- MAIN CONTENT -->
+		<div id="main">
+
+			<!-- PRESENTACIÓN TEATRAL -->
+			<section class="teatro-section">
+				<div class="teatro-header">
+					<h2>El Teatro como Refugio y Revelación</h2>
+					<p>
+						En <strong>Tonal Raíz</strong>, la práctica teatral es un punto de encuentro entre la memoria, el cuerpo y el territorio. Desarrollamos montajes propios y colaboraciones independientes con rigor escénico, poética visual e intensidad actoral.
+					</p>
+					<div class="red-divider"></div>
+				</div>
+			</section>
+
+			<!-- CARTELERA DE OBRAS & PRÓXIMAS FECHAS -->
+			<section id="cartelera" class="teatro-section" style="border-top: 1px solid rgba(255, 255, 255, 0.08);">
+				<div class="teatro-header">
+					<h2>Cartelera & Próximas Fechas</h2>
+					<p>Consulta nuestra programación de funciones vivas y reserva tus accesos</p>
+				</div>
+
+				<div class="cartelera-grid">
+					<!-- OBRA 1: EN TEMPORADA -->
+					<article class="show-card">
+						<div class="show-thumb">
+							<img src="images/teatro01.jpg" class="bg-blur" alt="" aria-hidden="true" />
+							<img src="images/teatro01.jpg" class="show-img" alt="La Sombra del Silencio" />
+							<span class="show-badge">En Temporada</span>
+						</div>
+						<div class="show-body">
+							<h3>La Sombra del Silencio</h3>
+							<div class="show-author">Dir. Cristóbal Fernández • Compañía Tonal Escénica</div>
+							
+							<div class="show-meta">
+								<div><i class="fas fa-calendar-alt"></i> Próxima Fecha: Viernes 24 y Sábado 25 de Octubre 2026</div>
+								<div><i class="fas fa-clock"></i> Hora: 20:00 hrs</div>
+								<div><i class="fas fa-map-marker-alt"></i> Foro Praga — <a href="https://www.google.com/maps/search/?api=1&query=Praga+Caf%C3%A9+Bistro,+Av.+Revoluci%C3%B3n+1070,+Zona+Centro,+Tijuana,+BC." target="_blank" rel="noopener noreferrer">Av. Revolución 1070, Tijuana, BC</a></div>
+								<div><i class="fas fa-ticket-alt"></i> Preventa: $350 MXN | Taquilla: $400 MXN</div>
+							</div>
+
+							<p class="show-synopsis">
+								Una pieza dramática intensa sobre los recuerdos, el duelo y el redescubrimiento de la propia voz en un escenario despojado. Una indagación profunda sobre la fragilidad y la resiliencia humana.
+							</p>
+
+							<a href="https://wa.me/526641202985?text=Hola,%20quiero%20reservar/comprar%20boletos%20para%20la%20obra%20La%20Sombra%20del%20Silencio" target="_blank" rel="noopener noreferrer" class="btn-whatsapp">
+								<i class="fab fa-whatsapp"></i> Reservar Boletos por WhatsApp
+							</a>
+						</div>
+					</article>
+
+					<!-- OBRA 2: PRÓXIMO ESTRENO -->
+					<article class="show-card">
+						<div class="show-thumb">
+							<img src="images/raizescenica/re-1.webp" class="bg-blur" alt="" aria-hidden="true" />
+							<img src="images/raizescenica/re-1.webp" class="show-img" alt="Voces del Viento" />
+							<span class="show-badge soon">Próximo Estreno</span>
+						</div>
+						<div class="show-body">
+							<h3>Voces del Viento</h3>
+							<div class="show-author">Dramaturgia Contemporánea • Proyecto Residencia</div>
+							
+							<div class="show-meta">
+								<div><i class="fas fa-calendar-alt"></i> Temporada: Noviembre - Diciembre 2026</div>
+								<div><i class="fas fa-clock"></i> Hora: 19:30 hrs</div>
+								<div><i class="fas fa-map-marker-alt"></i> Teatro de la Ciudad</div>
+								<div><i class="fas fa-ticket-alt"></i> Preventa Próximamente</div>
+							</div>
+
+							<p class="show-synopsis">
+								Propuesta multidisciplinaria que fusiona narrativa oral, cuerpo y paisajes sonoros en vivo. Un homenaje a las voces ancestrales que habitan los rincones del territorio.
+							</p>
+
+							<a href="https://wa.me/526641202985?text=Hola,%20quisiera%20informes%20sobre%20el%20próximo%20estreno%20Voces%20del%20Viento" target="_blank" rel="noopener noreferrer" class="btn-whatsapp" style="background-color: #333; border-color: #555;">
+								<i class="fab fa-whatsapp"></i> Solicitar Informes
+							</a>
+						</div>
+					</article>
+
+					<!-- ========================================================================= -->
+					<!-- PLANTILLA PARA AGREGAR FUTURAS OBRAS DE TEATRO A LA CARTELERA (COPIAR Y PEGAR) -->
+					<!-- ========================================================================= -->
+					<!--
+					<article class="show-card">
+						<div class="show-thumb">
+							<img src="images/TU_IMAGEN_DE_OBRA.jpg" class="bg-blur" alt="" aria-hidden="true" />
+							<img src="images/TU_IMAGEN_DE_OBRA.jpg" class="show-img" alt="Nombre de la Obra" />
+							<span class="show-badge">En Temporada / Próximamente</span>
+						</div>
+						<div class="show-body">
+							<h3>Nombre de la Obra</h3>
+							<div class="show-author">Dirección / Autor</div>
+							
+							<div class="show-meta">
+								<div><i class="fas fa-calendar-alt"></i> Fecha: DD/MM/AAAA</div>
+								<div><i class="fas fa-clock"></i> Hora: 20:00 hrs</div>
+								<div><i class="fas fa-map-marker-alt"></i> Foro / Recinto</div>
+								<div><i class="fas fa-ticket-alt"></i> Preventa: $300 MXN</div>
+							</div>
+
+							<p class="show-synopsis">Sinopsis de la obra teatral.</p>
+
+							<a href="https://wa.me/526641202985?text=Hola,%20quiero%20reservar%20boletos" target="_blank" class="btn-whatsapp">
+								<i class="fab fa-whatsapp"></i> Reservar Boletos
+							</a>
+						</div>
+					</article>
+					-->
+				</div>
+			</section>
+
+			<!-- CONTENIDO MULTIMEDIA & GALERÍA -->
+			<section id="multimedia" class="teatro-section" style="border-top: 1px solid rgba(255, 255, 255, 0.08);">
+				<div class="teatro-header">
+					<h2>Contenido Multimedia</h2>
+					<p>Un vistazo a nuestros tráileres escénicos, registros de puesta en escena y detalles visuales</p>
+				</div>
+
+				<!-- TEASER DE VIDEO -->
+				<div class="video-teaser-container">
+					<video controls poster="images/teatro01.jpg" style="width: 100%; display: block;">
+						<source src="assets/video/Veracruz1.mp4" type="video/mp4">
+						Tu navegador no soporta la reproducción de video.
+					</video>
+				</div>
+
+				<!-- GALERÍA DE MONTAJES & ENSAYOS -->
+				<div class="gallery-grid">
+					<div class="gallery-item">
+						<img src="images/teatro01.jpg" alt="Puesta en Escena" />
+						<div class="gallery-overlay">
+							<span>Intensidad Dramática & Iluminación</span>
+						</div>
+					</div>
+
+					<div class="gallery-item">
+						<img src="images/raizescenica/re-1.webp" alt="Expresión Corporal" />
+						<div class="gallery-overlay">
+							<span>Expresión Corporal & Movimiento</span>
+						</div>
+					</div>
+
+					<div class="gallery-item">
+						<img src="images/raizescenica/re-2.webp" alt="Ensayos & Dirección" />
+						<div class="gallery-overlay">
+							<span>Ensayos & Dirección de Escena</span>
+						</div>
+					</div>
+
+					<div class="gallery-item">
+						<img src="images/zucyflor/praga_fachada.webp" alt="Foro & Escenografía" />
+						<div class="gallery-overlay">
+							<span>Atmósfera & Espacio Escénico</span>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- COMENTARIOS DE ASISTENTES EN REDES SOCIALES -->
+			<section class="teatro-section" style="border-top: 1px solid rgba(255, 255, 255, 0.08);">
+				<div class="teatro-header">
+					<h2>Comentarios del Público en Redes</h2>
+					<p>Lo que comentan los espectadores tras vivir la experiencia teatral en nuestras funciones</p>
+				</div>
+
+				<div class="social-reviews-grid">
+					<!-- COMENTARIO 1 -->
+					<article class="social-review-card">
+						<div class="reviewer-header">
+							<div class="reviewer-avatar">M</div>
+							<div class="reviewer-info">
+								<h4>María González</h4>
+								<span>@maria_escenica</span>
+							</div>
+							<i class="fab fa-instagram social-icon-tag instagram"></i>
+						</div>
+						<div class="star-rating">
+							<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+						</div>
+						<p class="review-quote">
+							"Una actuación impresionante. Salí del teatro con la piel de gallina y una reflexión profunda. ¡Muchas felicidades a todo el elenco de Tonal Raíz!"
+						</p>
+					</article>
+
+					<!-- COMENTARIO 2 -->
+					<article class="social-review-card">
+						<div class="reviewer-header">
+							<div class="reviewer-avatar">C</div>
+							<div class="reviewer-info">
+								<h4>Carlos Mendoza</h4>
+								<span>@carlos_teatro</span>
+							</div>
+							<i class="fab fa-facebook social-icon-tag facebook"></i>
+						</div>
+						<div class="star-rating">
+							<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+						</div>
+						<p class="review-quote">
+							"La escenografía, la iluminación y el manejo del espacio te atrapan desde el primer segundo. Una propuesta imperdible en la ciudad."
+						</p>
+					</article>
+
+					<!-- COMENTARIO 3 -->
+					<article class="social-review-card">
+						<div class="reviewer-header">
+							<div class="reviewer-avatar">L</div>
+							<div class="reviewer-info">
+								<h4>Lorena Ramírez</h4>
+								<span>@lorena_arte</span>
+							</div>
+							<i class="fab fa-instagram social-icon-tag instagram"></i>
+						</div>
+						<div class="star-rating">
+							<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+						</div>
+						<p class="review-quote">
+							"Excelente producción independiente. La entrega actoral y el texto son de primer nivel. Volvería a verla sin dudarlo."
+						</p>
+					</article>
+
+					<!-- COMENTARIO 4 -->
+					<article class="social-review-card">
+						<div class="reviewer-header">
+							<div class="reviewer-avatar">D</div>
+							<div class="reviewer-info">
+								<h4>Diego Morales</h4>
+								<span>@diego_viva</span>
+							</div>
+							<i class="fab fa-x-twitter social-icon-tag x"></i>
+						</div>
+						<div class="star-rating">
+							<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+						</div>
+						<p class="review-quote">
+							"Qué gusto ver teatro hecho con tanta pasión, respeto y calidad. Una experiencia íntima y conmovedora."
+						</p>
+					</article>
+				</div>
+			</section>
+
+			<!-- RESEÑAS & CRÍTICA ESPECIALIZADA -->
+			<section class="teatro-section" style="border-top: 1px solid rgba(255, 255, 255, 0.08);">
+				<div class="teatro-header">
+					<h2>Reseñas & Prensa</h2>
+					<p>Valoraciones y comentarios de la crítica cultural y medios independientes</p>
+				</div>
+
+				<div class="press-grid">
+					<!-- RESEÑA 1 -->
+					<div class="press-card">
+						<p class="press-quote">
+							"Una joya de la dramaturgia contemporánea que logra articular cuerpo, espacio y memoria con singular madurez estética."
+						</p>
+						<span class="press-source">— Revista Arte & Cultura Escénica</span>
+					</div>
+
+					<!-- RESEÑA 2 -->
+					<div class="press-card">
+						<p class="press-quote">
+							"Tonal Raíz demuestra una sensibilidad técnica y una poética visual extraordinaria que eleva el panorama teatral de la región."
+						</p>
+						<span class="press-source">— Bitácora Cultural Tijuana</span>
+					</div>
+				</div>
+			</section>
+
+		</div>
+
+		<!-- Footer -->
+		<footer id="footer">
+			<div class="inner">
+				<ul class="icons">
+					<li><a href="https://www.facebook.com/tonalraiz/" target="_blank" rel="noopener noreferrer"
+							class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+					<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+				</ul>
+				<ul class="copyright">
+					<li>&copy; COPYRIGHT 2026 TONAL RAÍZ - TODOS LOS DERECHOS RESERVADOS</li>
+					<li>Design: <a href="">Bita</a></li>
+				</ul>
+			</div>
+		</footer>
+
+	</div>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js" defer></script>
+	<script src="assets/js/jquery.scrolly.min.js" defer></script>
+	<script src="assets/js/jquery.scrollex.min.js" defer></script>
+	<script src="assets/js/browser.min.js" defer></script>
+	<script src="assets/js/breakpoints.min.js" defer></script>
+	<script src="assets/js/util.js" defer></script>
+	<script src="assets/js/main.js" defer></script>
+
+</body>
+
+</html>
