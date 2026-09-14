@@ -4024,11 +4024,161 @@ section#banner.major {
 }
 
 /* Pantallas pequeñas: flujo normal, sin empuje hacia arriba */
+/* Pantallas pequeñas: flujo normal, sin empuje hacia arriba */
 @media screen and (max-width: 767px) {
   #banner > .inner {
     position: relative;
     top: auto;
     transform: none;
-    margin-top: 1em; /* Puedes ajustar visualmente este valor */
+    margin-top: 1em;
   }
-  
+}
+
+/* ==========================================================================
+   SISTEMA DE OPTIMIZACIÓN RESPONSIVA INTEGRAL MULTI-DISPOSITIVO (PC, TABLET, MÓVIL)
+   ========================================================================== */
+
+/* 1. PREVENCIÓN GLOBAL DE DESBORDAMIENTO & FLUIDEZ */
+html, body {
+	max-width: 100%;
+	overflow-x: hidden;
+}
+
+img, video {
+	max-width: 100%;
+	height: auto;
+}
+
+/* 2. MEJORAS EN BOTONES Y ZONAS TÁCTILES PARA MÓVILES (TOUCH TARGETS) */
+a.button, button, .btn-main, .btn-whatsapp, .social-btn {
+	min-height: 46px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	touch-action: manipulation;
+}
+
+/* 3. TIPOGRAFÍA FLUIDA RESPONSIVA */
+h1 {
+	font-size: clamp(2rem, 5.5vw, 4rem) !important;
+}
+
+h2 {
+	font-size: clamp(1.6rem, 4vw, 2.8rem) !important;
+}
+
+h3 {
+	font-size: clamp(1.3rem, 3vw, 2.2rem) !important;
+}
+
+/* 4. DISPOSITIVOS MÓVILES EN MODO RETRATO (PANTALLAS HASTA 480PX) */
+@media screen and (max-width: 480px) {
+	/* Padding ajustado en contenedores */
+	.inner {
+		padding-left: 15px !important;
+		padding-right: 15px !important;
+	}
+
+	/* Tarjetas y Cuadrículas a 1 columna completa */
+	.cartelera-grid,
+	.projects-grid,
+	.gallery-grid,
+	.social-reviews-grid,
+	.partners-grid {
+		grid-template-columns: 1fr !important;
+		gap: 20px !important;
+	}
+
+	/* Ajuste de Hero / Banner */
+	#banner {
+		padding: 4em 1em 2em 1em !important;
+		min-height: auto !important;
+	}
+
+	#banner > .inner {
+		transform: none !important;
+		top: auto !important;
+		position: relative !important;
+	}
+
+	/* Botones en móviles */
+	.actions, .btn-group {
+		flex-direction: column !important;
+		width: 100% !important;
+		gap: 12px !important;
+	}
+
+	.actions li, .btn-group a {
+		width: 100% !important;
+	}
+
+	.actions li .button, .btn-group a {
+		width: 100% !important;
+		text-align: center !important;
+	}
+}
+
+/* 5. TABLETS & PHABLETS EN MODO RETRATO Y MÓVILES HORIZONTALES (481PX - 767PX) */
+@media screen and (min-width: 481px) and (max-width: 767px) {
+	.cartelera-grid,
+	.projects-grid,
+	.social-reviews-grid {
+		grid-template-columns: 1fr !important;
+	}
+
+	.gallery-grid,
+	.partners-grid {
+		grid-template-columns: repeat(2, 1fr) !important;
+	}
+}
+
+/* 6. TABLETS EN MODO HORIZONTAL / LAPTOPS PEQUEÑAS (768PX - 1024PX) */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+	.cartelera-grid,
+	.projects-grid {
+		grid-template-columns: repeat(2, 1fr) !important;
+	}
+
+	.gallery-grid {
+		grid-template-columns: repeat(3, 1fr) !important;
+	}
+
+	.social-reviews-grid {
+		grid-template-columns: repeat(2, 1fr) !important;
+	}
+
+	.partners-grid {
+		grid-template-columns: repeat(3, 1fr) !important;
+	}
+}
+
+/* 7. AJUSTES PARA ORIENTACIÓN HORIZONTAL EN TELÉFONOS (LANDSCAPE CON POCA ALTURA) */
+@media screen and (orientation: landscape) and (max-height: 600px) {
+	#banner, #hero-re, #hero-teatro, #hero-susi, #hero-netflix {
+		min-height: 100vh !important;
+		padding-top: 3em !important;
+		padding-bottom: 2em !important;
+	}
+
+	#banner > .inner, #hero-re .hero-content, #hero-teatro .hero-content {
+		position: relative !important;
+		top: auto !important;
+		transform: none !important;
+		padding-top: 2em !important;
+	}
+
+	.tagline-badge, .tagline-badge-red {
+		margin-bottom: 10px !important;
+		padding: 4px 16px !important;
+	}
+
+	h1 {
+		font-size: 2.2rem !important;
+		margin-bottom: 8px !important;
+	}
+
+	.subtitle {
+		font-size: 1.1rem !important;
+		margin-bottom: 15px !important;
+	}
+}
