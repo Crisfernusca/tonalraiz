@@ -98,9 +98,9 @@ input, select, textarea {
 		box-sizing: inherit;
 	}
 
-	/* Barra inferior Original Color: #242943*/
+	/* Fondo general de la página (eliminado verde chillante) */
 	body {
-		background: #ddff00;
+		background: #08080a;
 	}
 
 		body.is-preload *, body.is-preload *:before, body.is-preload *:after {
