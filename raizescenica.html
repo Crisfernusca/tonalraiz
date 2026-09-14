@@ -3,13 +3,446 @@
 
 <head>
 	<link rel="icon" href="favicon-32x32.png" type="image/x-icon" />
-	<title>Raíz Escénica | Tonal Raíz</title>
+	<title>Raíz Escénica | Artes Escénicas & Comedia</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Playfair+Display:ital,wght@0,600;1,400&family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet" />
 	<link rel="stylesheet" href="assets/css/main.css" />
 	<noscript>
 		<link rel="stylesheet" href="assets/css/noscript.css" />
 	</noscript>
+
+	<!-- Estilos Visuales de Alto Impacto para Raíz Escénica -->
+	<style>
+		:root {
+			--re-gold: #d4af37;
+			--re-gold-glow: rgba(212, 175, 55, 0.4);
+			--re-pink: #e91e63;
+			--re-bg: #09090c;
+			--re-card-bg: rgba(18, 18, 24, 0.7);
+			--re-card-border: rgba(255, 255, 255, 0.1);
+			--re-text-bright: #ffffff;
+			--re-text-muted: #b0b3c6;
+		}
+
+		body {
+			background-color: var(--re-bg);
+			font-family: 'Source Sans Pro', sans-serif;
+			color: var(--re-text-bright);
+		}
+
+		/* HERO IMPACTANTE */
+		#hero-re {
+			position: relative;
+			min-height: 85vh;
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+			background: #000;
+			border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+		}
+
+		#hero-re .hero-bg {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-image: url('images/raizescenica/re-2.webp');
+			background-size: cover;
+			background-position: center center;
+			opacity: 0.45;
+			filter: brightness(0.7) contrast(1.1);
+			transform: scale(1.02);
+			transition: transform 10s ease;
+		}
+
+		#hero-re:hover .hero-bg {
+			transform: scale(1.06);
+		}
+
+		#hero-re .hero-overlay {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: radial-gradient(circle at 50% 40%, rgba(9, 9, 12, 0.3) 0%, rgba(9, 9, 12, 0.95) 90%);
+		}
+
+		#hero-re .hero-content {
+			position: relative;
+			z-index: 10;
+			text-align: center;
+			max-width: 900px;
+			padding: 40px 20px;
+		}
+
+		.tagline-badge {
+			display: inline-block;
+			padding: 8px 24px;
+			background: rgba(212, 175, 55, 0.12);
+			border: 1px solid var(--re-gold);
+			border-radius: 50px;
+			color: var(--re-gold);
+			font-family: 'Outfit', sans-serif;
+			font-weight: 600;
+			font-size: 0.85rem;
+			text-transform: uppercase;
+			letter-spacing: 3px;
+			margin-bottom: 25px;
+			box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+		}
+
+		#hero-re h1 {
+			font-family: 'Outfit', sans-serif;
+			font-size: clamp(3.2rem, 7vw, 5.5rem);
+			font-weight: 900;
+			line-height: 1;
+			margin-bottom: 15px;
+			letter-spacing: -1px;
+			background: linear-gradient(135deg, #ffffff 30%, var(--re-gold) 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.8));
+		}
+
+		#hero-re .subtitle {
+			font-family: 'Playfair Display', serif;
+			font-style: italic;
+			font-size: clamp(1.2rem, 3vw, 1.8rem);
+			color: var(--re-text-muted);
+			margin-bottom: 35px;
+			line-height: 1.4;
+		}
+
+		/* SECCIONES Y CONTENEDORES */
+		.re-section {
+			padding: 90px 20px;
+			max-width: 1200px;
+			margin: 0 auto;
+		}
+
+		.re-section-header {
+			text-align: center;
+			margin-bottom: 50px;
+		}
+
+		.re-section-header h2 {
+			font-family: 'Outfit', sans-serif;
+			font-size: clamp(2.2rem, 4vw, 3.2rem);
+			font-weight: 800;
+			color: #ffffff;
+			margin-bottom: 12px;
+			letter-spacing: -0.5px;
+		}
+
+		.re-section-header p {
+			font-size: 1.15rem;
+			color: var(--re-text-muted);
+			max-width: 700px;
+			margin: 0 auto;
+			line-height: 1.6;
+		}
+
+		.gold-divider {
+			width: 60px;
+			height: 3px;
+			background: linear-gradient(90deg, transparent, var(--re-gold), transparent);
+			margin: 20px auto 0 auto;
+		}
+
+		/* TARJETAS DE PROYECTOS */
+		.projects-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+			gap: 35px;
+			margin-top: 30px;
+		}
+
+		.project-card {
+			background: var(--re-card-bg);
+			border: 1px solid var(--re-card-border);
+			border-radius: 16px;
+			overflow: hidden;
+			transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+			display: flex;
+			flex-direction: column;
+			position: relative;
+			backdrop-filter: blur(10px);
+		}
+
+		.project-card:hover {
+			transform: translateY(-8px);
+			border-color: var(--re-gold);
+			box-shadow: 0 15px 35px rgba(212, 175, 55, 0.15);
+		}
+
+		.project-card .card-img-wrapper {
+			position: relative;
+			width: 100%;
+			height: 280px;
+			overflow: hidden;
+		}
+
+		.project-card .card-img-wrapper img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.6s ease;
+		}
+
+		.project-card:hover .card-img-wrapper img {
+			transform: scale(1.08);
+		}
+
+		.project-badge {
+			position: absolute;
+			top: 15px;
+			right: 15px;
+			background: rgba(0, 0, 0, 0.75);
+			border: 1px solid var(--re-gold);
+			color: var(--re-gold);
+			padding: 4px 14px;
+			border-radius: 30px;
+			font-size: 0.75rem;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			backdrop-filter: blur(4px);
+		}
+
+		.project-card .card-body {
+			padding: 30px;
+			display: flex;
+			flex-direction: column;
+			flex-grow: 1;
+		}
+
+		.project-card h3 {
+			font-family: 'Outfit', sans-serif;
+			font-size: 1.8rem;
+			font-weight: 700;
+			color: #ffffff;
+			margin-bottom: 12px;
+		}
+
+		.project-card p {
+			color: var(--re-text-muted);
+			font-size: 1rem;
+			line-height: 1.6;
+			margin-bottom: 25px;
+			flex-grow: 1;
+		}
+
+		/* TARJETA PLACEHOLDER (NUEVO PROYECTO FUTURO) */
+		.project-card-placeholder {
+			background: rgba(18, 18, 24, 0.3);
+			border: 2px dashed rgba(212, 175, 55, 0.3);
+			border-radius: 16px;
+			padding: 40px 30px;
+			text-align: center;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			min-height: 480px;
+			transition: all 0.3s ease;
+		}
+
+		.project-card-placeholder:hover {
+			border-color: var(--re-gold);
+			background: rgba(212, 175, 55, 0.05);
+		}
+
+		.placeholder-icon {
+			width: 70px;
+			height: 70px;
+			border-radius: 50%;
+			background: rgba(212, 175, 55, 0.1);
+			border: 1px solid var(--re-gold);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 1.8rem;
+			color: var(--re-gold);
+			margin-bottom: 20px;
+		}
+
+		.project-card-placeholder h4 {
+			font-family: 'Outfit', sans-serif;
+			font-size: 1.4rem;
+			color: #ffffff;
+			margin-bottom: 8px;
+		}
+
+		.project-card-placeholder p {
+			color: var(--re-text-muted);
+			font-size: 0.95rem;
+			max-width: 280px;
+		}
+
+		/* GALERÍA FOTOGRÁFICA */
+		.gallery-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+			gap: 20px;
+		}
+
+		.gallery-item {
+			position: relative;
+			height: 240px;
+			border-radius: 12px;
+			overflow: hidden;
+			border: 1px solid var(--re-card-border);
+			background: #101014;
+		}
+
+		.gallery-item img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.5s ease;
+		}
+
+		.gallery-item:hover img {
+			transform: scale(1.1);
+		}
+
+		.gallery-overlay {
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, transparent 60%);
+			display: flex;
+			align-items: flex-end;
+			padding: 20px;
+			opacity: 0;
+			transition: opacity 0.3s ease;
+		}
+
+		.gallery-item:hover .gallery-overlay {
+			opacity: 1;
+		}
+
+		.gallery-overlay span {
+			font-family: 'Outfit', sans-serif;
+			font-size: 1rem;
+			font-weight: 600;
+			color: var(--re-gold);
+		}
+
+		/* SECCIÓN LOGOS Y ESCENARIOS */
+		.partners-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+			gap: 25px;
+			align-items: center;
+		}
+
+		.partner-card {
+			background: rgba(255, 255, 255, 0.03);
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			border-radius: 12px;
+			padding: 25px 20px;
+			text-align: center;
+			transition: all 0.3s ease;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			min-height: 110px;
+		}
+
+		.partner-card:hover {
+			border-color: var(--re-gold);
+			background: rgba(212, 175, 55, 0.06);
+			transform: translateY(-4px);
+		}
+
+		.partner-card .partner-name {
+			font-family: 'Outfit', sans-serif;
+			font-size: 1.1rem;
+			font-weight: 600;
+			color: #e0e0e0;
+			letter-spacing: 0.5px;
+		}
+
+		.partner-card img {
+			max-height: 50px;
+			max-width: 140px;
+			filter: grayscale(100%) brightness(1.5);
+			transition: filter 0.3s ease;
+		}
+
+		.partner-card:hover img {
+			filter: grayscale(0%) brightness(1);
+		}
+
+		/* SECCIÓN REDES SOCIALES */
+		.social-grid {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: 20px;
+		}
+
+		.social-btn {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			padding: 14px 28px;
+			background: var(--re-card-bg);
+			border: 1px solid var(--re-card-border);
+			border-radius: 50px;
+			color: #ffffff;
+			font-family: 'Outfit', sans-serif;
+			font-weight: 600;
+			font-size: 1rem;
+			text-decoration: none;
+			transition: all 0.3s ease;
+		}
+
+		.social-btn:hover {
+			border-color: var(--re-gold);
+			color: var(--re-gold);
+			background: rgba(212, 175, 55, 0.1);
+			box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+		}
+
+		.social-btn.disabled {
+			opacity: 0.5;
+			cursor: not-allowed;
+			border-style: dashed;
+		}
+
+		.social-btn.disabled:hover {
+			border-color: var(--re-card-border);
+			color: #ffffff;
+			background: var(--re-card-bg);
+			box-shadow: none;
+		}
+
+		.badge-soon {
+			font-size: 0.7rem;
+			background: rgba(255, 255, 255, 0.15);
+			padding: 2px 8px;
+			border-radius: 10px;
+			color: #aaa;
+			text-transform: uppercase;
+		}
+
+		/* AJUSTES RESPONSIVOS */
+		@media screen and (max-width: 768px) {
+			.re-section {
+				padding: 60px 15px;
+			}
+			#hero-re {
+				min-height: 75vh;
+			}
+		}
+	</style>
 </head>
 
 <body class="is-preload">
@@ -19,8 +452,7 @@
 
 		<!-- Header -->
 		<header id="header" class="alt style2">
-			<a href="index.html" class="logo"><strong>Tonal Raíz</strong> <span>Artes Escénicas • Cuerpo •
-					Territorio</span></a>
+			<a href="index.html" class="logo"><strong>Tonal Raíz</strong> <span>Artes Escénicas • Cuerpo • Territorio</span></a>
 			<nav>
 				<a href="#menu">Menú</a>
 			</nav>
@@ -38,95 +470,221 @@
 			</ul>
 		</nav>
 
-		<!-- Banner -->
-		<section id="banner" class="style2">
-			<div class="inner">
-				<span class="image">
-					<img src="images/raizescenica/re-2.webp" alt="Raíz Escénica" />
-				</span>
-				<header class="major">
-					<h1>Raíz Escénica</h1>
-				</header>
-				<div class="content">
-					<p>Plataforma de creación viva, artes teatrales y expresión escénica.<br />
-						Un espacio contenedor donde conviven la comedia, el drama, la improvisación y las historias de
-						nuestro territorio.</p>
+		<!-- HERO PRINCIPAL DE ALTO IMPACTO -->
+		<section id="hero-re">
+			<div class="hero-bg"></div>
+			<div class="hero-overlay"></div>
+			<div class="hero-content">
+				<span class="tagline-badge">Plataforma de Artes Escénicas</span>
+				<h1>Raíz Escénica</h1>
+				<p class="subtitle">Creación viva, comedia y teatro con identidad, rigor y voz propia</p>
+				<div class="btn-group" style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+					<a href="#proyectos" class="button special icon solid fa-theater-masks">Explorar Proyectos</a>
+					<a href="#galeria" class="button">Ver Galería</a>
 				</div>
 			</div>
 		</section>
 
-		<!-- Main -->
+		<!-- MAIN CONTENT -->
 		<div id="main">
 
-			<!-- Presentación / Manifiesto -->
-			<section id="one">
-				<div class="inner">
-					<header class="major">
-						<h2>El Escenario como Territorio Vivo</h2>
-					</header>
-					<p style="font-size: 1.1em; line-height: 1.7;">
-						<strong>Raíz Escénica</strong> es la vertiente de Tonal Raíz dedicada al desarrollo, producción
-						y difusión de las artes escénicas. Desde el stand-up y la comedia hasta montajes teatrales y
-						performances interdisciplinarios, este espacio busca conectar con el público a través de
-						historias auténticas, voz propia y presencia en el escenario.
+			<!-- MANIFIESTO / PRESENTACIÓN -->
+			<section class="re-section">
+				<div class="re-section-header">
+					<h2>El Escenario como Territorio Vivo</h2>
+					<p>
+						<strong>Raíz Escénica</strong> es la plataforma de Tonal Raíz orientada a la gestación, producción y difusión de las artes escénicas. Nacemos desde la matriz del arte para impulsar propuestas teatrales, comedia y performance con alta calidad técnica y sensibilidad cultural.
 					</p>
+					<div class="gold-divider"></div>
 				</div>
 			</section>
 
-			<!-- Proyectos Anidados bajo Raíz Escénica -->
-			<section id="two" class="spotlights">
-				<!-- Subsección Zucy Flor -->
-				<section>
-					<a href="zucyflor.html" class="image">
-						<img src="images/zucyflor/zucy_flor_18_sep.webp" alt="Zucy Flor - Stand Up Comedy"
-							data-position="center center" />
-					</a>
-					<div class="content">
-						<div class="inner">
-							<header class="major">
-								<h3>Zucy Flor (Comedy)</h3>
-							</header>
-							<p><strong>Historias de la Tía Cuca</strong> — Monólogos, comedia y relatos escénicos con
-								frescura, humor y conexión con el público. Una propuesta de comedia vibrante dentro de
-								Raíz Escénica.</p>
-							<ul class="actions">
-								<li><a href="zucyflor.html" class="button">Ver Espacio Zucy Flor</a></li>
-							</ul>
-						</div>
-					</div>
-				</section>
+			<!-- PROYECTOS ESCÉNICOS ANIDADOS -->
+			<section id="proyectos" class="re-section" style="border-top: 1px solid rgba(255, 255, 255, 0.08);">
+				<div class="re-section-header">
+					<h2>Proyectos Escénicos</h2>
+					<p>Espacios de creación y espectáculos pertenecientes a Raíz Escénica</p>
+				</div>
 
-				<!-- Subsección Teatro y Montajes -->
-				<section>
-					<a href="teatro.html" class="image">
-						<img src="images/teatro01.jpg" alt="Teatro y Montajes" data-position="top center" />
-					</a>
-					<div class="content">
-						<div class="inner">
-							<header class="major">
-								<h3>Teatro & Dramaturgia</h3>
-							</header>
-							<p>Montajes teatrales, colaboraciones con compañías invitadas y participaciones escénicas
-								que exploran nuevas narrativas y corporalidades.</p>
-							<ul class="actions">
-								<li><a href="teatro.html" class="button">Cartelera de Teatro</a></li>
-							</ul>
+				<div class="projects-grid">
+					<!-- PROYECTO 1: ZUCY FLOR (COMEDY) - PROYECTO ACTIVO -->
+					<article class="project-card">
+						<div class="card-img-wrapper">
+							<img src="images/zucyflor/zucy_flor_18_sep.webp" alt="Zucy Flor - Stand Up & Comedia" />
+							<span class="project-badge">Comedy & Stand Up</span>
 						</div>
+						<div class="card-body">
+							<h3>Zucy Flor (Comedy)</h3>
+							<p>
+								<strong>Historias de la Tía Cuca</strong> — Monólogos, comedia y relatos escénicos cargados de frescura, humor, identidad regional y profunda conexión con el público.
+							</p>
+							<a href="zucyflor.html" class="button next fit">Explorar Zucy Flor</a>
+						</div>
+					</article>
+
+					<!-- ========================================================================= -->
+					<!-- PLANTILLA PARA FUTUROS PROYECTOS ESCÉNICOS (COPIAR Y PEGAR PARA AÑADIR MÁS) -->
+					<!-- ========================================================================= -->
+					<!--
+					<article class="project-card">
+						<div class="card-img-wrapper">
+							<img src="images/TU_IMAGEN_AQUI.webp" alt="Nombre del Proyecto" />
+							<span class="project-badge">Teatro / Performance</span>
+						</div>
+						<div class="card-body">
+							<h3>Nombre del Nuevo Proyecto</h3>
+							<p>Descripción del proyecto escénico, síntesis de la propuesta y carácter distintivo.</p>
+							<a href="PAGINA_DEL_PROYECTO.html" class="button next fit">Ver Proyecto</a>
+						</div>
+					</article>
+					-->
+
+					<!-- TARJETA VISUAL DE PRÓXIMO PROYECTO (ESPACIO DISPONIBLE) -->
+					<div class="project-card-placeholder">
+						<div class="placeholder-icon">
+							<i class="fas fa-plus"></i>
+						</div>
+						<h4>Próximo Proyecto Escénico</h4>
+						<p>Nuevos espectáculos, laboratorios de comedia y creaciones teatrales se sumarán a este espacio.</p>
 					</div>
-				</section>
+
+				</div>
 			</section>
 
-			<!-- Próximas Producciones -->
-			<section id="three">
-				<div class="inner">
-					<header class="major">
-						<h2>Proyectos en Desarrollo</h2>
-					</header>
-					<p>Raíz Escénica se encuentra en constante crecimiento. Próximamente se integrarán nuevas propuestas
-						de comedia, laboratorios de dramaturgia y producciones independientes.</p>
-					<ul class="actions">
-						<li><a href="index.html#proximos-eventos" class="button next">Ver Próximos Eventos</a></li>
-					</ul>
+			<!-- GALERÍA FOTOGRÁFICA DE ESCENA -->
+			<section id="galeria" class="re-section" style="border-top: 1px solid rgba(255, 255, 255, 0.08);">
+				<div class="re-section-header">
+					<h2>Galería de Escena</h2>
+					<p>Registros fotográficos de nuestras presentaciones y momentos en escenario</p>
+				</div>
+
+				<div class="gallery-grid">
+					<!-- FOTO 1 -->
+					<div class="gallery-item">
+						<img src="images/raizescenica/re-2.webp" alt="Raíz Escénica en Vivo" />
+						<div class="gallery-overlay">
+							<span>Raíz Escénica — Presencia en Escenario</span>
+						</div>
+					</div>
+
+					<!-- FOTO 2 -->
+					<div class="gallery-item">
+						<img src="images/zucyflor/zucy_flor_18_sep.webp" alt="Zucy Flor en Función" />
+						<div class="gallery-overlay">
+							<span>Zucy Flor — Comedy & Stand-up</span>
+						</div>
+					</div>
+
+					<!-- FOTO 3 -->
+					<div class="gallery-item">
+						<img src="images/raizescenica/re-1.webp" alt="Expresión Teatral" />
+						<div class="gallery-overlay">
+							<span>Artes Vivas — Expresión y Cuerpo</span>
+						</div>
+					</div>
+
+					<!-- FOTO 4 -->
+					<div class="gallery-item">
+						<img src="images/zucyflor/praga_fachada.webp" alt="Foro Praga" />
+						<div class="gallery-overlay">
+							<span>Foro Praga — Espacio de Función</span>
+						</div>
+					</div>
+
+					<!-- FOTO 5 -->
+					<div class="gallery-item">
+						<img src="images/teatro01.jpg" alt="Montaje Teatral" />
+						<div class="gallery-overlay">
+							<span>Montajes & Dramaturgia</span>
+						</div>
+					</div>
+
+					<!-- ========================================================================= -->
+					<!-- ESPACIO PARA AGREGAR MÁS FOTOS A LA GALERÍA FUTURA -->
+					<!-- ========================================================================= -->
+					<!--
+					<div class="gallery-item">
+						<img src="images/NUEVA_FOTO.webp" alt="Descripción de la foto" />
+						<div class="gallery-overlay">
+							<span>Título de la Foto</span>
+						</div>
+					</div>
+					-->
+				</div>
+			</section>
+
+			<!-- ESCENARIOS Y EMPRESAS (DONDE NOS HEMOS PRESENTADO) -->
+			<section class="re-section" style="border-top: 1px solid rgba(255, 255, 255, 0.08);">
+				<div class="re-section-header">
+					<h2>Escenarios & Marcas Aliadas</h2>
+					<p>Foros, recintos y empresas donde nuestras producciones escénicas se han presentado</p>
+				</div>
+
+				<div class="partners-grid">
+					<!-- ESCENARIO / EMPRESA 1 -->
+					<div class="partner-card">
+						<span class="partner-name"><i class="fas fa-building" style="margin-right: 8px; color: var(--re-gold);"></i> Foro Praga</span>
+					</div>
+
+					<!-- ESCENARIO / EMPRESA 2 -->
+					<div class="partner-card">
+						<span class="partner-name"><i class="fas fa-theater-masks" style="margin-right: 8px; color: var(--re-gold);"></i> Teatro de la Ciudad</span>
+					</div>
+
+					<!-- ESCENARIO / EMPRESA 3 -->
+					<div class="partner-card">
+						<span class="partner-name"><i class="fas fa-landmark" style="margin-right: 8px; color: var(--re-gold);"></i> Espacio Cultural Tonal</span>
+					</div>
+
+					<!-- ESCENARIO / EMPRESA 4 -->
+					<div class="partner-card">
+						<span class="partner-name"><i class="fas fa-star" style="margin-right: 8px; color: var(--re-gold);"></i> Foro Independiente</span>
+					</div>
+
+					<!-- ========================================================================= -->
+					<!-- SI SE TIENEN IMÁGENES DE LOGOS EN EL FUTURO, USAR ESTA ESTRUCTURA: -->
+					<!-- ========================================================================= -->
+					<!--
+					<div class="partner-card">
+						<img src="images/logos/LOGO_EMPRESA.png" alt="Nombre Empresa" />
+					</div>
+					-->
+				</div>
+			</section>
+
+			<!-- REDES SOCIALES -->
+			<section class="re-section" style="border-top: 1px solid rgba(255, 255, 255, 0.08); text-align: center;">
+				<div class="re-section-header">
+					<h2>Sigue a Raíz Escénica</h2>
+					<p>Conéctate con nuestras fechas, tras bambalinas y próximos estrenos</p>
+				</div>
+
+				<div class="social-grid">
+					<!-- FACEBOOK (ACTIVO) -->
+					<a href="https://www.facebook.com/tonalraiz/" target="_blank" rel="noopener noreferrer" class="social-btn">
+						<i class="fab fa-facebook-f" style="color: #1877f2;"></i>
+						<span>Facebook</span>
+					</a>
+
+					<!-- INSTAGRAM (ACTIVO) -->
+					<a href="#" class="social-btn">
+						<i class="fab fa-instagram" style="color: #e4405f;"></i>
+						<span>Instagram</span>
+					</a>
+
+					<!-- YOUTUBE (FUTURO) -->
+					<div class="social-btn disabled" title="Próximamente">
+						<i class="fab fa-youtube" style="color: #ff0000;"></i>
+						<span>YouTube</span>
+						<span class="badge-soon">Próximamente</span>
+					</div>
+
+					<!-- TIKTOK (FUTURO) -->
+					<div class="social-btn disabled" title="Próximamente">
+						<i class="fab fa-tiktok" style="color: #ffffff;"></i>
+						<span>TikTok</span>
+						<span class="badge-soon">Próximamente</span>
+					</div>
 				</div>
 			</section>
 
