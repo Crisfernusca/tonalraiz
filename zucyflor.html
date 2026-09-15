@@ -108,6 +108,7 @@
 			height: 100vh;
 			width: 100%;
 			display: flex;
+			flex-direction: column;
 			align-items: center;
 			justify-content: center;
 			overflow: hidden;
@@ -138,12 +139,22 @@
 			z-index: 2;
 		}
 
+		/* Video como hijo directo del hero: ocupa todo el ancho, sin padding */
+		#hero-susi > .neon-video-wrapper {
+			width: 100%;
+			max-width: 100%;
+			margin: 0;
+			padding: 0;
+			z-index: 10;
+		}
+
 		#hero-susi .inner {
 			position: relative;
 			z-index: 10;
 			text-align: center;
 			max-width: 900px;
-			padding: 0 20px;
+			width: 100%;
+			padding: 16px 20px 0;
 		}
 
 		#hero-susi .tagline {
@@ -458,22 +469,21 @@
 		<section id="hero-susi">
 			<div class="hero-bg"></div>
 			<div class="overlay"></div>
+
+			<!-- VIDEO NEÓN — directo en el hero, ocupa todo el ancho -->
+			<div class="neon-video-wrapper">
+				<video autoplay loop muted playsinline disablepictureinpicture
+					controlslist="nodownload nofullscreen noremoteplayback"
+					aria-label="Historias de la Tía Cuca - Zucy Flor Presenta"
+					class="neon-video-marquee">
+					<source src="videos/historias_tia_cuca_neon.webm" type="video/webm">
+					<source src="videos/historias_tia_cuca_neon.mp4" type="video/mp4">
+				</video>
+			</div>
+
 			<div class="inner">
 				<h1 class="sr-only">Historias de la Tía Cuca - Zucy Flor Presenta</h1>
-
-				<!-- VIDEO NEÓN — lo primero que se ve al entrar -->
-				<div class="neon-video-wrapper">
-					<video autoplay loop muted playsinline disablepictureinpicture
-						controlslist="nodownload nofullscreen noremoteplayback"
-						aria-label="Historias de la Tía Cuca - Zucy Flor Presenta"
-						class="neon-video-marquee">
-						<source src="videos/historias_tia_cuca_neon.webm" type="video/webm">
-						<source src="videos/historias_tia_cuca_neon.mp4" type="video/mp4">
-					</video>
-				</div>
-
 				<span class="tagline">Temporada 2026</span>
-
 				<div class="btn-group" style="margin-top: 20px;">
 					<a href="#cartelera" class="btn-main scrolly">Cartelera</a>
 					<!-- <a href="#galeria" class="btn-outline scrolly">Galería</a> -->
