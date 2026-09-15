@@ -28,68 +28,18 @@
 		}
 
 		/* ================================================================= */
-		/* SECCIÓN HERO VIDEO NEÓN — PROTAGONISTA PRINCIPAL                  */
+		/* VIDEO NEÓN DENTRO DEL HERO — SIN GLOW DE COLOR                   */
 		/* ================================================================= */
-		.neon-video-section {
-			width: 100%;
-			background: #000;
-			position: relative;
-			overflow: hidden;
-			padding: 0;
-		}
-
-		/* Glow ambiental animado detrás del video */
-		.neon-video-section::before {
-			content: '';
-			position: absolute;
-			inset: 0;
-			background: radial-gradient(ellipse 80% 60% at 50% 50%,
-				rgba(233, 30, 99, 0.18) 0%,
-				rgba(156, 39, 176, 0.12) 40%,
-				transparent 70%);
-			animation: neonPulse 4s ease-in-out infinite alternate;
-			z-index: 1;
-			pointer-events: none;
-		}
-
-		@keyframes neonPulse {
-			from { opacity: 0.6; }
-			to   { opacity: 1; }
-		}
-
 		.neon-video-wrapper {
 			position: relative;
-			z-index: 2;
 			width: 100%;
 			max-width: 1400px;
-			margin: 0 auto;
-			padding: 0 0;
+			margin: 0 auto 30px auto;
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			pointer-events: none;
 			user-select: none;
-		}
-
-		/* Brillo de borde neon alrededor del video */
-		.neon-video-wrapper::after {
-			content: '';
-			position: absolute;
-			inset: -2px;
-			border-radius: 4px;
-			background: linear-gradient(135deg, var(--color-primary), var(--color-accent), var(--color-primary));
-			background-size: 300% 300%;
-			animation: borderGlow 5s linear infinite;
-			filter: blur(18px);
-			opacity: 0.55;
-			z-index: -1;
-			pointer-events: none;
-		}
-
-		@keyframes borderGlow {
-			0%   { background-position: 0% 50%; }
-			50%  { background-position: 100% 50%; }
-			100% { background-position: 0% 50%; }
 		}
 
 		.neon-video-marquee {
@@ -102,57 +52,15 @@
 			border-radius: 0;
 			pointer-events: none;
 			background: transparent;
-			position: relative;
-			z-index: 2;
-		}
-
-		/* Label flotante sobre el video */
-		.neon-video-label {
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			z-index: 5;
-			pointer-events: none;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			gap: 6px;
-		}
-
-		/* Separadores degradados arriba/abajo del video */
-		.neon-video-section .fade-top,
-		.neon-video-section .fade-bottom {
-			position: absolute;
-			left: 0;
-			width: 100%;
-			height: 80px;
-			z-index: 3;
-			pointer-events: none;
-		}
-		.neon-video-section .fade-top {
-			top: 0;
-			background: linear-gradient(to bottom, #000 0%, transparent 100%);
-		}
-		.neon-video-section .fade-bottom {
-			bottom: 0;
-			background: linear-gradient(to top, #000 0%, transparent 100%);
 		}
 
 		/* ── RESPONSIVE ─────────────────────────────────────────── */
-		/* En móvil el video tiene ratio muy ancho → se recorta verticalmente
-		   para que tenga más altura visible y más impacto */
 		@media (max-width: 768px) {
 			.neon-video-marquee {
-				/* En móvil mostramos el video a altura fija para que tenga presencia */
 				aspect-ratio: unset;
 				height: clamp(140px, 35vw, 220px);
 				object-fit: cover;
 				object-position: center center;
-			}
-			.neon-video-section .fade-top,
-			.neon-video-section .fade-bottom {
-				height: 40px;
 			}
 		}
 
@@ -551,30 +459,26 @@
 			<div class="hero-bg"></div>
 			<div class="overlay"></div>
 			<div class="inner">
-				<span class="tagline">Temporada 2026</span>
-
 				<h1 class="sr-only">Historias de la Tía Cuca - Zucy Flor Presenta</h1>
 
-				<div class="btn-group">
+				<!-- VIDEO NEÓN — lo primero que se ve al entrar -->
+				<div class="neon-video-wrapper">
+					<video autoplay loop muted playsinline disablepictureinpicture
+						controlslist="nodownload nofullscreen noremoteplayback"
+						aria-label="Historias de la Tía Cuca - Zucy Flor Presenta"
+						class="neon-video-marquee">
+						<source src="videos/historias_tia_cuca_neon.webm" type="video/webm">
+						<source src="videos/historias_tia_cuca_neon.mp4" type="video/mp4">
+					</video>
+				</div>
+
+				<span class="tagline">Temporada 2026</span>
+
+				<div class="btn-group" style="margin-top: 20px;">
 					<a href="#cartelera" class="btn-main scrolly">Cartelera</a>
 					<!-- <a href="#galeria" class="btn-outline scrolly">Galería</a> -->
 				</div>
 			</div>
-		</section>
-
-		<!-- VIDEO NEÓN PROTAGONISTA — "Historias de la Tía Cuca" -->
-		<section class="neon-video-section" aria-label="Historias de la Tía Cuca - Video Neón">
-			<div class="fade-top"></div>
-			<div class="neon-video-wrapper">
-				<video autoplay loop muted playsinline disablepictureinpicture
-					controlslist="nodownload nofullscreen noremoteplayback"
-					aria-label="Historias de la Tía Cuca - Zucy Flor Presenta"
-					class="neon-video-marquee">
-					<source src="videos/historias_tia_cuca_neon.webm" type="video/webm">
-					<source src="videos/historias_tia_cuca_neon.mp4" type="video/mp4">
-				</video>
-			</div>
-			<div class="fade-bottom"></div>
 		</section>
 
 		<!-- SINOPSIS -->
