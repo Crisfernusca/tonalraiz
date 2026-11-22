@@ -9,9 +9,13 @@
 	     CONFIGURACIÓN DE TARJETAS: cambia SOLO estos valores
 	     diseno:   1 = Mosaico  ·  2 = Paneles  ·  3 = Escenario
 	     selector: false = oculto (versión final)  ·  true = botones para probar
+	     acento:   color de acento en hexadecimal (dorado original: '#d9a441')
+	     subirTexto: sube el texto del inicio (en vh). 0 = posición actual · 8 = más arriba · -4 = más abajo
 	     ===================================================================== -->
 	<script>
-		window.TJ = { diseno: 1, selector: false };
+		window.TJ = { diseno: 1, selector: false, acento: '#d9a441', subirTexto: 0 };
+		document.documentElement.style.setProperty('--tj-ac', TJ.acento);
+		document.documentElement.style.setProperty('--tj-up', (TJ.subirTexto || 20) + 'vh');
 	</script>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -39,13 +43,12 @@
 		}
 
 		#tj#tj {
-			/* >>> COLOR DE ACENTO: cámbialo por el de tu paleta <<< */
-			--ac: #9bf1ff;
-			--ln: rgba(255, 255, 255, .16);
-			--mut: rgba(255, 255, 255, .7);
+			--ac: var(--tj-ac, #d9a441);
+			--ln: rgba(243, 234, 216, .16);
+			--mut: #b3a994;
 			--f: Fraunces, Georgia, serif;
 			display: block;
-			color: #fff;
+			color: #f3ead8;
 			font-family: inherit;
 			font-weight: 300;
 			overflow: hidden;
@@ -73,28 +76,6 @@
 			& .rv.pre {
 				opacity: 0;
 				transform: translateY(34px);
-			}
-
-			/* cinta */
-			& .mq {
-				display: block;
-				overflow: hidden;
-				white-space: nowrap;
-				border-block: 1px solid var(--ln);
-				padding: 20px 0;
-			}
-
-			& .mq div {
-				display: inline-block;
-				animation: tjmq 40s linear infinite;
-				font: italic 300 clamp(1.3rem, 2.8vw, 2.2rem) var(--f);
-				color: var(--mut);
-			}
-
-			& .mq i {
-				font-style: normal;
-				color: var(--ac);
-				margin: 0 26px;
 			}
 
 			/* encabezados de sección */
@@ -182,13 +163,13 @@
 				margin: .2em 0 .3em;
 				font: 300 clamp(1.7rem, 2.8vw, 2.6rem)/1.05 var(--f);
 				letter-spacing: -.01em;
-				color: #fff;
+				color: #f3ead8;
 			}
 
 			& .tc p {
 				font-size: .95rem;
 				line-height: 1.55;
-				color: rgba(255, 255, 255, .88);
+				color: #e3d9c4;
 				max-width: 46ch;
 			}
 
@@ -343,7 +324,7 @@
 			& .v3 .tc:hover h3,
 			& .v3 .tc:hover p,
 			& .v3 .tc:hover .n {
-				color: #10131c;
+				color: #0d0f0c;
 			}
 
 			/* eventos */
@@ -402,7 +383,7 @@
 			}
 
 			& .ev p b {
-				color: #fff;
+				color: #f3ead8;
 				font-weight: 500;
 			}
 
@@ -421,7 +402,7 @@
 
 			& .btn:hover {
 				background: var(--ac);
-				color: #10131c;
+				color: #0d0f0c;
 			}
 
 			/* esencia */
@@ -538,7 +519,7 @@
 				& .v3 .tc:hover h3,
 				& .v3 .tc:hover p,
 				& .v3 .tc:hover .n {
-					color: #fff;
+					color: #f3ead8;
 				}
 
 				& .v3 .tc:hover h3 {
@@ -555,6 +536,252 @@
 				& * {
 					animation: none !important;
 					transition: none !important;
+				}
+			}
+		}
+
+		/* hero aislado */
+		#banner.tjb {
+			display: block !important;
+			padding: 0 !important;
+			margin: 0 !important;
+			min-height: 0 !important;
+			height: auto !important;
+			background: none !important;
+			border: 0 !important;
+			overflow: visible !important;
+		}
+
+		#banner.tjb::before,
+		#banner.tjb::after {
+			display: none !important;
+		}
+
+		@keyframes tjup {
+			from {
+				opacity: 0;
+				transform: translateY(40px);
+			}
+		}
+
+		#tjh#tjh {
+			--ac: var(--tj-ac, #d9a441);
+			--mut: #b3a994;
+			--f: Fraunces, Georgia, serif;
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-end;
+			min-height: 100vh;
+			min-height: 100svh;
+			height: auto;
+			margin-top: calc(var(--tj-off, 0px) * -1);
+			overflow: hidden;
+			color: #f3ead8;
+			font-family: inherit;
+			font-weight: 300;
+			background: radial-gradient(60% 60% at 75% 30%, rgba(255, 255, 255, .14), transparent 70%), #0d0f0c;
+			background: radial-gradient(60% 60% at 75% 30%, color-mix(in srgb, var(--ac) 35%, transparent), transparent 70%), #0d0f0c;
+
+			& * {
+				all: revert;
+				box-sizing: border-box;
+			}
+
+			& video {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				object-position: center center;
+				transform: scale(1.02);
+				z-index: 0;
+			}
+
+			&::after {
+				content: "";
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(180deg, rgba(0, 0, 0, .55) 0%, rgba(0, 0, 0, .15) 30%, rgba(0, 0, 0, .85) 100%);
+				z-index: 1;
+				pointer-events: none;
+			}
+
+			/* ========================================================================= */
+			/* 1. ESPACIADO DEL CONTENEDOR HERO (PADDINGS)                               */
+			/* padding: [ARRIBA] [LATERALES] [ABAJO]                                     */
+			/* PARA SUBIR EL BLOQUE: Aumenta el último valor (ej: calc(7vh + var(--tj-up, 0vh))) */
+			/* ========================================================================= */
+			& .in {
+				position: relative;
+				z-index: 2;
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				justify-content: flex-end;
+				width: 100%;
+				max-width: min(92vw, 1500px);
+				margin: 0 auto 0 0;
+				padding: clamp(70px, 9vh, 90px) clamp(20px, 5vw, 60px) calc(clamp(20px, 3.5vh, 35px) + var(--tj-up, 0vh));
+				animation: tjup 1.2s cubic-bezier(.2, .8, .2, 1) both;
+				text-align: left;
+			}
+
+			& .l {
+				display: block;
+				width: 100%;
+				max-width: 950px;
+				margin-bottom: clamp(16px, 2.5vh, 28px);
+			}
+
+			& .kick {
+				display: block;
+				margin-bottom: clamp(10px, 1.8vh, 18px);
+				font-size: clamp(.68rem, 1vw, .8rem);
+				letter-spacing: .35em;
+				text-transform: uppercase;
+				color: var(--ac);
+				opacity: .95;
+			}
+
+			/* ========================================================================= */
+			/* 2. CONTROL DE TAMAÑO DEL TÍTULO "TONAL RAÍZ"                              */
+			/* clamp([MÍNIMO], [TAMAÑO FLUIDO EN PANTALLA], [MÁXIMO])                   */
+			/* ========================================================================= */
+			& h1 {
+				font-size: clamp(4.5rem, min(10.5vw, 15vh), 11.5rem) !important;
+				font-family: var(--f) !important;
+				font-weight: 300 !important;
+				line-height: .86 !important;
+				letter-spacing: -.035em !important;
+				color: #f3ead8 !important;
+				margin: 0 !important;
+				text-shadow: 0 8px 50px rgba(0, 0, 0, .95) !important;
+			}
+
+			& h1 em {
+				font-style: italic;
+				color: var(--ac);
+				display: inline-block;
+			}
+
+			& .r {
+				display: block;
+				width: 100%;
+				max-width: min(580px, 90vw);
+			}
+
+			/* ========================================================================= */
+			/* 3. PÁRRAFO DESCRIPTIVO ("Tonal Raíz es un espacio vivo...")               */
+			/* ========================================================================= */
+			& .lead {
+				margin: 0;
+				font-size: clamp(.88rem, min(1.3vw, 1.8vh), 1.02rem);
+				line-height: 1.7;
+				color: #e3d9c4;
+				text-shadow: 0 2px 16px rgba(0, 0, 0, .9);
+			}
+
+			& .firma {
+				margin-top: clamp(12px, 1.8vh, 20px);
+				font-size: clamp(.68rem, 1vw, .78rem);
+				letter-spacing: .24em;
+				text-transform: uppercase;
+				color: var(--mut);
+				opacity: .9;
+			}
+
+			& .btn {
+				display: inline-block;
+				margin-top: clamp(16px, 2.5vh, 28px);
+				padding: 12px 30px;
+				border: 1px solid var(--ac);
+				color: var(--ac);
+				border-radius: 40px;
+				font-size: .72rem;
+				letter-spacing: .25em;
+				text-transform: uppercase;
+				text-decoration: none;
+				transition: background .4s, color .4s, transform .3s;
+				background: rgba(13, 15, 12, .35);
+				backdrop-filter: blur(4px);
+			}
+
+			& .btn:hover {
+				background: var(--ac);
+				color: #0d0f0c;
+				transform: translateY(-2px);
+			}
+
+			& .sl {
+				position: absolute;
+				right: 5vw;
+				bottom: calc(70px + 7vh);
+				z-index: 2;
+				width: 1px;
+				height: 90px;
+				background: linear-gradient(var(--ac), transparent);
+				animation: tjpulse 2.4s infinite;
+			}
+
+			& .mq {
+				position: relative;
+				z-index: 2;
+				display: block;
+				overflow: hidden;
+				white-space: nowrap;
+				padding: 16px 0;
+				border-top: 1px solid rgba(243, 234, 216, .16);
+				background: rgba(13, 15, 12, .45);
+			}
+
+			& .mq div {
+				display: inline-block;
+				animation: tjmq 40s linear infinite;
+				font: italic 300 clamp(1.1rem, 2.4vw, 1.9rem) var(--f);
+				color: var(--mut);
+			}
+
+			& .mq i {
+				font-style: normal;
+				color: var(--ac);
+				margin: 0 26px;
+			}
+
+			@media (max-width: 860px) {
+				& .sl {
+					display: none;
+				}
+			}
+
+			@media (max-height: 520px) and (orientation: landscape) {
+				& .in {
+					padding-top: 60px;
+					padding-bottom: 20px;
+				}
+
+				& .l {
+					margin-bottom: 12px;
+				}
+
+				& h1 {
+					font-size: clamp(2.8rem, 14vh, 6.5rem) !important;
+					line-height: .9 !important;
+				}
+
+				& .btn {
+					margin-top: 16px;
+					padding: 10px 24px;
+				}
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+
+				& *,
+				& .in {
+					animation: none !important;
 				}
 			}
 		}
@@ -623,12 +850,12 @@
 			font-size: .72rem;
 			letter-spacing: .12em;
 			text-transform: uppercase;
-			color: #fff;
+			color: #f3ead8;
 		}
 
 		#tjsw button.on {
 			background: #fff;
-			color: #10131c;
+			color: #0d0f0c;
 		}
 	</style>
 </head>
@@ -659,47 +886,39 @@
 			</ul>
 		</nav>
 
-		<!-- Banner con video de fondo -->
-		<section id="banner" class="major">
-			<div class="video-container">
-				<video autoplay muted playsinline loop preload="auto" id="miVideo" oncontextmenu="return false"
+		<!-- Hero con video (conserva id="banner" para el comportamiento del menú de la plantilla) -->
+		<section id="banner" class="tjb">
+			<div id="tjh">
+				<video autoplay muted playsinline loop preload="metadata" id="miVideo" oncontextmenu="return false"
 					poster="images/veracruzia1.webp">
 					<source src="assets/video/Veracruz1.mp4" type="video/mp4">
 				</video>
-			</div>
-			<div class="inner" style="text-align: center;">
-				<header class="major" style="line-height: 1.1; margin-bottom: 1em;">
-					<h1 style="margin: 0.2em 0;">Bienvenidos a Tonal Raíz</h1>
-				</header>
-
-				<section style="text-align: center;">
-					<p style="margin-bottom: 1em; font-size: clamp(1.1rem, 2.5vw, 1.45rem); line-height: 1.65;">
-						Tonal Raíz es un espacio vivo donde la danza, la arquitectura y la creación trabajan
-						de manera conjunta para resguardar la herencia cultural que nos sostiene. Es un territorio que
-						impulsa la continuidad de nuestras raíces, asegurando que su valor se transmita, se celebre y se
-						proyecte hacia el futuro.
-					</p>
-
-					<div style="margin-top: 0.6em; font-size: 1.1em; font-weight: 500;">
-						<h5>- Fundador y Director Creativo · Arq. Cristóbal Fernández -</h5>
+				<div class="in">
+					<div class="l">
+						<div class="kick">Mis Raíces · · · · · · · ·</div>
+						<h1>Tonal<br><em>Raíz</em></h1>
 					</div>
-
-					<div style="margin-top: 1.4em; margin-bottom: 4em;">
-						<a href="#origen" class="button next scrolly">Vayamos al origen</a>
+					<div class="r">
+						<p class="lead">Tonal Raíz es un espacio vivo donde la danza, la arquitectura y la creación
+							trabajan de manera conjunta para resguardar la herencia cultural que nos sostiene. Un
+							territorio que impulsa la continuidad de nuestras raíces, asegurando que su valor se
+							transmita, se celebre y se proyecte hacia el futuro.</p>
+						<div class="firma">Fundador y Director Creativo · Arq. Cristóbal Fernández</div>
+						<a href="#origen" class="btn scrolly">Vayamos al origen</a>
 					</div>
-				</section>
+				</div>
+				<div class="mq">
+					<div>Son Zapateado <i>✦</i> ArquiBita Estudio <i>✦</i> Teatro <i>✦</i> Raíz Escénica <i>✦</i>
+						ZucyFlor Comedy <i>✦</i> Son Zapateado <i>✦</i> ArquiBita Estudio <i>✦</i> Teatro <i>✦</i> Raíz
+						Escénica <i>✦</i> ZucyFlor Comedy <i>✦</i></div>
+				</div>
+				<div class="sl"></div>
 			</div>
 		</section>
 
 		<!-- Main (rediseño aislado) -->
 		<div id="main" style="padding:0;margin:0;max-width:none;background:none">
 			<div id="tj">
-
-				<div class="mq">
-					<div>Son Zapateado <i>✦</i> ArquiBita Estudio <i>✦</i> Teatro <i>✦</i> Raíz Escénica <i>✦</i>
-						ZucyFlor Comedy <i>✦</i> Son Zapateado <i>✦</i> ArquiBita Estudio <i>✦</i> Teatro <i>✦</i> Raíz
-						Escénica <i>✦</i> ZucyFlor Comedy <i>✦</i></div>
-				</div>
 
 				<div id="origen" class="proj v1">
 					<div class="hd rv">
@@ -751,7 +970,8 @@
 						<h3>Zucy Flor <em>Comedy</em></h3>
 						<p><b>Historias de la Tía Cuca</b> — monólogos, comedia y relatos escénicos que conectan con la
 							memoria, la frescura y la cotidianidad humorística del territorio. Cartelera de funciones de
-							<b>Raíz Escénica</b> en Tonal Raíz.</p>
+							<b>Raíz Escénica</b> en Tonal Raíz.
+						</p>
 						<a class="btn" href="zucyflor.html">Ver detalle del evento</a>
 					</div>
 				</div>
@@ -810,17 +1030,30 @@
 		(function () {
 			var p = document.querySelector('#tj .proj'), b = document.body,
 				fl = document.getElementById('tjfl'), im = fl.firstElementChild, x = 0, y = 0, cx = 0, cy = 0;
-			var io = new IntersectionObserver(function (es) {
+			var HAS_IO = 'IntersectionObserver' in window;
+			var io = !HAS_IO ? null : new IntersectionObserver(function (es) {
 				es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.remove('pre'); io.unobserve(e.target); } });
 			}, { threshold: .1 });
 			document.querySelectorAll('#tj .rv').forEach(function (el, i) {
-				el.classList.add('pre'); el.style.transitionDelay = (i % 4) * 90 + 'ms'; io.observe(el);
+				if (!HAS_IO) return; el.classList.add('pre'); el.style.transitionDelay = (i % 4) * 90 + 'ms'; io.observe(el);
 			});
 			function setV(v) {
 				p.classList.remove('v1', 'v2', 'v3'); p.classList.add(v); b.classList.toggle('tjv3', v === 'v3');
 				document.querySelectorAll('#tjsw button').forEach(function (k) { k.classList.toggle('on', k.dataset.v === v); });
 			}
 			document.querySelectorAll('#tjsw button').forEach(function (k) { k.addEventListener('click', function () { setV(k.dataset.v); }); });
+			/* hero a pantalla completa: compensa el espacio que deje la plantilla arriba */
+			var hh = document.getElementById('tjh');
+			function fitHero() {
+				hh.style.setProperty('--tj-off', '0px');
+				var t = Math.round(hh.getBoundingClientRect().top + window.pageYOffset);
+				hh.style.setProperty('--tj-off', (t > 0 && t < 200 ? t : 0) + 'px');
+			}
+			fitHero();
+			addEventListener('load', function () { fitHero(); setTimeout(fitHero, 400); });
+			addEventListener('resize', fitHero);
+			addEventListener('orientationchange', function () { setTimeout(fitHero, 250); });
+
 			var cfg = window.TJ || {};
 			setV('v' + ([1, 2, 3].indexOf(cfg.diseno) > -1 ? cfg.diseno : 1));
 			if (cfg.selector) document.getElementById('tjsw').style.display = 'flex';
