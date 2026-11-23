@@ -39,11 +39,12 @@
 			],
 
 			/* Testimonios: REEMPLAZA los de ejemplo por opiniones reales de tus clientes.
-			   Al quitar "ejemplo: true" desaparece la etiqueta de muestra. */
+			   Puedes agregar la propiedad "foto" con la ruta de su imagen (ej: 'images/cliente1.jpg').
+			   Si no defines "foto", se mostrará una foto de muestra o la inicial del autor. */
 			testimonios: [
-				{ texto: 'Recibimos planos claros, un presupuesto detallado y una obra que avanzó como se nos explicó desde el inicio.', autor: 'Heriberto V.', rol: 'Consultorio' },
-				{ texto: 'Contar con un solo equipo para el proyecto, los trámites y la supervisión nos ahorró tiempo y complicaciones.', autor: 'C. Preciado', rol: 'Consultorio Dental y departamento' },
-				{ texto: 'El mobiliario quedó justo a la medida del espacio, con muy buen acabado y atención al detalle.', autor: 'Cliente residencial', rol: 'Mobiliario a medida' }
+				{ texto: 'Recibimos planos claros, un presupuesto detallado y una obra que avanzó como se nos explicó desde el inicio.', autor: 'Heriberto V.', rol: 'Consultorio medico dental', foto: 'images/arquibita/testimonios/reseña1.jpg' },
+				{ texto: 'Contar con un solo equipo para el proyecto, los trámites y la supervisión nos ahorró tiempo y complicaciones.', autor: 'C. Preciado', rol: 'Consultorio Dental y departamento', foto: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80' },
+				{ texto: 'El mobiliario quedó justo a la medida del espacio, con muy buen acabado y atención al detalle.', autor: 'Cliente residencial', rol: 'Mobiliario a medida', foto: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80' }
 			]
 		};
 	</script>
@@ -834,12 +835,22 @@
 		.av {
 			display: grid;
 			place-items: center;
-			width: 44px;
-			height: 44px;
+			width: 48px;
+			height: 48px;
 			border-radius: 50%;
 			background: var(--ink);
 			color: var(--y);
-			font-weight: 800
+			font-weight: 800;
+			overflow: hidden;
+			flex-shrink: 0;
+			border: 2px solid var(--y);
+		}
+
+		.av img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			display: block;
 		}
 
 		.tc footer b {
@@ -1744,7 +1755,12 @@
 
 		/* --- Testimonios --- */
 		(function testimonios() {
-			$('#tes').innerHTML = CONFIG.testimonios.map(t => `<article class="tc rv">${t.ejemplo ? '<span class="ej">Ejemplo</span>' : ''}<p>${esc(t.texto)}</p><footer><span class="av">${esc((t.autor || '?')[0])}</span><div><b>${esc(t.autor)}</b><span>${esc(t.rol)}</span></div></footer></article>`).join('');
+			$('#tes').innerHTML = CONFIG.testimonios.map(t => {
+				const avatarHtml = t.foto
+					? `<img src="${esc(t.foto)}" alt="${esc(t.autor)}" loading="lazy">`
+					: esc((t.autor || '?')[0]);
+				return `<article class="tc rv">${t.ejemplo ? '<span class="ej">Ejemplo</span>' : ''}<p>${esc(t.texto)}</p><footer><span class="av">${avatarHtml}</span><div><b>${esc(t.autor)}</b><span>${esc(t.rol)}</span></div></footer></article>`;
+			}).join('');
 		})();
 
 		/* --- FAQ: un acordeón abierto a la vez --- */
