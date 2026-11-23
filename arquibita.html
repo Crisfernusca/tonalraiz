@@ -1,240 +1,1784 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="es">
 
 <head>
-	<link rel="icon" href="favicon-32x32.png" type="image/x-icon" />
-	<title>ArquiBita</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="assets/css/main.css" />
-	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" />
-	</noscript>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ArquiBita · Estudio de Arquitectura en Tijuana</title>
+	<meta name="description"
+		content="Estudio de arquitectura en Tijuana, B.C. Levantamientos, proyecto ejecutivo, renders 3D, licencias, DRO, obra y mobiliario a medida. Solicita tu cotización.">
+	<meta property="og:title" content="ArquiBita · Estudio de Arquitectura">
+	<meta property="og:description"
+		content="Del plano a la obra, sin sorpresas. Proyecto, trámites, construcción y taller a medida.">
+	<meta property="og:type" content="website">
+	<link rel="icon" href="favicon-32x32.png" type="image/x-icon">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+		rel="stylesheet">
+
+	<!-- =====================================================================
+     CONFIGURACIÓN: edita SOLO este bloque para cambiar datos y contenido
+     ===================================================================== -->
+	<script>
+		const CONFIG = {
+			whatsapp: '522296024127',            // con código de país, sin + ni espacios
+			whatsappVisible: '229 602 4127',
+			correo: 'arquibita@tonalraiz.com',
+			ciudad: 'Tijuana, B.C.',
+			redes: 'ArquiBita Estudio de Arquitectura',
+			anios: 8,
+
+			/* Portafolio: una línea por proyecto. c = categoría (genera los filtros). */
+			proyectos: [
+				{ t: 'Proyecto de ejemplo 01', c: 'Arquitectura', y: '2025', img: 'images/arquibita/arquibita_imagen1.webp', d: 'Descripción breve: tipo de proyecto, ubicación y superficie.' },
+				{ t: 'Proyecto de ejemplo 02', c: 'Renders', y: '2025', img: 'images/arquibita/arquibita_imagen2.webp', d: 'Visualización 3D del anteproyecto.' },
+				{ t: 'Proyecto de ejemplo 03', c: 'Obra realizada', y: '2024', img: 'images/arquibita/arquibita_imagen3.webp', d: 'Remodelación terminada.' },
+				{ t: 'Proyecto de ejemplo 04', c: 'Taller', y: '2024', img: 'images/arquibita/arquibita_imagen4.webp', d: 'Mobiliario diseñado y fabricado a medida.' },
+				{ t: 'Proyecto de ejemplo 05', c: 'Arquitectura', y: '2024', img: 'images/arquibita/arquibita_imagen5.webp', d: 'Proyecto ejecutivo.' },
+				{ t: 'Proyecto de ejemplo 06', c: 'Renders', y: '2023', img: 'images/arquibita/arquibita_imagen6.webp', d: 'Render de fachada.' }
+			],
+
+			/* Testimonios: REEMPLAZA los de ejemplo por opiniones reales de tus clientes.
+			   Al quitar "ejemplo: true" desaparece la etiqueta de muestra. */
+			testimonios: [
+				{ texto: 'Recibimos planos claros, un presupuesto detallado y una obra que avanzó como se nos explicó desde el inicio.', autor: 'Cliente residencial', rol: 'Tijuana, B.C.', ejemplo: true },
+				{ texto: 'Contar con un solo equipo para el proyecto, los trámites y la supervisión nos ahorró tiempo y complicaciones.', autor: 'Cliente comercial', rol: 'Adecuación de local', ejemplo: true },
+				{ texto: 'El mobiliario quedó justo a la medida del espacio, con muy buen acabado y atención al detalle.', autor: 'Cliente residencial', rol: 'Mobiliario a medida', ejemplo: true }
+			]
+		};
+	</script>
+
+	<style>
+		/* ============ 1. VARIABLES Y BASE ============ */
+		:root {
+			--y: #ecb035;
+			--y-d: #d99d1f;
+			--y-s: #fdf4d9;
+			--ink: #121212;
+			--mut: #5a5a55;
+			--line: #e9e6dd;
+			--paper: #fff;
+			--soft: #faf8f2;
+			--r: 22px;
+			--wrap: min(1200px, 92vw);
+			--f: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+			--sec: clamp(72px, 10vw, 140px);
+			--nav: 72px;
+		}
+
+		*,
+		*::before,
+		*::after {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0
+		}
+
+		html {
+			scroll-behavior: smooth;
+			scroll-padding-top: calc(var(--nav) + 10px)
+		}
+
+		body {
+			font-family: var(--f);
+			color: var(--ink);
+			background: var(--paper);
+			line-height: 1.6;
+			-webkit-font-smoothing: antialiased;
+			overflow-x: hidden
+		}
+
+		img {
+			display: block;
+			max-width: 100%
+		}
+
+		a {
+			color: inherit;
+			text-decoration: none
+		}
+
+		ul {
+			list-style: none
+		}
+
+		button,
+		input,
+		select,
+		textarea {
+			font: inherit;
+			color: inherit
+		}
+
+		:focus-visible {
+			outline: 3px solid var(--ink);
+			outline-offset: 3px;
+			border-radius: 6px
+		}
+
+		.wrap {
+			width: var(--wrap);
+			margin-inline: auto
+		}
+
+		.sec {
+			padding-block: var(--sec)
+		}
+
+		.skip {
+			position: absolute;
+			left: -999px;
+			top: 8px;
+			background: var(--ink);
+			color: #fff;
+			padding: 10px 16px;
+			border-radius: 8px;
+			z-index: 100
+		}
+
+		.skip:focus {
+			left: 8px
+		}
+
+		/* ============ 2. TIPOGRAFÍA Y COMPONENTES ============ */
+		.eyebrow {
+			display: inline-flex;
+			align-items: center;
+			gap: 10px;
+			font-size: .78rem;
+			font-weight: 700;
+			letter-spacing: .18em;
+			text-transform: uppercase;
+			margin-bottom: 18px
+		}
+
+		.eyebrow::before {
+			content: "";
+			width: 28px;
+			height: 3px;
+			background: var(--y);
+			border-radius: 3px
+		}
+
+		h1,
+		h2,
+		h3 {
+			font-weight: 800;
+			letter-spacing: -.03em;
+			line-height: 1.05
+		}
+
+		h2 {
+			font-size: clamp(2rem, 5vw, 3.6rem);
+			max-width: 18ch
+		}
+
+		.lead {
+			font-size: clamp(1.02rem, 1.6vw, 1.2rem);
+			color: var(--mut);
+			max-width: 56ch;
+			margin-top: 18px
+		}
+
+		.mark {
+			background: linear-gradient(transparent 62%, var(--y) 62% 92%, transparent 92%);
+			padding: 0 .06em
+		}
+
+		.btn {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+			padding: 16px 30px;
+			border-radius: 999px;
+			border: 2px solid var(--ink);
+			font-weight: 700;
+			font-size: .95rem;
+			cursor: pointer;
+			transition: transform .25s, background .25s, color .25s, box-shadow .25s
+		}
+
+		.btn:hover {
+			transform: translateY(-2px)
+		}
+
+		.btn--y {
+			background: var(--y);
+			border-color: var(--y);
+			color: var(--ink)
+		}
+
+		.btn--y:hover {
+			background: var(--y-d);
+			border-color: var(--y-d);
+			box-shadow: 0 12px 30px -10px rgba(236, 176, 53, .8)
+		}
+
+		.btn--o:hover {
+			background: var(--ink);
+			color: #fff
+		}
+
+		.btn--sm {
+			padding: 11px 22px;
+			font-size: .88rem
+		}
+
+		.sec-head {
+			margin-bottom: clamp(36px, 5vw, 64px)
+		}
+
+		/* ============ 3. BARRA DE NAVEGACIÓN ============ */
+		.nav {
+			position: fixed;
+			inset: 0 0 auto 0;
+			z-index: 50;
+			height: var(--nav);
+			background: rgba(255, 255, 255, .88);
+			backdrop-filter: saturate(1.4) blur(14px);
+			border-bottom: 1px solid transparent;
+			transition: border-color .3s, box-shadow .3s
+		}
+
+		.nav.scrolled {
+			border-color: var(--line);
+			box-shadow: 0 8px 30px -20px rgba(0, 0, 0, .25)
+		}
+
+		.nav .wrap {
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 20px
+		}
+
+		.brand img {
+			height: 38px;
+			width: auto
+		}
+
+		.nav-links {
+			display: flex;
+			align-items: center;
+			gap: clamp(16px, 2.4vw, 34px);
+			font-size: .92rem;
+			font-weight: 600
+		}
+
+		.nav-links a:not(.btn) {
+			position: relative;
+			padding: 6px 0;
+			color: var(--mut);
+			transition: color .2s
+		}
+
+		.nav-links a:not(.btn):hover,
+		.nav-links a.on {
+			color: var(--ink)
+		}
+
+		.nav-links a:not(.btn)::after {
+			content: "";
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			height: 3px;
+			width: 0;
+			background: var(--y);
+			border-radius: 3px;
+			transition: width .3s
+		}
+
+		.nav-links a:not(.btn):hover::after,
+		.nav-links a.on::after {
+			width: 100%
+		}
+
+		.burger {
+			display: none;
+			width: 46px;
+			height: 46px;
+			border: 2px solid var(--ink);
+			border-radius: 50%;
+			background: none;
+			cursor: pointer;
+			position: relative
+		}
+
+		.burger span,
+		.burger span::before {
+			content: "";
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			width: 18px;
+			height: 2px;
+			background: var(--ink);
+			transform: translate(-50%, -50%);
+			transition: .3s
+		}
+
+		.burger span::before {
+			top: -6px;
+			left: 0;
+			transform: none
+		}
+
+		.burger span::after {
+			content: "";
+			position: absolute;
+			left: 0;
+			top: 6px;
+			width: 18px;
+			height: 2px;
+			background: var(--ink);
+			transition: .3s
+		}
+
+		.burger[aria-expanded="true"] span {
+			background: transparent
+		}
+
+		.burger[aria-expanded="true"] span::before {
+			top: 0;
+			transform: rotate(45deg)
+		}
+
+		.burger[aria-expanded="true"] span::after {
+			top: 0;
+			transform: rotate(-45deg)
+		}
+
+		/* ============ 4. HERO ============ */
+		.hero {
+			padding-top: calc(var(--nav) + clamp(36px, 6vw, 80px));
+			padding-bottom: clamp(60px, 8vw, 110px);
+			position: relative;
+			overflow: hidden
+		}
+
+		.hero-grid {
+			display: grid;
+			grid-template-columns: 1.1fr .9fr;
+			gap: clamp(32px, 6vw, 90px);
+			align-items: center
+		}
+
+		.hero h1 {
+			font-size: clamp(2.7rem, 7.2vw, 6rem);
+			margin-bottom: 6px
+		}
+
+		.hero .lead {
+			margin-top: 22px
+		}
+
+		.cta-row {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 12px;
+			margin-top: 34px
+		}
+
+		.chips {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px 22px;
+			margin-top: 38px;
+			padding-top: 26px;
+			border-top: 1px solid var(--line)
+		}
+
+		.chip {
+			font-size: .86rem;
+			font-weight: 600;
+			color: var(--mut);
+			display: flex;
+			align-items: center;
+			gap: 8px
+		}
+
+		.chip b {
+			font-size: 1.5rem;
+			color: var(--ink);
+			font-weight: 800;
+			letter-spacing: -.03em
+		}
+
+		.chip::before {
+			content: none
+		}
+
+		.hero-vis {
+			position: relative;
+			aspect-ratio: 4/5;
+			max-height: 640px;
+			justify-self: end;
+			width: 100%
+		}
+
+		.hero-vis::before {
+			content: "";
+			position: absolute;
+			inset: 6% -5% -5% 8%;
+			background: var(--y);
+			border-radius: var(--r)
+		}
+
+		.frame {
+			position: absolute;
+			inset: 0;
+			border-radius: var(--r);
+			overflow: hidden;
+			background: var(--y-s) url(images/arquibita/arquibita_logo1.png) center/52% no-repeat;
+			box-shadow: 0 30px 70px -30px rgba(0, 0, 0, .4)
+		}
+
+		.frame img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover
+		}
+
+		.badge {
+			position: absolute;
+			left: -18px;
+			bottom: 9%;
+			z-index: 2;
+			background: #fff;
+			border-radius: 16px;
+			padding: 14px 18px;
+			box-shadow: 0 20px 50px -20px rgba(0, 0, 0, .35);
+			display: flex;
+			gap: 12px;
+			align-items: center;
+			font-size: .82rem;
+			font-weight: 600;
+			line-height: 1.3
+		}
+
+		.badge i {
+			display: grid;
+			place-items: center;
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			background: var(--y);
+			font-style: normal;
+			font-weight: 800
+		}
+
+		/* ============ 5. FRANJA DE SECTORES ============ */
+		.strip {
+			background: var(--ink);
+			color: #fff;
+			overflow: hidden;
+			white-space: nowrap;
+			padding: 18px 0
+		}
+
+		.strip div {
+			display: inline-block;
+			animation: mq 38s linear infinite;
+			font-weight: 700;
+			font-size: clamp(1rem, 2vw, 1.35rem);
+			letter-spacing: .02em
+		}
+
+		.strip span {
+			display: inline-block;
+			margin: 0 22px;
+			color: var(--y)
+		}
+
+		@keyframes mq {
+			to {
+				transform: translateX(-50%)
+			}
+		}
+
+		/* ============ 6. PROPUESTA DE VALOR ============ */
+		.benefits {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 18px
+		}
+
+		.bn {
+			padding: 30px 26px;
+			border-radius: var(--r);
+			background: var(--soft);
+			border: 1px solid var(--line);
+			transition: transform .4s, background .4s, border-color .4s
+		}
+
+		.bn:hover {
+			transform: translateY(-6px);
+			background: var(--y-s);
+			border-color: var(--y)
+		}
+
+		.ic {
+			display: grid;
+			place-items: center;
+			width: 54px;
+			height: 54px;
+			border-radius: 16px;
+			background: var(--y);
+			margin-bottom: 22px
+		}
+
+		.ic svg {
+			width: 26px;
+			height: 26px;
+			fill: none;
+			stroke: var(--ink);
+			stroke-width: 1.8;
+			stroke-linecap: round;
+			stroke-linejoin: round
+		}
+
+		.bn h3 {
+			font-size: 1.25rem;
+			margin-bottom: 10px;
+			letter-spacing: -.02em
+		}
+
+		.bn p {
+			color: var(--mut);
+			font-size: .96rem
+		}
+
+		/* ============ 7. SERVICIOS ============ */
+		.services {
+			background: var(--soft)
+		}
+
+		.sv-grid {
+			display: grid;
+			grid-template-columns: repeat(6, 1fr);
+			gap: 18px
+		}
+
+		.sv {
+			grid-column: span 2;
+			background: #fff;
+			border: 1px solid var(--line);
+			border-radius: var(--r);
+			padding: 32px 28px;
+			transition: border-color .3s, box-shadow .4s, transform .4s
+		}
+
+		.sv:hover {
+			border-color: var(--y);
+			box-shadow: 0 24px 50px -28px rgba(0, 0, 0, .3);
+			transform: translateY(-4px)
+		}
+
+		.sv:nth-child(4),
+		.sv:nth-child(5) {
+			grid-column: span 3
+		}
+
+		.sv .n {
+			display: inline-grid;
+			place-items: center;
+			width: 38px;
+			height: 38px;
+			border-radius: 50%;
+			background: var(--ink);
+			color: var(--y);
+			font-weight: 800;
+			font-size: .85rem;
+			margin-bottom: 18px
+		}
+
+		.sv h3 {
+			font-size: 1.4rem;
+			margin-bottom: 14px
+		}
+
+		.sv li {
+			display: flex;
+			gap: 10px;
+			padding: 9px 0;
+			border-top: 1px solid var(--line);
+			font-size: .93rem;
+			color: var(--mut)
+		}
+
+		.sv li::before {
+			content: "";
+			flex: none;
+			width: 8px;
+			height: 8px;
+			margin-top: .55em;
+			border-radius: 50%;
+			background: var(--y)
+		}
+
+		.sv.hl {
+			background: var(--y);
+			border-color: var(--y)
+		}
+
+		.sv.hl li {
+			border-color: rgba(0, 0, 0, .14);
+			color: #2b2208
+		}
+
+		.sv.hl li::before {
+			background: var(--ink)
+		}
+
+		.sv.hl .n {
+			background: var(--ink)
+		}
+
+		/* ============ 8. PORTAFOLIO ============ */
+		.filters {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			margin-bottom: 30px
+		}
+
+		.filters button {
+			padding: 10px 22px;
+			border-radius: 999px;
+			border: 2px solid var(--line);
+			background: #fff;
+			font-weight: 600;
+			font-size: .88rem;
+			cursor: pointer;
+			transition: .25s
+		}
+
+		.filters button:hover {
+			border-color: var(--ink)
+		}
+
+		.filters button.on {
+			background: var(--ink);
+			border-color: var(--ink);
+			color: #fff
+		}
+
+		.gal {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 16px
+		}
+
+		.pi {
+			position: relative;
+			aspect-ratio: 4/3;
+			border-radius: var(--r);
+			overflow: hidden;
+			cursor: pointer;
+			background: var(--y-s) url(images/arquibita/arquibita_logo1.png) center/32% no-repeat;
+			isolation: isolate
+		}
+
+		.pi.off {
+			display: none
+		}
+
+		.pi img {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			z-index: -1;
+			background: var(--y-s);
+			transition: transform .9s cubic-bezier(.2, .8, .2, 1)
+		}
+
+		.pi:hover img {
+			transform: scale(1.06)
+		}
+
+		.pi figcaption {
+			position: absolute;
+			left: 12px;
+			right: 12px;
+			bottom: 12px;
+			background: #fff;
+			border-radius: 14px;
+			padding: 12px 16px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 10px;
+			transform: translateY(8px);
+			opacity: .96;
+			transition: transform .35s
+		}
+
+		.pi:hover figcaption {
+			transform: none
+		}
+
+		.pi b {
+			font-size: .95rem;
+			font-weight: 700;
+			letter-spacing: -.01em
+		}
+
+		.pi small {
+			font-size: .72rem;
+			font-weight: 700;
+			letter-spacing: .1em;
+			text-transform: uppercase;
+			background: var(--y);
+			padding: 4px 10px;
+			border-radius: 99px;
+			white-space: nowrap
+		}
+
+		/* ============ 9. PROCESO ============ */
+		.steps {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 18px;
+			counter-reset: s
+		}
+
+		.st {
+			padding-top: 22px;
+			border-top: 3px solid var(--ink);
+			position: relative
+		}
+
+		.st::before {
+			counter-increment: s;
+			content: "0" counter(s);
+			display: block;
+			font-size: 2.6rem;
+			font-weight: 800;
+			letter-spacing: -.04em;
+			margin-bottom: 12px
+		}
+
+		.st::after {
+			content: "";
+			position: absolute;
+			top: -3px;
+			left: 0;
+			width: 38%;
+			height: 3px;
+			background: var(--y)
+		}
+
+		.st h3 {
+			font-size: 1.15rem;
+			margin-bottom: 8px;
+			letter-spacing: -.02em
+		}
+
+		.st p {
+			color: var(--mut);
+			font-size: .95rem
+		}
+
+		/* ============ 10. TESTIMONIOS ============ */
+		.proof {
+			background: var(--y)
+		}
+
+		.proof .eyebrow::before {
+			background: var(--ink)
+		}
+
+		.tes {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 18px
+		}
+
+		.tc {
+			background: #fff;
+			border-radius: var(--r);
+			padding: 34px 30px;
+			display: flex;
+			flex-direction: column;
+			gap: 22px;
+			justify-content: space-between;
+			position: relative
+		}
+
+		.tc::before {
+			content: "“";
+			font-size: 5rem;
+			line-height: .6;
+			font-weight: 800;
+			color: var(--y)
+		}
+
+		.tc p {
+			font-size: 1.04rem;
+			font-weight: 500;
+			line-height: 1.6
+		}
+
+		.tc footer {
+			display: flex;
+			align-items: center;
+			gap: 14px;
+			font-size: .88rem
+		}
+
+		.av {
+			display: grid;
+			place-items: center;
+			width: 44px;
+			height: 44px;
+			border-radius: 50%;
+			background: var(--ink);
+			color: var(--y);
+			font-weight: 800
+		}
+
+		.tc footer b {
+			display: block
+		}
+
+		.tc footer span {
+			color: var(--mut)
+		}
+
+		.ej {
+			position: absolute;
+			top: 16px;
+			right: 16px;
+			font-size: .62rem;
+			font-weight: 800;
+			letter-spacing: .12em;
+			text-transform: uppercase;
+			background: var(--y-s);
+			border: 1px dashed var(--y-d);
+			padding: 4px 9px;
+			border-radius: 99px
+		}
+
+		/* ============ 11. PREGUNTAS FRECUENTES ============ */
+		.faq-grid {
+			display: grid;
+			grid-template-columns: .8fr 1.2fr;
+			gap: clamp(30px, 6vw, 90px);
+			align-items: start
+		}
+
+		details {
+			border-bottom: 1px solid var(--line)
+		}
+
+		details:first-child {
+			border-top: 1px solid var(--line)
+		}
+
+		summary {
+			list-style: none;
+			cursor: pointer;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 20px;
+			padding: 24px 0;
+			font-weight: 700;
+			font-size: 1.08rem;
+			letter-spacing: -.01em
+		}
+
+		summary::-webkit-details-marker {
+			display: none
+		}
+
+		summary::after {
+			content: "+";
+			flex: none;
+			display: grid;
+			place-items: center;
+			width: 36px;
+			height: 36px;
+			border-radius: 50%;
+			background: var(--y);
+			font-size: 1.3rem;
+			font-weight: 700;
+			transition: transform .35s, background .35s
+		}
+
+		details[open] summary::after {
+			transform: rotate(45deg);
+			background: var(--ink);
+			color: var(--y)
+		}
+
+		details p {
+			padding: 0 56px 26px 0;
+			color: var(--mut)
+		}
+
+		/* ============ 12. CONTACTO / CTA ============ */
+		.contact {
+			background: var(--ink);
+			color: #fff;
+			position: relative;
+			overflow: hidden
+		}
+
+		.contact::before {
+			content: "";
+			position: absolute;
+			right: -12%;
+			top: -30%;
+			width: 60vw;
+			max-width: 760px;
+			aspect-ratio: 1;
+			border-radius: 50%;
+			background: var(--y);
+			opacity: .12
+		}
+
+		.contact-grid {
+			position: relative;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: clamp(32px, 6vw, 90px);
+			align-items: start
+		}
+
+		.contact h2 {
+			max-width: 14ch
+		}
+
+		.contact .lead {
+			color: #c9c6bb
+		}
+
+		.info {
+			margin-top: 34px;
+			display: grid;
+			gap: 14px
+		}
+
+		.info a,
+		.info span {
+			display: flex;
+			align-items: center;
+			gap: 14px;
+			font-weight: 600
+		}
+
+		.info i {
+			display: grid;
+			place-items: center;
+			flex: none;
+			width: 42px;
+			height: 42px;
+			border-radius: 50%;
+			background: var(--y);
+			color: var(--ink);
+			font-style: normal;
+			font-weight: 800
+		}
+
+		.info a:hover b {
+			text-decoration: underline;
+			text-decoration-color: var(--y);
+			text-underline-offset: 4px
+		}
+
+		.form {
+			background: #fff;
+			color: var(--ink);
+			border-radius: var(--r);
+			padding: clamp(24px, 4vw, 40px);
+			display: grid;
+			gap: 16px
+		}
+
+		.form h3 {
+			font-size: 1.5rem
+		}
+
+		.fld {
+			display: grid;
+			gap: 6px
+		}
+
+		.fld label {
+			font-size: .82rem;
+			font-weight: 700
+		}
+
+		.fld input,
+		.fld select,
+		.fld textarea {
+			width: 100%;
+			padding: 14px 16px;
+			border: 2px solid var(--line);
+			border-radius: 14px;
+			background: var(--soft);
+			transition: border-color .2s, background .2s
+		}
+
+		.fld textarea {
+			min-height: 110px;
+			resize: vertical
+		}
+
+		.fld input:focus,
+		.fld select:focus,
+		.fld textarea:focus {
+			outline: none;
+			border-color: var(--y);
+			background: #fff
+		}
+
+		.fld .err {
+			display: none;
+			color: #b3261e;
+			font-size: .8rem;
+			font-weight: 600
+		}
+
+		.fld.bad input,
+		.fld.bad select {
+			border-color: #b3261e
+		}
+
+		.fld.bad .err {
+			display: block
+		}
+
+		.form .btn {
+			width: 100%
+		}
+
+		.note {
+			font-size: .8rem;
+			color: var(--mut);
+			text-align: center
+		}
+
+		/* ============ 13. PIE ============ */
+		footer.site {
+			background: var(--ink);
+			color: #a9a69b;
+			border-top: 1px solid #2a2a27;
+			padding: 34px 0;
+			font-size: .86rem
+		}
+
+		footer.site .wrap {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			gap: 14px 30px;
+			align-items: center
+		}
+
+		footer.site a:hover {
+			color: var(--y)
+		}
+
+		/* ============ 14. VISOR ============ */
+		.lb {
+			position: fixed;
+			inset: 0;
+			z-index: 90;
+			display: none;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			background: rgba(10, 10, 10, .94);
+			color: #fff;
+			padding: 4vh 4vw
+		}
+
+		.lb.on {
+			display: flex
+		}
+
+		.lb figure {
+			max-width: 1100px;
+			width: 100%;
+			text-align: center
+		}
+
+		.lb img {
+			max-width: 100%;
+			max-height: 70vh;
+			margin: 0 auto;
+			border-radius: 14px
+		}
+
+		.lb figcaption {
+			margin-top: 16px
+		}
+
+		.lb small {
+			display: inline-block;
+			background: var(--y);
+			color: var(--ink);
+			font-weight: 800;
+			font-size: .7rem;
+			letter-spacing: .1em;
+			text-transform: uppercase;
+			padding: 4px 12px;
+			border-radius: 99px
+		}
+
+		.lb b {
+			display: block;
+			font-size: clamp(1.3rem, 3vw, 2rem);
+			margin: 10px 0 4px;
+			letter-spacing: -.02em
+		}
+
+		.lb span {
+			display: block;
+			color: #bdb9ab;
+			max-width: 60ch;
+			margin: auto
+		}
+
+		.lb button {
+			position: absolute;
+			width: 48px;
+			height: 48px;
+			border-radius: 50%;
+			border: 2px solid rgba(255, 255, 255, .35);
+			background: none;
+			color: #fff;
+			font-size: 1.4rem;
+			cursor: pointer;
+			transition: .25s
+		}
+
+		.lb button:hover {
+			background: var(--y);
+			border-color: var(--y);
+			color: var(--ink)
+		}
+
+		.lb .x {
+			top: 16px;
+			right: 16px
+		}
+
+		.lb .p {
+			left: 14px;
+			top: 50%
+		}
+
+		.lb .n {
+			right: 14px;
+			top: 50%
+		}
+
+		/* ============ 15. ANIMACIÓN Y RESPONSIVE ============ */
+		.rv {
+			opacity: 0;
+			transform: translateY(28px);
+			transition: opacity .9s, transform .9s cubic-bezier(.2, .8, .2, 1)
+		}
+
+		.rv.in {
+			opacity: 1;
+			transform: none
+		}
+
+		@media (max-width:1000px) {
+
+			.hero-grid,
+			.faq-grid,
+			.contact-grid {
+				grid-template-columns: 1fr
+			}
+
+			.hero-vis {
+				max-width: 520px;
+				justify-self: center;
+				aspect-ratio: 1/1
+			}
+
+			.badge {
+				left: 8px
+			}
+
+			.benefits {
+				grid-template-columns: repeat(2, 1fr)
+			}
+
+			.sv-grid {
+				grid-template-columns: repeat(2, 1fr)
+			}
+
+			.sv,
+			.sv:nth-child(4),
+			.sv:nth-child(5) {
+				grid-column: span 1
+			}
+
+			.sv:last-child {
+				grid-column: span 2
+			}
+
+			.gal {
+				grid-template-columns: repeat(2, 1fr)
+			}
+
+			.steps {
+				grid-template-columns: repeat(2, 1fr);
+				gap: 30px 18px
+			}
+
+			.tes {
+				grid-template-columns: 1fr
+			}
+
+			.burger {
+				display: block
+			}
+
+			.nav-links {
+				position: fixed;
+				inset: var(--nav) 0 auto 0;
+				flex-direction: column;
+				align-items: stretch;
+				gap: 0;
+				background: #fff;
+				padding: 10px 6vw 26px;
+				border-bottom: 1px solid var(--line);
+				transform: translateY(-130%);
+				transition: transform .45s cubic-bezier(.2, .8, .2, 1);
+				box-shadow: 0 30px 40px -30px rgba(0, 0, 0, .3)
+			}
+
+			.nav-links.open {
+				transform: none
+			}
+
+			.nav-links a:not(.btn) {
+				padding: 16px 0;
+				border-bottom: 1px solid var(--line);
+				font-size: 1.05rem
+			}
+
+			.nav-links .btn {
+				margin-top: 16px
+			}
+		}
+
+		@media (max-width:600px) {
+
+			.benefits,
+			.sv-grid,
+			.gal,
+			.steps {
+				grid-template-columns: 1fr
+			}
+
+			.sv:last-child {
+				grid-column: span 1
+			}
+
+			details p {
+				padding-right: 0
+			}
+
+			.cta-row .btn {
+				width: 100%
+			}
+
+			.lb .p,
+			.lb .n {
+				top: auto;
+				bottom: 18px
+			}
+
+			.lb .p {
+				left: calc(50% - 58px)
+			}
+
+			.lb .n {
+				right: calc(50% - 58px)
+			}
+		}
+
+		@media (prefers-reduced-motion:reduce) {
+			html {
+				scroll-behavior: auto
+			}
+
+			*,
+			*::before,
+			*::after {
+				animation: none !important;
+				transition: none !important
+			}
+
+			.rv {
+				opacity: 1;
+				transform: none
+			}
+		}
+	</style>
 </head>
 
-<body class="is-preload">
+<body>
+	<a class="skip" href="#contacto">Ir al contacto</a>
 
-	<!-- Wrapper -->
-	<div id="wrapper">
+	<!-- ===== SÍMBOLOS (íconos) ===== -->
+	<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+		<symbol id="i-team" viewBox="0 0 24 24">
+			<path d="M3 11l9-7 9 7" />
+			<path d="M5 10v10h14V10" />
+			<path d="M10 20v-6h4v6" />
+		</symbol>
+		<symbol id="i-rule" viewBox="0 0 24 24">
+			<path d="M3 17L17 3l4 4L7 21z" />
+			<path d="M7 13l2 2M10 10l2 2M13 7l2 2" />
+		</symbol>
+		<symbol id="i-doc" viewBox="0 0 24 24">
+			<rect x="5" y="3" width="14" height="18" rx="2" />
+			<path d="M9 8h6M9 12h6M9 16h3" />
+		</symbol>
+		<symbol id="i-shield" viewBox="0 0 24 24">
+			<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" />
+			<path d="M8.5 12l2.5 2.5L16 9.5" />
+		</symbol>
+	</svg>
 
-		<!-- Header -->
-		<!-- Note: The "styleN" class below should match that of the banner element. -->
-		<header id="header" class="alt style2">
-			<a href="index.html" class="logo"><strong>Tonal Raíz</strong> <span>Danza • Espacio • Cuerpo •
-					Territorio</span></a>
-			<nav>
-				<a href="#menu">Menú</a>
+	<!-- ===== NAVEGACIÓN FIJA ===== -->
+	<header class="nav" id="nav">
+		<div class="wrap">
+			<a href="#inicio" class="brand" aria-label="ArquiBita, inicio"><img
+					src="images/arquibita/arquibita_logo2.png" alt="ArquiBita Estudio de Arquitectura" height="38"></a>
+			<nav class="nav-links" id="menu" aria-label="Principal">
+				<a href="#beneficios">Beneficios</a>
+				<a href="#servicios">Servicios</a>
+				<a href="#portafolio">Portafolio</a>
+				<a href="#opiniones">Opiniones</a>
+				<a href="#faq">Preguntas</a>
+				<a href="#contacto" class="btn btn--y btn--sm">Cotizar</a>
 			</nav>
-		</header>
+			<button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false"
+				aria-controls="menu"><span></span></button>
+		</div>
+	</header>
 
-		<!-- Menu -->
-		<nav id="menu">
-			<ul class="links">
-				<li><a href="index.html">Inicio</a></li>
-				<li><a href="raizescenica.html">Raíz Escénica</a></li>
-				<li><a href="arquibita.html">ArquiBita Estudio</a></li>
-				<li><a href="sonzapateado.html">Taller de Zapateado</a></li>
-				<li><a href="zucyflor.html">ZucyFlor (Comedy)</a></li>
-				<li><a href="teatro.html">Teatro</a></li>
-			</ul>
-		</nav>
+	<main id="inicio">
 
-		<!-- Banner -->
-		<!-- Note: The "styleN" class below should match that of the header element. -->
-		<section id="banner" class="style2">
-			<div class="inner">
-				<span class="image">
-					<img src="images/arquibita1.png" alt="" />
-				</span>
-				<header class="major">
-					<h1>ArquiBita</h1>
-				</header>
-				<div class="content">
-					<p>Estudio de Arquitectura<br />
-						Diseñamos espacios funcionales y estéticos para proyectos industriales, comerciales y
-						residenciales, integrando técnica, contexto y claridad visual.</p>
+		<!-- ===== HERO ===== -->
+		<section class="hero">
+			<div class="wrap hero-grid">
+				<div>
+					<span class="eyebrow">Estudio de arquitectura · <span data-ciudad>Tijuana, B.C.</span></span>
+					<h1>Del plano a la obra, <span class="mark">sin sorpresas.</span></h1>
+					<p class="lead">En ArquiBita proyectamos, tramitamos y construimos, y fabricamos en taller el
+						mobiliario que tu espacio necesita. Un solo equipo responsable, de la primera medición a la
+						entrega.</p>
+					<div class="cta-row">
+						<a href="#contacto" class="btn btn--y">Solicitar cotización →</a>
+						<a href="#portafolio" class="btn btn--o">Ver portafolio</a>
+					</div>
+					<div class="chips">
+						<div class="chip"><b data-count="anios">8</b>años de<br>experiencia</div>
+						<div class="chip"><b data-count="17">17</b>servicios<br>en un estudio</div>
+						<div class="chip"><b data-count="4">4</b>sectores<br>atendidos</div>
+					</div>
+				</div>
+				<div class="hero-vis rv">
+					<div class="frame"><img src="images/arquibita/arquibita_imagen1.webp" alt="Proyecto de ArquiBita"
+							onerror="this.remove()"></div>
+					<div class="badge"><i>✓</i><span>DRO y perito<br>responsable</span></div>
 				</div>
 			</div>
 		</section>
 
-		<!-- Main -->
-		<div id="main">
-
-			<!-- One -->
-			<section id="one">
-				<div class="inner">
-					<header class="major">
-						<h2>Sed amet aliquam</h2>
-					</header>
-					<p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus
-						condimentum sem. In efficitur ligula tate urna. Maecenas massa vel lacinia pellentesque lorem
-						ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis libero. Nullam et
-						orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus condimentum sem. In
-						efficitur ligula tate urna.</p>
-				</div>
-			</section>
-
-			<!-- Two -->
-			<section id="two" class="spotlights">
-				<section>
-					<a href="generic.html" class="image">
-						<img src="images/pic08.jpg" alt="" data-position="center center" />
-					</a>
-					<div class="content">
-						<div class="inner">
-							<header class="major">
-								<h3>Orci maecenas</h3>
-							</header>
-							<p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus
-								condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna
-								pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et
-								sagittis tempus.</p>
-							<ul class="actions">
-								<li><a href="generic.html" class="button">Learn more</a></li>
-							</ul>
-						</div>
-					</div>
-				</section>
-				<section>
-					<a href="generic.html" class="image">
-						<img src="images/pic09.jpg" alt="" data-position="top center" />
-					</a>
-					<div class="content">
-						<div class="inner">
-							<header class="major">
-								<h3>Rhoncus magna</h3>
-							</header>
-							<p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus
-								condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna
-								pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et
-								sagittis tempus.</p>
-							<ul class="actions">
-								<li><a href="generic.html" class="button">Learn more</a></li>
-							</ul>
-						</div>
-					</div>
-				</section>
-				<section>
-					<a href="generic.html" class="image">
-						<img src="images/pic10.jpg" alt="" data-position="25% 25%" />
-					</a>
-					<div class="content">
-						<div class="inner">
-							<header class="major">
-								<h3>Sed nunc ligula</h3>
-							</header>
-							<p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus
-								condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna
-								pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et
-								sagittis tempus.</p>
-							<ul class="actions">
-								<li><a href="generic.html" class="button">Learn more</a></li>
-							</ul>
-						</div>
-					</div>
-				</section>
-			</section>
-
-			<!-- Three -->
-			<section id="three">
-				<div class="inner">
-					<header class="major">
-						<h2>Massa libero</h2>
-					</header>
-					<p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero. Mauris aliquet magna
-						magna sed nunc rhoncus pharetra. Pellentesque condimentum sem. In efficitur ligula tate urna.
-						Maecenas laoreet massa vel lacinia pellentesque lorem ipsum dolor. Nullam et orci eu lorem
-						consequat tincidunt. Vivamus et sagittis libero. Mauris aliquet magna magna sed nunc rhoncus
-						amet pharetra et feugiat tempus.</p>
-					<ul class="actions">
-						<li><a href="generic.html" class="button next">Get Started</a></li>
-					</ul>
-				</div>
-			</section>
-
+		<div class="strip" aria-label="Sectores que atendemos">
+			<div>Proyectos privados <span>✦</span> Municipales <span>✦</span> Estatales <span>✦</span> Sector público
+				<span>✦</span> Remodelación <span>✦</span> Obra nueva <span>✦</span> Mobiliario a medida <span>✦</span>
+				Proyectos privados <span>✦</span> Municipales <span>✦</span> Estatales <span>✦</span> Sector público
+				<span>✦</span> Remodelación <span>✦</span> Obra nueva <span>✦</span> Mobiliario a medida <span>✦</span>
+			</div>
 		</div>
 
-		<!-- Contact -->
-		<section id="contact">
-			<div class="inner">
-				<section>
-					<form method="post" action="#">
-						<div class="fields">
-							<div class="field half">
-								<label for="name">Name</label>
-								<input type="text" name="name" id="name" />
-							</div>
-							<div class="field half">
-								<label for="email">Email</label>
-								<input type="text" name="email" id="email" />
-							</div>
-							<div class="field">
-								<label for="message">Message</label>
-								<textarea name="message" id="message" rows="6"></textarea>
-							</div>
-						</div>
-						<ul class="actions">
-							<li><input type="submit" value="Send Message" class="primary" /></li>
-							<li><input type="reset" value="Clear" /></li>
-						</ul>
-					</form>
-				</section>
-				<section class="split">
-					<section>
-						<div class="contact-method">
-							<span class="icon solid alt fa-envelope"></span>
-							<h3>Email</h3>
-							<a href="#">information@untitled.tld</a>
-						</div>
-					</section>
-					<section>
-						<div class="contact-method">
-							<span class="icon solid alt fa-phone"></span>
-							<h3>Phone</h3>
-							<span>(000) 000-0000 x12387</span>
-						</div>
-					</section>
-					<section>
-						<div class="contact-method">
-							<span class="icon solid alt fa-home"></span>
-							<h3>Address</h3>
-							<span>1234 Somewhere Road #5432<br />
-								Nashville, TN 00000<br />
-								United States of America</span>
-						</div>
-					</section>
-				</section>
+		<!-- ===== PROPUESTA DE VALOR ===== -->
+		<section class="sec" id="beneficios">
+			<div class="wrap">
+				<div class="sec-head rv">
+					<span class="eyebrow">Por qué ArquiBita</span>
+					<h2>Menos incertidumbre. <span class="mark">Más control.</span></h2>
+					<p class="lead">Tu inversión merece un proceso claro. Esto es lo que ganas al trabajar con nosotros.
+					</p>
+				</div>
+				<div class="benefits">
+					<article class="bn rv">
+						<div class="ic"><svg>
+								<use href="#i-team" />
+							</svg></div>
+						<h3>Un solo equipo, de principio a fin</h3>
+						<p>Levantamiento, proyecto, trámites, obra y taller bajo la misma responsabilidad. Sin
+							intermediarios ni mensajes cruzados.</p>
+					</article>
+					<article class="bn rv">
+						<div class="ic"><svg>
+								<use href="#i-rule" />
+							</svg></div>
+						<h3>Precisión técnica</h3>
+						<p>Planos claros y bien documentados, para que cada decisión de obra tenga sustento y se ejecute
+							como se diseñó.</p>
+					</article>
+					<article class="bn rv">
+						<div class="ic"><svg>
+								<use href="#i-doc" />
+							</svg></div>
+						<h3>Presupuesto transparente</h3>
+						<p>Catálogo de conceptos y presupuesto detallado: sabes qué se hace y cuánto cuesta antes de
+							empezar.</p>
+					</article>
+					<article class="bn rv">
+						<div class="ic"><svg>
+								<use href="#i-shield" />
+							</svg></div>
+						<h3>Trámites resueltos</h3>
+						<p>Gestionamos licencia de construcción y regularización, y respaldamos tu obra con firma de
+							DRO.</p>
+					</article>
+				</div>
 			</div>
 		</section>
 
-		<!-- Footer -->
-		<footer id="footer">
-			<div class="inner">
-				<ul class="icons">
-					<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
-					<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
-					<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-					<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-					<li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-				</ul>
-				<ul class="copyright">
-					<li>&copy; Untitled</li>
-					<li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
-				</ul>
+		<!-- ===== SERVICIOS ===== -->
+		<section class="sec services" id="servicios">
+			<div class="wrap">
+				<div class="sec-head rv">
+					<span class="eyebrow">Servicios</span>
+					<h2>Todo lo que tu proyecto necesita, <span class="mark">en un solo lugar.</span></h2>
+				</div>
+				<div class="sv-grid">
+					<article class="sv rv"><span class="n">01</span>
+						<h3>Levantamiento y dibujo</h3>
+						<ul>
+							<li>Levantamiento arquitectónico (medición física y dibujo)</li>
+							<li>Croquis y plano arquitectónico básico</li>
+							<li>Planos As-Built de inmuebles existentes</li>
+							<li>Digitalización de planos a AutoCAD</li>
+						</ul>
+					</article>
+					<article class="sv rv"><span class="n">02</span>
+						<h3>Diseño y visualización</h3>
+						<ul>
+							<li>Renders 3D y visualización arquitectónica</li>
+							<li>Anteproyecto: plantas, fachadas, cortes y 3D básico</li>
+							<li>Proyecto ejecutivo</li>
+							<li>Remodelación y adecuación de local comercial</li>
+						</ul>
+					</article>
+					<article class="sv rv"><span class="n">03</span>
+						<h3>Gestión y asesoría</h3>
+						<ul>
+							<li>Firma de DRO / perito responsable</li>
+							<li>Licencia de construcción y regularización</li>
+							<li>Dictamen técnico y asesoría previa a compra o renta</li>
+							<li>Diagnóstico técnico arquitectónico</li>
+						</ul>
+					</article>
+					<article class="sv rv"><span class="n">04</span>
+						<h3>Obra y mantenimiento</h3>
+						<ul>
+							<li>Supervisión externa de obra</li>
+							<li>Catálogo de conceptos y presupuesto</li>
+							<li>Administración y ejecución de remodelación</li>
+							<li>Pintura, tablaroca e impermeabilización</li>
+							<li>Aire acondicionado, circuito cerrado y cerco eléctrico (con terceros)</li>
+						</ul>
+					</article>
+					<article class="sv hl rv"><span class="n">05</span>
+						<h3>Taller: carpintería, herrería y diseño</h3>
+						<ul>
+							<li>Mobiliario diseñado y fabricado a medida</li>
+							<li>Carpintería</li>
+							<li>Herrería</li>
+							<li>Diseño de piezas y detalles para tu espacio</li>
+						</ul>
+					</article>
+				</div>
 			</div>
-		</footer>
+		</section>
 
+		<!-- ===== PORTAFOLIO ===== -->
+		<section class="sec" id="portafolio">
+			<div class="wrap">
+				<div class="sec-head rv">
+					<span class="eyebrow">Portafolio</span>
+					<h2>Proyectos que <span class="mark">hablan por nosotros.</span></h2>
+				</div>
+				<div class="filters" id="filtros" role="group" aria-label="Filtrar proyectos"></div>
+				<div class="gal" id="gal"></div>
+			</div>
+		</section>
+
+		<!-- ===== PROCESO ===== -->
+		<section class="sec services" id="proceso">
+			<div class="wrap">
+				<div class="sec-head rv">
+					<span class="eyebrow">Cómo trabajamos</span>
+					<h2>Cuatro pasos, <span class="mark">cero improvisación.</span></h2>
+				</div>
+				<div class="steps">
+					<div class="st rv">
+						<h3>Levantamiento y diagnóstico</h3>
+						<p>Medimos, dibujamos y evaluamos el estado real del inmueble.</p>
+					</div>
+					<div class="st rv">
+						<h3>Anteproyecto y visualización</h3>
+						<p>Plantas, fachadas, cortes y renders para decidir con claridad.</p>
+					</div>
+					<div class="st rv">
+						<h3>Proyecto ejecutivo y gestión</h3>
+						<p>Planos de construcción, presupuesto, licencias y firma de DRO.</p>
+					</div>
+					<div class="st rv">
+						<h3>Obra y entrega</h3>
+						<p>Ejecución o supervisión externa, y mobiliario fabricado en taller.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ===== PRUEBA SOCIAL ===== -->
+		<section class="sec proof" id="opiniones">
+			<div class="wrap">
+				<div class="sec-head rv">
+					<span class="eyebrow">Clientes</span>
+					<h2>La confianza se construye con <span style="background:#fff;padding:0 .12em">resultados.</span>
+					</h2>
+				</div>
+				<div class="tes" id="tes"></div>
+			</div>
+		</section>
+
+		<!-- ===== PREGUNTAS FRECUENTES ===== -->
+		<section class="sec" id="faq">
+			<div class="wrap faq-grid">
+				<div class="rv">
+					<span class="eyebrow">Preguntas frecuentes</span>
+					<h2>Resolvemos tus <span class="mark">dudas.</span></h2>
+					<p class="lead">¿No ves tu pregunta? Escríbenos y te respondemos personalmente.</p>
+					<div class="cta-row"><a href="#" class="btn btn--o btn--sm" data-wa>Preguntar por WhatsApp</a></div>
+				</div>
+				<div class="rv" id="faqs">
+					<details>
+						<summary>¿Cómo se cotiza mi proyecto?</summary>
+						<p>Cada proyecto es distinto. Platicamos tus necesidades, revisamos el inmueble o la información
+							que tengas y te enviamos una propuesta con alcance, tiempos y costo.</p>
+					</details>
+					<details>
+						<summary>¿Puedo contratar solo una parte del proceso?</summary>
+						<p>Sí. Puedes solicitar únicamente un levantamiento, planos, renders, trámites o supervisión, o
+							el proceso completo de principio a fin.</p>
+					</details>
+					<details>
+						<summary>¿Se encargan de la licencia y de la firma de DRO?</summary>
+						<p>Sí. Gestionamos la licencia de construcción y la regularización, y brindamos la firma como
+							DRO / perito responsable.</p>
+					</details>
+					<details>
+						<summary>¿Fabrican mobiliario, carpintería y herrería?</summary>
+						<p>Sí. Diseñamos y fabricamos piezas a medida en nuestro taller, pensadas para el espacio y el
+							uso que necesitas.</p>
+					</details>
+					<details>
+						<summary>¿En qué zonas trabajan?</summary>
+						<p>Nuestra área de trabajo es <span data-ciudad>Tijuana, B.C.</span> Si tu proyecto está en otra
+							ciudad, escríbenos y lo evaluamos.</p>
+					</details>
+					<details>
+						<summary>¿Atienden proyectos de gobierno?</summary>
+						<p>Sí. Tenemos experiencia en proyectos privados, municipales, estatales y del sector público.
+						</p>
+					</details>
+					<details>
+						<summary>¿Cómo reservo una cita?</summary>
+						<p>Escríbenos por WhatsApp o llena el formulario de contacto. Te respondemos para agendar una
+							llamada o una visita.</p>
+					</details>
+				</div>
+			</div>
+		</section>
+
+		<!-- ===== CONTACTO ===== -->
+		<section class="sec contact" id="contacto">
+			<div class="wrap contact-grid">
+				<div class="rv">
+					<span class="eyebrow" style="color:#fff">Contacto</span>
+					<h2>Hablemos de tu <span style="color:var(--y)">proyecto.</span></h2>
+					<p class="lead">Cuéntanos qué necesitas. Te respondemos con una propuesta clara y sin compromiso.
+					</p>
+					<div class="info">
+						<a href="#" data-wa><i>☎</i><span>WhatsApp <b data-wa-txt>229 602 4127</b></span></a>
+						<a href="#" data-mail><i>@</i><span><b data-mail-txt>arquibita@tonalraiz.com</b></span></a>
+						<span><i>⌖</i><span data-ciudad>Tijuana, B.C.</span></span>
+					</div>
+				</div>
+
+				<form class="form rv" id="form" novalidate>
+					<h3>Solicita tu cotización</h3>
+					<div class="fld"><label for="f-n">Nombre</label><input id="f-n" name="n" autocomplete="name"
+							required><span class="err">Escribe tu nombre.</span></div>
+					<div class="fld"><label for="f-t">WhatsApp o teléfono</label><input id="f-t" name="t" type="tel"
+							inputmode="tel" autocomplete="tel" required><span class="err">Escribe un teléfono válido (10
+							dígitos).</span></div>
+					<div class="fld"><label for="f-s">¿Qué necesitas?</label>
+						<select id="f-s" name="s" required>
+							<option value="">Selecciona una opción</option>
+							<option>Levantamiento o planos</option>
+							<option>Renders 3D / anteproyecto</option>
+							<option>Proyecto ejecutivo</option>
+							<option>Licencia, regularización o DRO</option>
+							<option>Remodelación u obra</option>
+							<option>Supervisión de obra</option>
+							<option>Mobiliario, carpintería o herrería</option>
+							<option>Otro</option>
+						</select><span class="err">Elige una opción.</span>
+					</div>
+					<div class="fld"><label for="f-m">Cuéntanos tu proyecto (opcional)</label><textarea id="f-m"
+							name="m" placeholder="Ubicación, medidas aproximadas, tiempos…"></textarea></div>
+					<button class="btn btn--y" type="submit">Enviar por WhatsApp →</button>
+					<p class="note">Al enviar se abrirá WhatsApp con tu mensaje listo. También puedes escribirnos por
+						correo.</p>
+				</form>
+			</div>
+		</section>
+	</main>
+
+	<footer class="site">
+		<div class="wrap">
+			<span>© <span id="y"></span> ArquiBita Estudio de Arquitectura · <span data-ciudad>Tijuana,
+					B.C.</span></span>
+			<span><a href="index.html">← Volver a Tonal Raíz</a></span>
+		</div>
+	</footer>
+
+	<!-- ===== VISOR ===== -->
+	<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Visor de proyectos">
+		<button class="x" aria-label="Cerrar">✕</button><button class="p" aria-label="Anterior">‹</button><button
+			class="n" aria-label="Siguiente">›</button>
+		<figure><img alt="" src="">
+			<figcaption><small></small><b></b><span></span></figcaption>
+		</figure>
 	</div>
 
-	<!-- Scripts -->
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/jquery.scrolly.min.js"></script>
-	<script src="assets/js/jquery.scrollex.min.js"></script>
-	<script src="assets/js/browser.min.js"></script>
-	<script src="assets/js/breakpoints.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<script src="assets/js/main.js"></script>
+	<script>
+		/* ============ MÓDULOS ============ */
+		const $ = (s, r = document) => r.querySelector(s);
+		const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+		const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
+		/* --- Datos de contacto desde CONFIG --- */
+		(function contacto() {
+			const msg = encodeURIComponent('Hola ArquiBita, me gustaría cotizar un proyecto.');
+			$$('[data-wa]').forEach(a => { a.href = `https://wa.me/${CONFIG.whatsapp}?text=${msg}`; a.target = '_blank'; a.rel = 'noopener noreferrer'; });
+			$$('[data-mail]').forEach(a => a.href = `mailto:${CONFIG.correo}`);
+			$$('[data-mail-txt]').forEach(e => e.textContent = CONFIG.correo);
+			$$('[data-wa-txt]').forEach(e => e.textContent = CONFIG.whatsappVisible);
+			$$('[data-ciudad]').forEach(e => e.textContent = CONFIG.ciudad);
+			$('#y').textContent = new Date().getFullYear();
+			const a = $('[data-count="anios"]'); if (a) a.dataset.count = CONFIG.anios;
+		})();
+
+		/* --- Navegación --- */
+		(function nav() {
+			const bar = $('#nav'), menu = $('#menu'), b = $('#burger');
+			const onScroll = () => bar.classList.toggle('scrolled', scrollY > 10);
+			onScroll(); addEventListener('scroll', onScroll, { passive: true });
+			const set = o => { menu.classList.toggle('open', o); b.setAttribute('aria-expanded', o); };
+			b.addEventListener('click', () => set(!menu.classList.contains('open')));
+			$$('a', menu).forEach(a => a.addEventListener('click', () => set(false)));
+			addEventListener('keydown', e => e.key === 'Escape' && set(false));
+			if ('IntersectionObserver' in window) {
+				const links = $$('.nav-links a:not(.btn)');
+				const io = new IntersectionObserver(es => es.forEach(e => {
+					if (e.isIntersecting) links.forEach(l => l.classList.toggle('on', l.getAttribute('href') === '#' + e.target.id));
+				}), { rootMargin: '-45% 0px -50% 0px' });
+				$$('main section[id]').forEach(s => io.observe(s));
+			}
+		})();
+
+		/* --- Portafolio + visor --- */
+		(function portafolio() {
+			const P = CONFIG.proyectos, gal = $('#gal'), fb = $('#filtros'), lb = $('#lb'), li = $('img', lb);
+			let cur = 'Todos', vis = [], k = 0;
+			const cats = ['Todos', ...new Set(P.map(p => p.c))];
+			fb.innerHTML = cats.map(c => `<button type="button" data-c="${esc(c)}" class="${c === 'Todos' ? 'on' : ''}">${esc(c)}</button>`).join('');
+			gal.innerHTML = P.map((p, i) => `<figure class="pi rv" data-i="${i}" data-c="${esc(p.c)}" tabindex="0" role="button" aria-label="Ver ${esc(p.t)}"><img src="${esc(p.img)}" alt="${esc(p.t)}" loading="lazy" onerror="this.remove()"><figcaption><b>${esc(p.t)}</b><small>${esc(p.c)}</small></figcaption></figure>`).join('');
+			const refresh = () => { vis = $$('.pi', gal).filter(el => { const ok = cur === 'Todos' || el.dataset.c === cur; el.classList.toggle('off', !ok); return ok; }); };
+			refresh();
+			fb.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; cur = b.dataset.c; $$('button', fb).forEach(x => x.classList.toggle('on', x === b)); refresh(); });
+
+			const show = n => {
+				k = (n + vis.length) % vis.length; const p = P[vis[k].dataset.i];
+				li.style.display = ''; li.onerror = () => li.style.display = 'none'; li.src = p.img; li.alt = p.t;
+				$('small', lb).textContent = `${p.c}${p.y ? ' · ' + p.y : ''}`; $('b', lb).textContent = p.t; $('span', lb).textContent = p.d || '';
+			};
+			const open = n => { show(n); lb.classList.add('on'); document.body.style.overflow = 'hidden'; };
+			const close = () => { lb.classList.remove('on'); document.body.style.overflow = ''; };
+			gal.addEventListener('click', e => { const f = e.target.closest('.pi'); if (f) open(vis.indexOf(f)); });
+			gal.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { const f = e.target.closest('.pi'); if (f) { e.preventDefault(); open(vis.indexOf(f)); } } });
+			$('.x', lb).onclick = close; $('.p', lb).onclick = () => show(k - 1); $('.n', lb).onclick = () => show(k + 1);
+			lb.addEventListener('click', e => e.target === lb && close());
+			addEventListener('keydown', e => { if (!lb.classList.contains('on')) return; if (e.key === 'Escape') close(); if (e.key === 'ArrowLeft') show(k - 1); if (e.key === 'ArrowRight') show(k + 1); });
+			let sx = 0; lb.addEventListener('touchstart', e => sx = e.touches[0].clientX, { passive: true });
+			lb.addEventListener('touchend', e => { const d = e.changedTouches[0].clientX - sx; if (Math.abs(d) > 50) show(k + (d < 0 ? 1 : -1)); });
+		})();
+
+		/* --- Testimonios --- */
+		(function testimonios() {
+			$('#tes').innerHTML = CONFIG.testimonios.map(t => `<article class="tc rv">${t.ejemplo ? '<span class="ej">Ejemplo</span>' : ''}<p>${esc(t.texto)}</p><footer><span class="av">${esc((t.autor || '?')[0])}</span><div><b>${esc(t.autor)}</b><span>${esc(t.rol)}</span></div></footer></article>`).join('');
+		})();
+
+		/* --- FAQ: un acordeón abierto a la vez --- */
+		$$('#faqs details').forEach(d => d.addEventListener('toggle', () => { if (d.open) $$('#faqs details').forEach(o => o !== d && (o.open = false)); }));
+
+		/* --- Formulario → WhatsApp --- */
+		(function formulario() {
+			const f = $('#form');
+			const val = (id, ok) => { const w = $('#' + id).closest('.fld'); const v = ok($('#' + id).value.trim()); w.classList.toggle('bad', !v); return v; };
+			f.addEventListener('submit', e => {
+				e.preventDefault();
+				const ok = [val('f-n', v => v.length > 1), val('f-t', v => v.replace(/\D/g, '').length >= 10), val('f-s', v => v)].every(Boolean);
+				if (!ok) return;
+				const t = `Hola ArquiBita, soy ${$('#f-n').value.trim()}.\nMe interesa: ${$('#f-s').value}.\nMi teléfono: ${$('#f-t').value.trim()}.` + ($('#f-m').value.trim() ? `\nProyecto: ${$('#f-m').value.trim()}` : '');
+				window.open(`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(t)}`, '_blank', 'noopener');
+				f.reset();
+			});
+			$$('input,select', f).forEach(i => i.addEventListener('input', () => i.closest('.fld').classList.remove('bad')));
+		})();
+
+		/* --- Aparición al hacer scroll y contadores --- */
+		(function animaciones() {
+			const rv = $$('.rv'), counters = $$('[data-count]');
+			const count = el => {
+				const n = +el.dataset.count || 0, t0 = performance.now();
+				(function f(t) { const p = Math.min((t - t0) / 1300, 1); el.textContent = Math.round(n * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(f); })(t0);
+			};
+			if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+				rv.forEach(e => e.classList.add('in')); counters.forEach(e => e.textContent = e.dataset.count); return;
+			}
+			const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
+			rv.forEach((e, i) => { e.style.transitionDelay = (i % 4) * 70 + 'ms'; io.observe(e); });
+			const co = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { count(e.target); co.unobserve(e.target); } }), { threshold: .6 });
+			counters.forEach(c => { c.textContent = '0'; co.observe(c); });
+		})();
+	</script>
 </body>
 
 </html>
