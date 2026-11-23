@@ -1122,6 +1122,169 @@
 		})();
 	</script>
 
+	<!-- ===== AVISO "SITIO EN CONSTRUCCIÓN" ===== -->
+	<style>
+		#obra {
+			position: fixed;
+			inset: 0;
+			z-index: 99999;
+			display: none;
+			align-items: center;
+			justify-content: center;
+			padding: 20px;
+			background: rgba(8, 9, 7, .82);
+			backdrop-filter: blur(6px);
+		}
+
+		#obra.on {
+			display: flex;
+			animation: obraIn .35s ease both;
+		}
+
+		@keyframes obraIn {
+			from {
+				opacity: 0;
+			}
+		}
+
+		#obra .box {
+			position: relative;
+			width: min(460px, 100%);
+			padding: clamp(28px, 5vw, 44px);
+			border-radius: 16px;
+			background: #14110c;
+			color: #f3ead8;
+			border: 1px solid rgba(243, 234, 216, .18);
+			box-shadow: 0 40px 100px rgba(0, 0, 0, .6);
+			text-align: center;
+		}
+
+		#obra .ic {
+			font-size: 2.6rem;
+			line-height: 1;
+		}
+
+		#obra h3 {
+			margin: 14px 0 10px;
+			font: 300 clamp(1.8rem, 5vw, 2.4rem)/1.1 Fraunces, Georgia, serif;
+			color: #f3ead8;
+			text-transform: none;
+			letter-spacing: -.01em;
+		}
+
+		#obra p {
+			margin: 0 0 22px;
+			color: #b3a994;
+			line-height: 1.7;
+			font-size: .98rem;
+		}
+
+		#obra p b {
+			color: #f3ead8;
+			font-weight: 500;
+		}
+
+		#obra .acc {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: 10px;
+		}
+
+		#obra .acc a,
+		#obra .acc button {
+			display: inline-block;
+			padding: 13px 26px;
+			border-radius: 40px;
+			border: 1px solid var(--tj-ac, #d9a441);
+			background: none;
+			color: var(--tj-ac, #d9a441);
+			font: inherit;
+			font-size: .72rem;
+			letter-spacing: .22em;
+			text-transform: uppercase;
+			text-decoration: none;
+			cursor: pointer;
+			transition: background .3s, color .3s;
+		}
+
+		#obra .acc .fill,
+		#obra .acc a:hover,
+		#obra .acc button:hover {
+			background: var(--tj-ac, #d9a441);
+			color: #0d0f0c;
+		}
+
+		#obra .x {
+			position: absolute;
+			top: 10px;
+			right: 12px;
+			width: 38px;
+			height: 38px;
+			padding: 0;
+			border: 0;
+			background: none;
+			color: #b3a994;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+	</style>
+
+	<div id="obra" role="dialog" aria-modal="true" aria-labelledby="obra-t">
+		<div class="box">
+			<button class="x" type="button" aria-label="Cerrar">✕</button>
+			<div class="ic">🚧-------🚧</div>
+			<h3 id="obra-t">Sitio en construcción</h3>
+			<p>Estamos preparando la página de <b id="obra-n"></b>. Muy pronto podrás ver aquí nuestros proyectos y
+				trabajos realizados.</p>
+			<div class="acc">
+				<a id="obra-wa" class="fill" href="#" target="_blank" rel="noopener noreferrer" hidden>Escribir por
+					WhatsApp</a>
+				<button type="button" class="ok">Entendido</button>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		(function () {
+			/* PÁGINAS EN CONSTRUCCIÓN: una línea por página.
+			   Para quitar el aviso de una página, borra su línea. Para desactivarlo todo, deja la lista vacía: {} */
+			var EN_CONSTRUCCION = {
+				'arquibita.html': { nombre: 'ArquiBita Estudio de Arquitectura', whatsapp: '522296024127' },
+				'teatro.html': { nombre: 'Teatro', whatsapp: '522296024127' },
+				'raizescenica.html': { nombre: 'Raíz Escénica', whatsapp: '522296024127' }
+			};
+
+			var m = document.getElementById('obra'), last = null;
+			function abrir(p) {
+				document.getElementById('obra-n').textContent = p.nombre;
+				var wa = document.getElementById('obra-wa');
+				if (p.whatsapp) {
+					wa.href = 'https://wa.me/' + p.whatsapp + '?text=' + encodeURIComponent('Hola, vi que el sitio de ' + p.nombre + ' está en construcción y me gustaría recibir información.');
+					wa.hidden = false;
+				} else { wa.hidden = true; }
+				last = document.activeElement;
+				m.classList.add('on');
+				m.querySelector('.ok').focus();
+			}
+			function cerrar() { m.classList.remove('on'); if (last && last.focus) last.focus(); }
+
+			document.addEventListener('click', function (e) {
+				var a = e.target.closest && e.target.closest('a[href]');
+				if (!a || !a.getAttribute('href')) return;
+				var file = a.getAttribute('href').split('#')[0].split('?')[0].split('/').pop().toLowerCase();
+				if (!Object.prototype.hasOwnProperty.call(EN_CONSTRUCCION, file)) return;
+				e.preventDefault(); e.stopPropagation();
+				document.body.classList.remove('is-menu-visible');   /* cierra el menú de la plantilla si estaba abierto */
+				abrir(EN_CONSTRUCCION[file]);
+			}, true);
+
+			m.querySelector('.x').addEventListener('click', cerrar);
+			m.querySelector('.ok').addEventListener('click', cerrar);
+			m.addEventListener('click', function (e) { if (e.target === m) cerrar(); });
+			document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && m.classList.contains('on')) cerrar(); });
+		})();
+	</script>
 </body>
 
 </html>
