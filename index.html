@@ -890,9 +890,8 @@
 		<section id="banner" class="tjb">
 			<div id="tjh">
 				<video autoplay muted playsinline loop preload="metadata" id="miVideo" oncontextmenu="return false"
-					poster="images/veracruzia1.webp">
-					<source src="assets/video/Veracruz1.mp4" type="video/mp4">
-				</video>
+					poster="images/veracruzia1.webp" data-desktop="assets/video/Veracruz1-ligero.mp4"
+					data-movil="assets/video/Veracruz1-movil.mp4"></video>
 				<div class="in">
 					<div class="l">
 						<div class="kick">Mis Raíces · · · · · · · ·</div>
@@ -1028,6 +1027,16 @@
 
 	<script>
 		(function () {
+			/* video: versión móvil (720p) en pantallas chicas o con ahorro de datos; versión 1080p en el resto */
+			var vid = document.getElementById('miVideo');
+			if (vid) {
+				var cn = navigator.connection || {};
+				var chico = matchMedia('(max-width: 860px)').matches ||
+					matchMedia('(max-height: 520px) and (orientation: landscape)').matches || cn.saveData;
+				vid.src = chico ? vid.dataset.movil : vid.dataset.desktop;
+				vid.muted = true;
+				var pr = vid.play(); if (pr && pr.catch) pr.catch(function () { });
+			}
 			var p = document.querySelector('#tj .proj'), b = document.body,
 				fl = document.getElementById('tjfl'), im = fl.firstElementChild, x = 0, y = 0, cx = 0, cy = 0;
 			var HAS_IO = 'IntersectionObserver' in window;
